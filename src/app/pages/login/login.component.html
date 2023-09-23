@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div class="container">
+  <form class="content">
+    <h1>INICIA SESIÓN</h1>
+    <div class="input-container">
+      <div class="input-content">
+        <input type="text" placeholder="Correo">
+        <img src="assets/icons/auth/email.svg" alt="email" class="icon input-icon" style="width: 40px; height: 40px;">
+      </div>
+      <div class="input-content">
+        <input [type]="passwordVisible ? 'text' : 'password'" [(ngModel)]="password" name="password" placeholder="Contraseña">
+        <img src="assets/icons/auth/lock.svg" alt="password" class="icon lock-icon input-icon" style="width: 40px; height: 40px;">
+        <img [src]="passwordVisible ? 'assets/icons/auth/eye-slash.svg' :'assets/icons/auth/eye.svg'" alt="toggle-password" (click)="togglePasswordVisibility()" class="icon toggle-password" [style]="passwordVisible ? 'width: 35px; height: 35px;' : 'width: 30px; height: 30px;'">
+      </div>
+    </div>
+    <a>¿Olvido su contraseña?</a>
+  </form>
+</div>
