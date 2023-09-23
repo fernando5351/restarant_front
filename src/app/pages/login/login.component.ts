@@ -9,6 +9,7 @@ export class LoginComponent {
 
   password: string = '';
   passwordVisible: boolean = false;
+  categories :string[] = ['salsas', 'arroz', 'comida'];
 
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
