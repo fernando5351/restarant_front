@@ -1,0 +1,93 @@
+@font-face {
+  font-family: 'Kalam';
+  src: url(~/src/assets/fonts/kalam/Kalam-Light.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.container {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 300px;
+  height: 400px;
+  background: #d9d9d975;
+  font-family: 'Kalam', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido verticalmente */
+  justify-content: space-between; /* Distribuye el contenido de arriba a abajo */
+}
+
+.content > h1 {
+  text-align: center;
+  color: #fff;
+  padding-top: 20px;
+}
+
+.input-container {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.input-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 90%;
+}
+
+.input-content input {
+  flex: 1;
+  height: 50px;
+  padding-left: 55px;
+  background: #8a33009c;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  color: #fff;
+  font-family: 'Kalam', sans-serif;
+  font-size: 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.input-content input::placeholder {
+  color: #fff;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.icon.lock-icon {
+  z-index: 1;
+}
+
+.input-icon {
+  left: 10px;
+  padding: 6px;
+  border-right: 1px solid #fff;
+}
+
+.toggle-password {
+  right: 10px;
+  cursor: pointer;
+}
+
+.content a {
+  font-family: 'Kalam', sans-serif;
+  color: #fff;
+  letter-spacing: 0.2rem;
+  font-size: 20px;
+}
