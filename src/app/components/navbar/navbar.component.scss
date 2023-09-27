@@ -13,19 +13,19 @@ nav {
 
 ul {
   list-style: none;
-  display: block;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-li, a {
+li > a {
   font-size: 30px;
   color: #fff;
   text-decoration: none;
-  margin: 5px;
+  margin: 2px;
 }
 
 a:hover {
-  background: #ffffff71;
+  background: #ffffff4c;
   border-top: 5px solid #fff;
-  width: 100%;
-  height: 100%;
 }

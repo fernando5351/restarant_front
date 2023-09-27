@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth/auth.service';
-import { AuthUser, User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +17,7 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
-    ) {}
+  ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -39,18 +38,17 @@ export class LoginComponent {
 
       this.authService.loginAndGet(email, password).subscribe({
         next: (response) => {
-          console.log(this.authService.user$);
-          if (response.statusCode === 302) {
-            console.info(response)
-          } else {
-            console.log("Soy el usuario: " + response.data.email);
+          if (response.statusCode === 200) {
+            console.info("Soy el usuario: " + response.data.email);
             this.router.navigate(['/home']);
+          } else {
+            console.log(response);
           }
         },
         error: (error) => {
-          console.log("Soy el error");
-          const user = error;
-          console.error(user);
+          if (error.status == 401) {
+            console.log(error.error.message);
+          }
           this.router.navigate(['/login']);
         }
       });

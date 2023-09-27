@@ -5,11 +5,13 @@ import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CategoryComponent } from './components/category/category.component';
+import { TokenService } from './services/token/token.service';
+
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: sessionStorage.getItem('user') ? '/home': '/login',
     pathMatch: 'full'
   },
   {

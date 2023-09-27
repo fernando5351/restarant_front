@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
 import { User, AuthUser, getUser } from '../../models/user.model';
@@ -14,32 +15,25 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   private apiUrl = `${environment.API_URL}`;
-  private user = new BehaviorSubject<User | null | undefined >(null);
-  user$ = this.user.asObservable();
 
   constructor(
     private http: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) { }
 
-  // login(email: string, password: string){
-  //   return this.http.post<AuthUser>(`${this.apiUrl}/auth/login`, { email, password })
-  //   .pipe(
-  //     tap(response => this.tokenService.saveToken(response.token))
-  //   );
-  // }
+  redirectToLogin(redirectUrl: string): boolean {
+    this.router.navigate(['/login'], { queryParams: { returnUrl: redirectUrl } });
+    return false;
+  }
+
   login(email: string, password: string) {
     return this.http.post<AuthUser>(`${this.apiUrl}/auth/login`,
       { email, password },
       { observe: 'response' }
     ).pipe(
-      tap(response => this.tokenService.saveToken(response.body?.token)),
-      tap(response => this.user.next(response.body?.data))
+      tap(response => this.tokenService.saveToken(response.body?.token))
     );
-  }
-
-  valorUser() {
-    return this.user$
   }
 
   getProfile(id: number | undefined) {
@@ -50,7 +44,9 @@ export class AuthService {
     };
     return this.http.get<getUser>(`${this.apiUrl}/user/${id}`, httpOptions)
     .pipe(
-      tap(user => this.user.next(user.data))
+      tap(user => {
+        this.tokenService.saveUser(user.data);
+      })
     )
   }
 
@@ -63,6 +59,5 @@ export class AuthService {
 
   logout() {
     this.tokenService.removeToken();
-    this.user.next(null);
   }
 }
