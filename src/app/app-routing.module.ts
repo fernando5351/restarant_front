@@ -11,7 +11,7 @@ import { TokenService } from './services/token/token.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: sessionStorage.getItem('user') ? '/home': '/login',
+    redirectTo: localStorage.getItem('token') ? '/home': '/login',
     pathMatch: 'full'
   },
   {
