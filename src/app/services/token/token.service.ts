@@ -9,7 +9,6 @@ export class TokenService {
   constructor() { }
 
   saveToken(token: string | undefined) {
-    console.log('Token recibido:', token);
     if (token) {
       localStorage.setItem('token', token);
     } else {
@@ -18,10 +17,9 @@ export class TokenService {
   }
 
   saveUser(user: User | undefined) {
-    console.log('user recibido:', user);
     if (user) {
       const User = JSON.stringify(user)
-      sessionStorage.setItem('user', User);
+      localStorage.setItem('user', User);
     } else {
       console.error('El token es undefined');
     }
@@ -33,12 +31,12 @@ export class TokenService {
   }
 
   getUser(){
-    return <User>JSON.parse(<string>(sessionStorage.getItem("user")));
+    return <User>JSON.parse(<string>(localStorage.getItem("user")));
   }
 
   removeToken(){
     localStorage.removeItem('token');
-    sessionStorage.removeItem('user')
+    localStorage.removeItem('user')
   }
 
 }

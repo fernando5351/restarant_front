@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { switchMap, tap } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
-import { User, AuthUser, getUser } from '../../models/user.model';
+import { AuthUser, getUser } from '../../models/user.model';
 import { TokenService } from '../token/token.service';
 import { Observable } from 'rxjs';
 
@@ -37,12 +36,7 @@ export class AuthService {
   }
 
   getProfile(id: number | undefined) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.tokenService.getToken()
-      })
-    };
-    return this.http.get<getUser>(`${this.apiUrl}/user/${id}`, httpOptions)
+    return this.http.get<getUser>(`${this.apiUrl}/user/${id}`)
     .pipe(
       tap(user => {
         this.tokenService.saveUser(user.data);
