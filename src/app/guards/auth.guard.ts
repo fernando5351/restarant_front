@@ -23,7 +23,6 @@ export class AuthGuard implements CanActivate {
       const user = this.tokenService.getUser();
 
       if (user) {
-        console.log(user);
         resolve(true);
       } else {
         const redirectUrl = state.url;

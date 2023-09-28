@@ -1,0 +1,127 @@
+@font-face {
+  font-family: 'Kalam';
+  src: url(~/src/assets/fonts/kalam/Kalam-Light.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.container {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 280px;
+  height: 300px;
+  background: #d9d9d975;
+  font-family: 'Kalam', sans-serif;
+}
+
+.content > h1 {
+  text-align: center;
+  color: #fff;
+  margin-top: 30px;
+}
+
+.input-container {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.input-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 90%;
+}
+
+.input-content input {
+  flex: 1;
+  height: 50px;
+  padding-left: 55px;
+  background: #8a33009c;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  color: #fff;
+  font-family: 'Kalam', sans-serif;
+  font-size: 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.input-content input::placeholder {
+  color: #fff;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.icon.lock-icon {
+  z-index: 1;
+}
+
+.input-icon {
+  left: 10px;
+  padding: 6px;
+  border-right: 1px solid #fff;
+}
+
+.toggle-password {
+  right: 10px;
+  cursor: pointer;
+}
+
+.recovery {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.recovery a {
+  font-family: 'Kalam', sans-serif;
+  color: #fff;
+  letter-spacing: 0.2rem;
+  font-size: 14px;
+  margin: 10px;
+  margin-top: 8px;
+  text-decoration: none;
+}
+
+.submit {
+  margin-top: 25px;
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit button {
+  width: 150px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background: #8a33009c;
+  color: #fff;
+  font-family: 'Kalam', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.submit button:hover {
+  transform: translateY(-5%);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}

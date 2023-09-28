@@ -1,6 +1,10 @@
 <nav>
-  <ul>
+  <ul *ngIf="isAuthenticated">
     <li><a href="/home">Incio</a></li>
     <li><a style="cursor: pointer;" (click)="logOut()">Cerrar Sesion</a></li>
+  </ul>
+  <ul *ngIf="!isAuthenticated">
+    <li><a href="/venta">Realizar Venta</a></li>
+    <li><a style="cursor: pointer;" (click)="logOut()">Iniciar Sesion</a></li>
   </ul>
 </nav>

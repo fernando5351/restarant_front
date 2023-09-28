@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -39,7 +39,6 @@ export class LoginComponent {
       this.authService.loginAndGet(email, password).subscribe({
         next: (response) => {
           if (response.statusCode === 200) {
-            console.info("Soy el usuario: " + response.data.email);
             this.router.navigate(['/home']);
           } else {
             console.log(response);
@@ -54,6 +53,4 @@ export class LoginComponent {
       });
     }
   }
-
-
 }

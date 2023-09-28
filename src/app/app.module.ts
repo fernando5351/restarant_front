@@ -13,6 +13,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { CategoryComponent } from './components/category/category.component';
 
 import { AuthInterceptor } from './interceptors/auth/auth';
+import { LoadingComponent } from './components/loading/loading.component';
+import { RecoveryComponent } from './pages/recovery/recovery.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { AuthInterceptor } from './interceptors/auth/auth';
     NavbarComponent,
     RegisterComponent,
     HomeComponent,
-    CategoryComponent
+    CategoryComponent,
+    LoadingComponent,
+    RecoveryComponent,
   ],
   imports: [
     BrowserModule,

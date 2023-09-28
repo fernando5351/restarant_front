@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { TokenService } from '../../services/token/token.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,14 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  isAuthenticated: boolean = false;
 
   constructor(
-    private tokenService: TokenService,
-    private router: Router
-    ) {}
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.authService.isAuthenticated$().subscribe(isAuthenticated => {
+      this.isAuthenticated = isAuthenticated;
+    });
+  }
 
   logOut(){
-    this.tokenService.removeToken();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 

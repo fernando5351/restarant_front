@@ -1,0 +1,21 @@
+<div class="container">
+  <form [formGroup]="form" class="content">
+    <h1 style="letter-spacing: 1.5px;">Recuperar Cuenta</h1>
+    <div class="input-container">
+      <div class="input-content">
+        <input type="text" placeholder="Correo" formControlName="email" >
+        <img src="assets/icons/auth/email.svg" alt="email" class="icon input-icon" style="width: 40px; height: 40px;">
+      </div>
+      <div style="color: rgb(255, 255, 255); width: 100%; height: max-content; text-align: end; margin-right: 12px; margin-top: -10px;" *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+        Ingresa un correo electrónico válido.
+      </div>
+
+    </div>
+    <div class="recovery">
+      <a href="/login">Iniciar Sesion</a>
+    </div>
+    <div class="submit">
+      <button type="submit" (click)="sendRequest($event)">Iniciar</button>
+    </div>
+  </form>
+</div>
