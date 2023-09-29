@@ -7,7 +7,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CategoryComponent } from './components/category/category.component';
 import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-password.component';
-import { CreateProductComponent } from './pages/category/create/create.component';
+import { CreateCategoryComponent } from './pages/category/create/create.component';
+import { CreateProductComponent } from './pages/product/create/create.component';
 
 const routes: Routes = [
   {

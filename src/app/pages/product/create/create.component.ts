@@ -9,7 +9,7 @@ import { Router } from '@angular/router'
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
-export class CreateCategoryComponent implements OnInit {
+export class CreateProductComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   selectedFile: File | null = null;

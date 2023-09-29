@@ -17,7 +17,8 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-password.component';
 import { GetComponent } from './pages/category/get/get.component';
-import { CreateProductComponent } from './pages/category/create/create.component';
+import { CreateCategoryComponent } from './pages/category/create/create.component';
+import { CreateProductComponent } from './pages/product/create/create.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CreateProductComponent } from './pages/category/create/create.component
     RecoveryPasswordComponent,
     GetComponent,
     CreateProductComponent,
+    CreateCategoryComponent,
   ],
   imports: [
     BrowserModule,

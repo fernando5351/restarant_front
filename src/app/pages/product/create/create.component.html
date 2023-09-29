@@ -1,0 +1,22 @@
+<div class="container">
+  <form [formGroup]="form" enctype="multipart/form-data" >
+    <div class="title-container">
+      <h1>Crear Producto</h1>
+    </div>
+    <div class="img-container">
+      <input type="file" formControlName="file" placeholder="Image"  (change)="onFileChange($event)">
+    </div>
+    <div class="product-data">
+      <input type="text" formControlName="name" placeholder="Nombre">
+      <input type="number" formControlName="quantity" placeholder="Cantidad">
+      <input type="text" formControlName="status" placeholder="Estado">
+      <input type="number" formControlName="price" placeholder="Precio">
+    </div>
+    <div class="product-description">
+      <input type="text" formControlName="description" placeholder="Descripcion">
+    </div>
+    <div class="btn-container">
+      <button (click)="sendRequest($event)">Enviar</button>
+    </div>
+  </form>
+</div>
