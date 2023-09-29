@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RecoveryService } from 'src/app/services/recovery/recovery.service';
 
 @Component({
   selector: 'app-recovery',
@@ -11,7 +12,8 @@ export class RecoveryComponent {
   form: FormGroup = new FormGroup({});
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private recoveryService: RecoveryService,
   ) {}
 
   ngOnInit() {
@@ -25,7 +27,14 @@ export class RecoveryComponent {
     if (this.form) {
       const email = this.form.get('email')?.value;
 
-      console.log(email);
+      this.recoveryService.recoveryAccount(email).subscribe({
+        next: (data) => {
+          console.log(data);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
 
     }
   }

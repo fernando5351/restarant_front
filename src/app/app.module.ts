@@ -15,6 +15,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { AuthInterceptor } from './interceptors/auth/auth';
 import { LoadingComponent } from './components/loading/loading.component';
 import { RecoveryComponent } from './pages/recovery/recovery.component';
+import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-password.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RecoveryComponent } from './pages/recovery/recovery.component';
     CategoryComponent,
     LoadingComponent,
     RecoveryComponent,
+    RecoveryPasswordComponent,
   ],
   imports: [
     BrowserModule,

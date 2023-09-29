@@ -8,29 +8,26 @@ import { environment } from '../../../environments/environment';
 import { AuthUser, getUser } from '../../models/user.model';
 import { TokenService } from '../token/token.service';
 import { Observable } from 'rxjs';
+import { AlertService } from '../alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   private apiUrl = `${environment.API_URL}`;
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-  private isLoadingSubject = new BehaviorSubject<boolean>(false);
+  private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
+
+  private hasToken(): boolean {
+    // console.log(!!localStorage.getItem('token') + " token value");
+    return !!localStorage.getItem('token');
+  }
 
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private loadingService: AlertService
   ) { }
-
-  isLoading$(): Observable<boolean> {
-    return this.isLoadingSubject.asObservable();
-  }
-
-  private setLoading(isLoading: boolean) {
-    this.isLoadingSubject.next(isLoading);
-  }
 
   redirectToLogin(redirectUrl: string): boolean {
     this.router.navigate(['/login'], { queryParams: { returnUrl: redirectUrl } });
@@ -44,7 +41,6 @@ export class AuthService {
     ).pipe(
       tap(response => {
         this.tokenService.saveToken(response.body?.token);
-        this.isAuthenticatedSubject.next(true);
       })
     );
   }
@@ -59,24 +55,24 @@ export class AuthService {
   }
 
   loginAndGet(email: string, password: string): Observable<getUser> {
-    this.setLoading(true);
+    this.loadingService.showLoading();
     return this.login(email, password)
       .pipe(
         switchMap(response => this.getProfile(response.body?.data.id)),
         finalize(()=> {
-          this.setLoading(false);
+          this.isAuthenticatedSubject.next(true);
+          this.loadingService.hideLoading();
         })
       );
   }
 
   logout(): void {
-    this.setLoading(true);
     this.tokenService.removeToken();
     this.isAuthenticatedSubject.next(false);
-    this.setLoading(false);
   }
 
   isAuthenticated$(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
   }
+
 }
