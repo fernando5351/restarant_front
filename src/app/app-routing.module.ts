@@ -6,6 +6,7 @@ import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CategoryComponent } from './components/category/category.component';
+import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-password.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'recovery',
     component: RecoveryComponent
+  },
+  {
+    path: 'recovery-password',
+    component: RecoveryPasswordComponent
   },
   {
     path:'home',

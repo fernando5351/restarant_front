@@ -1,29 +1,34 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { RecoveryService } from 'src/app/services/recovery/recovery.service';
 
-import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-recovery-password',
+  templateUrl: './recovery-password.component.html',
+  styleUrls: ['./recovery-password.component.scss']
 })
-export class LoginComponent {
+export class RecoveryPasswordComponent {
   form: FormGroup = new FormGroup({});
   passwordVisible: boolean = false;
+  token: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private recovery: RecoveryService
   ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.required]],
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.token = params['token'];
     });
   }
 
@@ -35,15 +40,11 @@ export class LoginComponent {
     e.preventDefault();
     if (this.form) {
       const password = this.form.get('password')?.value;
-      const email = this.form.get('email')?.value;
 
-      this.authService.loginAndGet(email, password).subscribe({
+      this.recovery.recoveryPassword(password, this.token).subscribe({
         next: (response) => {
-          if (response.statusCode === 200) {
-            this.router.navigate(['/home']);
-          } else {
             console.log(response);
-          }
+            this.router.navigate(['/login']);
         },
         error: (error) => {
           if (error.status == 401) {

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-loading',
@@ -10,10 +9,12 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class LoadingComponent {
   isLoading: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private alertService: AlertService
+    ) { }
 
   ngOnInit(): void {
-    this.authService.isLoading$().subscribe(isLoading => {
+    this.alertService.isLoading$().subscribe(isLoading => {
       this.isLoading = isLoading;
     });
   }

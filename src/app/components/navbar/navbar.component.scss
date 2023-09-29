@@ -8,7 +8,8 @@ nav {
   flex-wrap: nowrap;
   align-items: center;
   justify-content: end;
-  padding-right: 20px;
+  padding-right: 10px;
+  overflow: hidden;
 }
 
 ul {
@@ -18,14 +19,52 @@ ul {
   flex-wrap: wrap;
 }
 
-li > a {
+li {
+  margin: 5px;
+}
+
+a {
   font-size: 30px;
   color: #fff;
   text-decoration: none;
-  margin: 2px;
+  cursor: pointer;
+  position: relative;
 }
 
-a:hover {
+/* Estilo del borde superior para el efecto hover */
+a::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: transparent;
+  transform: scaleX(0);
+  transform-origin: top right;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Estilo del fondo en el efecto hover */
+a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
   background: #ffffff4c;
-  border-top: 5px solid #fff;
+  transition: height 0.3s ease-in-out;
+}
+
+/* Aplicar estilo al fondo y al borde en el efecto hover */
+a:hover::before {
+  transform: scaleX(1);
+  transform-origin: top left;
+  background: #fff; /* Cambiar el color del borde superior aquí */
+}
+
+a:hover::after {
+  height: 45px;
+  top: -2px;
 }
