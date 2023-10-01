@@ -19,6 +19,8 @@ import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-pas
 import { GetComponent } from './pages/category/get/get.component';
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
+import { GetByIdComponent } from './pages/category/get-by-id/get-by-id.component';
+import { PatchComponent } from './pages/category/patch/patch.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { CreateProductComponent } from './pages/product/create/create.component'
     GetComponent,
     CreateProductComponent,
     CreateCategoryComponent,
+    GetByIdComponent,
+    PatchComponent,
   ],
   imports: [
     BrowserModule,

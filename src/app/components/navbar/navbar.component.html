@@ -2,6 +2,7 @@
   <ul *ngIf="isAuthenticated">
     <li><a href="/home">Incio</a></li>
     <li><a href="/product-create">Productos</a></li>
+    <li><a href="/categories">Categorias</a></li>
     <li><a style="cursor: pointer;" (click)="logOut()">Cerrar Sesion</a></li>
   </ul>
   <ul *ngIf="!isAuthenticated">

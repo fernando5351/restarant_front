@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreateProduct } from 'src/app/models/product.model';
-import { ProductService } from 'src/app/services/product/product.service';
+import {  CreateCategory } from 'src/app/models/cat.models';
+import { CategoryService } from 'src/app/services/category/category.service';
 import { Router } from '@angular/router'
 
 @Component({
@@ -16,18 +16,15 @@ export class CreateCategoryComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private productService: ProductService,
+    private categoryService: CategoryService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      file: [null, [Validators.required]],
+      file: [null,[Validators.required]],
+      status: ['', [Validators.required]]
     });
   }
 
@@ -49,26 +46,19 @@ export class CreateCategoryComponent implements OnInit {
       return;
     }
 
-    const dto: CreateProduct = {
+    const dto: CreateCategory = {
       name: this.form.get('name')?.value,
       status: this.form.get('status')?.value,
-      quantity: this.form.get('quantity')?.value,
-      price: this.form.get('price')?.value,
-      description: this.form.get('description')?.value,
-      categoryId: 1,
       file: this.selectedFile
     };
 
     const formData = new FormData();
     formData.append('name', dto.name);
     formData.append('status', dto.status);
-    formData.append('quantity', dto.quantity.toString());
-    formData.append('price', dto.price.toString());
-    formData.append('description', dto.description);
-    formData.append('categoryId', dto.categoryId.toString());
     formData.append('file', this.selectedFile);
 
-    this.productService.createProduct(formData).subscribe({
+
+    this.categoryService.createCategory(formData).subscribe({
       next: (response) => {
         console.log(response);
         this.router.navigate(['/home']);
