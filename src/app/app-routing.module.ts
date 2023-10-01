@@ -5,7 +5,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
-import { CategoryComponent } from './components/category/category.component';
 import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-password.component';
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
@@ -39,7 +38,8 @@ const routes: Routes = [
   },
   {
     path:'categories',
-    component: CategoryComponent
+    component: CreateCategoryComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'product-create',
