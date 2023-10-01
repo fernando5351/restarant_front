@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CreateProduct, GetProduct, GetProducts } from 'src/app/models/product.model';
+import { AlertService } from '../alert.service';
+import { finalize } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +13,42 @@ export class ProductService {
 
   constructor(
     private http: HttpClient,
+    private loadingService: AlertService,
   ) { }
 
   createProduct(dto: FormData) {
-    return this.http.post<GetProduct>(`${this.url}`, dto);
+    this.loadingService.showLoading();
+    return this.http.post<GetProduct>(`${this.url}`, dto).pipe(
+      finalize(()=> {
+        this.loadingService.hideLoading();
+      })
+    );
   }
 
   getProducts() {
-    return  this.http.get<GetProducts>(`${this.url}`);
+    this.loadingService.showLoading();
+    return  this.http.get<GetProducts>(`${this.url}`).pipe(
+      finalize(()=> {
+        this.loadingService.hideLoading();
+      })
+    );
   }
 
   patchProduct(dto: FormData, id: number) {
-    return this.http.patch(`${this.url}/${id}`, dto);
+    this.loadingService.showLoading();
+    return this.http.patch(`${this.url}/${id}`, dto).pipe(
+      finalize(()=> {
+        this.loadingService.hideLoading();
+      })
+    );
   }
 
   deleteProduct(id: number) {
-    return this.http.delete(`${this.url}/${id}`);
+    this.loadingService.showLoading();
+    return this.http.delete(`${this.url}/${id}`).pipe(
+      finalize(()=> {
+        this.loadingService.hideLoading();
+      })
+    );
   }
 }

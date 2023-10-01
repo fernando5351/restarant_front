@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CreateProduct } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product/product.service';
 import { Router } from '@angular/router'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create',
@@ -10,8 +11,9 @@ import { Router } from '@angular/router'
   styleUrls: ['./create.component.scss']
 })
 export class CreateProductComponent implements OnInit {
-  form: FormGroup = new FormGroup({});
-
+  form: FormGroup = new FormGroup({
+  });
+  imagePreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
 
   constructor(
@@ -24,20 +26,44 @@ export class CreateProductComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      status: ['Estado', [Validators.required]],
       price: ['', [Validators.required]],
       description: ['', [Validators.required]],
       file: [null, [Validators.required]],
     });
   }
 
+  isImageFile(file: File): boolean {
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp|\.bmp|\.tiff|\.svg)$/i;
+    return allowedExtensions.test(file.name);
+  }
+
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      console.log(this.selectedFile);
+      const file = event.target.files[0];
+
+      if (this.isImageFile(file)) {
+        this.selectedFile = file;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreview = e.target?.result as string;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'El archivo seleccionado no es una imagen válida.',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        this.selectedFile = null;
+        this.imagePreview = null;
+      }
     } else {
       this.selectedFile = null;
-      console.log(this.selectedFile);
+      this.imagePreview = null;
     }
   }
 
@@ -45,7 +71,13 @@ export class CreateProductComponent implements OnInit {
     event.preventDefault();
 
     if (this.form.invalid || this.selectedFile === null) {
-      console.log('El formulario no es válido o no se seleccionó ningún archivo');
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'El formulario no es válido o no se seleccionó ningún archivo',
+        showConfirmButton: false,
+        timer: 1000
+      })
       return;
     }
 
@@ -58,6 +90,17 @@ export class CreateProductComponent implements OnInit {
       categoryId: 1,
       file: this.selectedFile
     };
+
+    if (dto.price <= 0) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'No puedes guardar un producto con valor a cero o menor',
+        showConfirmButton: false,
+        timer: 1600
+      });
+      return
+    }
 
     const formData = new FormData();
     formData.append('name', dto.name);
@@ -74,7 +117,13 @@ export class CreateProductComponent implements OnInit {
         this.router.navigate(['/home']);
       },
       error: (error) => {
-        console.log(error);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: error,
+          showConfirmButton: false,
+          timer: 2600
+        })
       }
     });
   }
