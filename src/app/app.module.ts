@@ -23,6 +23,8 @@ import { GetByIdComponent } from './pages/category/get-by-id/get-by-id.component
 import { PatchComponent } from './pages/category/patch/patch.component';
 import { ProductComponent } from './components/product/product.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

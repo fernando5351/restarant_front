@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-password.component';
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
+import {GetComponent} from './pages/category/get/get.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,11 @@ const routes: Routes = [
   {
     path:'categories',
     component: CreateCategoryComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'getcategories',
+    component: GetComponent,
     canActivate: [AuthGuard]
   },
   {

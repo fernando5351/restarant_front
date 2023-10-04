@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {  CreateCategory } from 'src/app/models/cat.models';
+import {  CreateCategories } from 'src/app/models/category.models';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { Router } from '@angular/router'
+import Swal from'sweetalert2'
 
 @Component({
   selector: 'app-create',
@@ -12,7 +13,8 @@ import { Router } from '@angular/router'
 export class CreateCategoryComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
-  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+  selectedFile: File  | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,17 +26,40 @@ export class CreateCategoryComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       file: [null,[Validators.required]],
-      status: ['', [Validators.required]]
+      status: ['Estado', [Validators.required]]
     });
   }
 
+  isImageFile(file: File): boolean {
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp|\.bmp|\.tiff|\.svg)$/i;
+    return allowedExtensions.test(file.name);
+  }
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      console.log(this.selectedFile);
+      const file = event.target.files[0];
+
+      if (this.isImageFile(file)) {
+        this.selectedFile = file;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreview = e.target?.result as string;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'El archivo seleccionado no es una imagen válida.',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        this.selectedFile = null;
+        this.imagePreview = null;
+      }
     } else {
       this.selectedFile = null;
-      console.log(this.selectedFile);
+      this.imagePreview = null;
     }
   }
 
@@ -46,10 +71,10 @@ export class CreateCategoryComponent implements OnInit {
       return;
     }
 
-    const dto: CreateCategory = {
+    const dto: CreateCategories = {
       name: this.form.get('name')?.value,
       status: this.form.get('status')?.value,
-      file: this.selectedFile
+      file : this.selectedFile
     };
 
     const formData = new FormData();

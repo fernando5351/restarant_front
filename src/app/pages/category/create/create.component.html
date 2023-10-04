@@ -1,17 +1,30 @@
 <div class="container">
-  <form [formGroup]="form" enctype="multipart/form-data" >
+  <form [formGroup]="form" enctype="multipart/form-data">
     <div class="title-container">
-      <h1>Crear Categoria</h1>
+      <h1>Crear Categoría</h1>
     </div>
     <div class="img-container">
-      <input type="file" formControlName="file" placeholder="Image"  (change)="onFileChange($event)">
+      <input type="file" formControlName="file" placeholder="Imagen" (change)="onFileChange($event)">
+      <label class="image-label">
+        <img [src]="imagePreview ? imagePreview : '../../../../assets/icons/formIcons/image.svg'" alt="Imagen">
+      </label>
     </div>
-    <div class="product-data">
-      <input type="text" formControlName="name" placeholder="Nombre">
-      <input type="text" formControlName="status" placeholder="Estado">
+    <div class="category-data">
+      <div class="label-container">
+        <label for="name">Nombre de la Categoría</label>
+      </div>
+      <input type="text" formControlName="name" placeholder="Nombre de Categoría">
+      <div class="label-container">
+        <label for="status" >Estado</label>
+      </div>
+      <select id="status" formControlName="status" >
+        <option>Estado</option>
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
+      </select>
     </div>
     <div class="btn-container">
-      <button (click)="sendRequest($event)">Enviar</button>
+      <button (click)="sendRequest($event)">Crear Categoría</button>
     </div>
   </form>
 </div>

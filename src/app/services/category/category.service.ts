@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import {GetCategory,GetCategorys} from 'src/app/models/cat.models';
+import {GetCategory,GetCategories} from 'src/app/models/category.models';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,8 +17,8 @@ export class CategoryService {
     return this.http.post<GetCategory>(`${this.url}`,dto);
   }
 
-  getCategorys(){
-    return 	this.http.get<GetCategorys>(`${this.url}`);
+  getCategories(){
+    return 	this.http.get<GetCategories>(`${this.url}`);
   }
 
   patchCategory(dto: FormData, id: number){
