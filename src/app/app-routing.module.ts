@@ -9,6 +9,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-password.component';
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
+import { GetProductComponent } from './pages/product/get/get.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,11 @@ const routes: Routes = [
     component: CreateProductComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'products',
+    component: GetProductComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

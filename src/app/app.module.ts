@@ -20,6 +20,7 @@ import { GetComponent } from './pages/category/get/get.component';
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
 import { ProductComponent } from './components/product/product.component';
+import { GetProductComponent } from './pages/product/get/get.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ProductComponent } from './components/product/product.component';
     CreateProductComponent,
     CreateCategoryComponent,
     ProductComponent,
+    GetProductComponent
   ],
   imports: [
     BrowserModule,
