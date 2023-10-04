@@ -17,6 +17,10 @@ export interface GetProduct {
   data: Product;
 }
 
+export interface Products extends Omit<Product,  'file'> {
+  imgUrl: string
+}
+
 export interface GetProducts extends Omit<GetProduct,  'data'> {
-  data: Array<Product>;
+  data: Array<Products>;
 }

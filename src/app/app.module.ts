@@ -22,6 +22,7 @@ import { CreateProductComponent } from './pages/product/create/create.component'
 import { GetByIdComponent } from './pages/category/get-by-id/get-by-id.component';
 import { PatchComponent } from './pages/category/patch/patch.component';
 import { ProductComponent } from './components/product/product.component';
+import { GetProductComponent } from './pages/product/get/get.component';
 
 
 
@@ -42,6 +43,7 @@ import { ProductComponent } from './components/product/product.component';
     GetByIdComponent,
     PatchComponent,
     ProductComponent,
+    GetProductComponent
   ],
   imports: [
     BrowserModule,

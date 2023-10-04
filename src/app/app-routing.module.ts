@@ -10,6 +10,9 @@ import { CreateCategoryComponent } from './pages/category/create/create.componen
 import { CreateProductComponent } from './pages/product/create/create.component';
 import {GetComponent} from './pages/category/get/get.component';
 
+import { GetProductComponent } from './pages/product/get/get.component';
+
+
 const routes: Routes = [
   {
     path: '',
@@ -52,6 +55,11 @@ const routes: Routes = [
     component: CreateProductComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'products',
+    component: GetProductComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
