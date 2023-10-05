@@ -43,12 +43,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path:'categories',
+    path:'category-create',
     component: CreateCategoryComponent,
     canActivate: [AuthGuard]
   },
   {
-    path:'getcategories',
+    path:'categories',
     component: GetComponent,
     canActivate: [AuthGuard]
   },
