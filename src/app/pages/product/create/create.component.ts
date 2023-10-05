@@ -34,7 +34,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   isImageFile(file: File): boolean {
-    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp|\.bmp|\.tiff|\.svg)$/i;
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp|\.bmp|\.avif|\.tiff|\.svg)$/i;
     return allowedExtensions.test(file.name);
   }
 
