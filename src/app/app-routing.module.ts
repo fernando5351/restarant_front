@@ -9,6 +9,8 @@ import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-pas
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
 import {GetComponent} from './pages/category/get/get.component';
+import  { PatchCategoryComponent } from './pages/category/patch-category/patch-category.component'
+
 
 import { GetProductComponent } from './pages/product/get/get.component';
 
@@ -58,6 +60,11 @@ const routes: Routes = [
   {
     path: 'products',
     component: GetProductComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'patchCategory',
+    component: PatchCategoryComponent,
     canActivate: [AuthGuard]
   }
 ];

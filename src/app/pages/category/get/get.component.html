@@ -1,8 +1,7 @@
 <div class="category-list">
     <div class="category-card" *ngFor="let category of categories.data">
-      <img src alt="{{category.name}}">
+      <img [src]="category.imgUrl" [alt]="category.name">
       <h2>{{ category.name }}</h2>
-      <p>Estado: {{ category.status }}</p>
+      <p>Estado: {{ category.status ? 'Activo' : 'Inactivo' }}</p>
     </div>
 </div>
-

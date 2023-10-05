@@ -5,11 +5,8 @@ export interface CreateCategory {
   status: string;
 }
 
-export interface Category{
-  id: number;
-  name: string;
-  imgUrl: string;
-  status: string;
+export interface Category extends Omit <CreateCategory, 'file'>{
+  imgUrl: string
 }
 
 export interface CreateCategories extends Omit<CreateCategory,'id'>{}

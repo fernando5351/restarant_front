@@ -10,23 +10,32 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class GetComponent implements OnInit {
 
-  categories: GetCategories;
-
-
-  constructor(private categoryService: CategoryService )  {
-    this.categories = { statusCode: 0, message: '', data: [] };
+  categories: GetCategories = {
+    statusCode: 0,
+    message: '',
+    data: [
+      {
+        id: 0,
+        name:'',
+        status: '',
+        imgUrl: ''
+      }
+    ]
   }
+
+
+  constructor(private categoryService: CategoryService ) {};
 
   ngOnInit(): void {
-    this.getCategories();
+    this.getCategories()
   }
 
-  getCategories(): void {
-    this.categoryService.getCategories()
-      .subscribe(data => {
-        this.categories = data;
-        console.log(this.categories);
-        console.log(this.categories)
-      });
+  getCategories(){
+    this.categoryService.getCategories().subscribe((data)=>{
+      this.categories = data
+      console.log(this.categories.data)
+    })
   }
+
+
 }
