@@ -25,6 +25,8 @@ import { GetByIdComponent } from './pages/category/get-by-id/get-by-id.component
 import { ProductComponent } from './components/product/product.component';
 import { GetProductComponent } from './pages/product/get/get.component';
 import { PatchCategoryComponent } from './pages/category/patch-category/patch-category.component';
+import { GetRoleComponent } from './pages/role/get-role/get-role.component';
+import { CreateRoleComponent } from './pages/role/create-role/create-role.component';
 
 
 
@@ -46,7 +48,9 @@ import { PatchCategoryComponent } from './pages/category/patch-category/patch-ca
 
     ProductComponent,
     GetProductComponent,
-    PatchCategoryComponent
+    PatchCategoryComponent,
+    GetRoleComponent,
+    CreateRoleComponent
   ],
   imports: [
     BrowserModule,

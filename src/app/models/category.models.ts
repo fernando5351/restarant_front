@@ -14,7 +14,11 @@ export interface CreateCategories extends Omit<CreateCategory,'id'>{}
 export interface GetCategory {
   statusCode: number,
   message: string,
-  data: string
+  data: Category
+}
+
+export interface CategoryDetail{
+  id: number;
 }
 
 export interface GetCategories extends Omit<GetCategory, 'data'>{
