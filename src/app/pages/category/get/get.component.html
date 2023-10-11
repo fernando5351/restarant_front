@@ -1,7 +1,7 @@
 <div class="container">
 
   <a href="/category-create" *ngFor="let category of categories.data">
-    <div class="content" >
+    <div class="content">
        <h1>{{ category.name }}</h1>
        <h3>Estado: {{ category.status ? 'Activo' : 'Inactivo' }}</h3>
        <img [src]="category.imgUrl" [alt]="category.name">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetProducts } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product/product.service';
+import { CategoryService } from 'src/app/services/category/category.service';
 
 @Component({
   selector: 'app-get',
@@ -27,7 +28,8 @@ export class GetProductComponent implements OnInit {
   }
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private categoryService: CategoryService
   ){}
 
   ngOnInit(): void {

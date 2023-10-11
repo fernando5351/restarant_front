@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetCategories } from '../../../models/category.models';
 import { CategoryService } from '../../../services/category/category.service';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-get',
