@@ -1,1 +1,23 @@
-<p>patch-category works!</p>
+<div class="container">
+  <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input type="text" class="form-control" id="name" name="name" [value]="category.name" [(ngModel)]="category.name">
+    </div>
+    <div class="form-group">
+      <label for="status">Estado:</label>
+      <select class="form-control" id="status" name="status" [value]="category.status" [(ngModel)]="category.status">
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="imgUrl">Imagen:</label>
+      <input type="file" class="form-control" id="imgUrl" name="imgUrl" (change)="onFileSelected($event)">
+    </div>
+    <div class="form-group">
+      <img [src]="category.imgUrl" [alt]="category.name" width="100" *ngIf="category.imgUrl">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+  </form>
+</div>

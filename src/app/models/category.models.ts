@@ -17,6 +17,11 @@ export interface GetCategory {
   data: string
 }
 
+export interface CategoryDetail{
+  id: number;
+}
+
+
 export interface GetCategories extends Omit<GetCategory, 'data'>{
   data: Array<Category>;
 }

@@ -63,7 +63,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'patchCategory',
+    path: 'category/:id',
     component: PatchCategoryComponent,
     canActivate: [AuthGuard]
   }
