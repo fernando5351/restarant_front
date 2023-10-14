@@ -1,1 +1,24 @@
-<p>create-role works!</p>
+<div class="container">
+  <form [formGroup]="form" enctype="multipart/form-data">
+    <div class="title-container">
+      <h1>Crear un Rol</h1>
+    </div>
+    <div class="rol-data">
+      <div class="label-container">
+        <label for="name">Nombre del Rol</label>
+      </div>
+      <input type="text" formControlName="name" placeholder="Nombre del Rol">
+      <div class="label-container">
+        <label for="status">Estado</label>
+      </div>
+      <select id="status" formControlName="status">
+        <option>Estado</option>
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
+      </select>
+    </div>
+    <div class="btn-container">
+      <button (click)="sendRequest($event)">Crear Rol</button>
+    </div>
+  </form>
+</div>

@@ -9,8 +9,10 @@ import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-pas
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
 import {GetComponent} from './pages/category/get/get.component';
-import  { PatchCategoryComponent } from './pages/category/patch-category/patch-category.component'
-
+import  { PatchCategoryComponent } from './pages/category/patch-category/patch-category.component';
+import { GetRoleComponent} from './pages/role/get-role/get-role.component';
+import {CreateRoleComponent} from './pages/role/create-role/create-role.component';
+import {GetTableComponent} from './pages/table/get-table/get-table.component';
 
 import { GetProductComponent } from './pages/product/get/get.component';
 
@@ -65,6 +67,21 @@ const routes: Routes = [
   {
     path: 'category/:id',
     component: PatchCategoryComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'rol',
+    component: GetRoleComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'create-rol',
+    component: CreateRoleComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'table',
+    component: GetTableComponent,
     canActivate: [AuthGuard]
   }
 ];

@@ -1,23 +1,29 @@
 <div class="container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" #categoryForm="ngForm">
-    <div class="form-group">
-      <label for="name">Nombre:</label>
-      <input type="text" class="form-control" id="name" name="name" formControlName="name">
+  <form [formGroup]="form" enctype="multipart/form-data">
+    <div class="title-container">
+      <h1>Actualizar Categoría</h1>
     </div>
-    <div class="form-group">
-      <label for="status">Estado:</label>
-      <select class="form-control" id="status" name="status">
-        <option value="activo">Activo</option>
-        <option value="inactivo">Inactivo</option>
+    <div class="img-container">
+      <input type="file" formControlName="imgUrl" (change)="onFileSelected($event)">
+      <label class="image-label">
+        <img [src]="categoryDetail.imgUrl ? categoryDetail.imgUrl : '../../../../assets/icons/formIcons/image.svg'" alt="Imagen">
+      </label>
+    </div>
+    <div class="category-data">
+      <div class="label-container">
+        <label for="name">Nombre:</label>
+      </div>
+      <input type="text" formControlName="name" placeholder="Nombre de Categoría">
+      <div class="label-container">
+        <label for="status">Estado:</label>
+      </div>
+      <select id="status" formControlName="status">
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
       </select>
     </div>
-    <div class="form-group">
-      <label for="imgUrl">Imagen:</label>
-      <input type="file" class="form-control" id="imgUrl" name="imgUrl" (change)="onFileSelected($event)">
+    <div class="btn-container">
+      <button (click)="onSubmit()">Guardar Cambios</button>
     </div>
-    <div class="form-group">
-      <img [src]="categoryDetail.imgUrl" alt="hola" width="100">
-    </div>
-    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
   </form>
 </div>

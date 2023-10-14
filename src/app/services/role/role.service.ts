@@ -9,7 +9,7 @@ import { finalize } from 'rxjs';
   providedIn: 'root'
 })
 export class RoleService {
-  private url = `${environment.API_URL}/role`;
+  private url = `${environment.API_URL}/rol`;
   constructor(
     private http: HttpClient,
     private loadingService: AlertService
@@ -50,7 +50,7 @@ export class RoleService {
         finalize(() => {
           this.loadingService.hideLoading();
         })
-      )
+      );
       };
 
 

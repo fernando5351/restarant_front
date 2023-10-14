@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {GetRoles} from '../../../models/role.model';
 import {RoleService} from '../../../services/role/role.service';
 
@@ -7,7 +7,7 @@ import {RoleService} from '../../../services/role/role.service';
   templateUrl: './get-role.component.html',
   styleUrls: ['./get-role.component.scss']
 })
-export class GetRoleComponent {
+export class GetRoleComponent implements OnInit {
 
   roles: GetRoles = {
     statusCode: 0,
@@ -23,13 +23,15 @@ export class GetRoleComponent {
 
   constructor(private roleService: RoleService){};
 
-  ngOninit(): void{
-
+  ngOnInit(): void{
+    this.getRoles()
   }
 
   getRoles(){
     this.roleService.getRoles().subscribe((data)=>{
       this.roles = data;
+      console.log(this.roles.data);
+
     })
   }
 
