@@ -1,8 +1,13 @@
+<app-header
+[Input]="placeholder"
+[button]="btn"
+[url]="url"
+(searchChange)="getRequestSearch($event)"
+>
+</app-header>
 <div class="container">
-
-  <app-product
+  <!-- <app-product
   [product]="product"
   *ngFor="let product of products.data"
-  ></app-product>
-
+  ></app-product> -->
 </div>

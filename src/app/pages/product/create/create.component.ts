@@ -11,8 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./create.component.scss']
 })
 export class CreateProductComponent implements OnInit {
-  form: FormGroup = new FormGroup({
-  });
+  form: FormGroup = new FormGroup({});
   imagePreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
 
@@ -26,7 +25,7 @@ export class CreateProductComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
-      status: ['Estado', [Validators.required]],
+      status: ['', [Validators.required]],
       price: ['', [Validators.required]],
       description: ['', [Validators.required]],
       file: [null, [Validators.required]],

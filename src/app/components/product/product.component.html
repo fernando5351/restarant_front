@@ -1,9 +1,9 @@
-<a href="#">
-  <div class="content">
-    <h1>{{ product.name }}</h1>
-    <h3>Precio {{ product.price | currency: 'USD'}}</h3>
-    <img [src]='product.imgUrl' alt="arbol">
-    <p class="scrollable-content">{{ product.description }}</p>
-  </div>
-</a>
-<button (click)="($event)">Ver Producto</button>
+<div class="content">
+  <a href="#" class="btn">
+      <h1>{{ product.name }}</h1>
+      <img [src]='product.imgUrl' alt="arbol">
+      <p class="scrollable-content">{{ product.description }}</p>
+      <h3>Precio {{ product.price | currency: 'USD'}}</h3>
+  </a>
+  <button (click)="($event)">Ver Producto</button>
+</div>

@@ -9,6 +9,10 @@ import { CategoryService } from '../../../services/category/category.service';
 })
 export class GetComponent implements OnInit {
 
+  url: string = '/category-create';
+  placeholder: string = 'Buscar categoria...';
+  btn: string = 'Crear Categoria';
+
   categories: GetCategories = {
     statusCode: 0,
     message: '',
@@ -36,5 +40,8 @@ export class GetComponent implements OnInit {
     })
   }
 
+  onSearchChange(searchText: string) {
+    console.log('Texto de búsqueda:', searchText);
+  }
 
 }

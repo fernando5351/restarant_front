@@ -1,41 +1,29 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { GetCategories } from '../../../app/models/category.models';
-import { CategoryService } from '../../../app/services/category/category.service';
+import { Component, Input } from '@angular/core';
+import { Category } from '../../../app/models/category.models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
+
 export class CategoryComponent {
-  @Input() categories: GetCategories = {
-    statusCode: 0,
-    message: '',
-    data: [
-      {
-        id: 0,
-        name:'',
-        status: '',
-        imgUrl: ''
-      }
-    ]
+  @Input() category: Category = {
+    id: 0,
+    name:'',
+    status: '',
+    imgUrl: ''
   }
 
+  constructor( private router: Router) {};
 
-  constructor(private categoryService: CategoryService ) {};
-
-  ngOnInit(): void {
-    this.getCategories()
+  navigateTo(e: Event){
+    e.preventDefault();
+    const url: string = `/products-category/${this.category.id}`;
+    console.log(url);
+    this.router.navigate([url]);
   }
-
-  getCategories(){
-    this.categoryService.getCategories().subscribe((data)=>{
-      this.categories = data
-      console.log(this.categories.data)
-    })
-  }
-
-
 }
 
 

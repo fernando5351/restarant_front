@@ -8,7 +8,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-password.component';
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
-import {GetComponent} from './pages/category/get/get.component';
+import { GetComponent } from './pages/category/get/get.component';
+import { GetByIdComponent } from './pages/category/get-by-id/get-by-id.component';
 import  { PatchCategoryComponent } from './pages/category/patch-category/patch-category.component';
 import { GetRoleComponent} from './pages/role/get-role/get-role.component';
 import {CreateRoleComponent} from './pages/role/create-role/create-role.component';
@@ -57,7 +58,7 @@ const routes: Routes = [
   {
     path:'product-create',
     component: CreateProductComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'products',
@@ -67,6 +68,11 @@ const routes: Routes = [
   {
     path: 'category/:id',
     component: PatchCategoryComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'products-category/:id',
+    component: GetByIdComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -34,6 +34,10 @@ export class ProductService {
     );
   }
 
+  search(name: string) {
+    return this.http.get<GetProducts>(`${this.url}/searchbyname/${name}`);
+  }
+
   patchProduct(dto: FormData, id: number) {
     this.loadingService.showLoading();
     return this.http.patch(`${this.url}/${id}`, dto).pipe(
@@ -51,4 +55,5 @@ export class ProductService {
       })
     );
   }
+
 }
