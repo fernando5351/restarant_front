@@ -15,4 +15,5 @@ export interface GetTable{
 
 export interface GetTables extends Omit<GetTable, 'data'>{
   data: Array<Table>
+
 }

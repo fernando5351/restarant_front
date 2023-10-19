@@ -30,6 +30,9 @@ import { CreateRoleComponent } from './pages/role/create-role/create-role.compon
 import { GetTableComponent } from './pages/table/get-table/get-table.component';
 import { CreateTableComponent } from './pages/table/create-table/create-table.component';
 import { PatchTableComponent } from './pages/table/patch-table/patch-table.component';
+import { RoleComponent } from './components/role/role.component';
+import { TableComponent } from './components/table/table.component';
+
 
 
 
@@ -56,7 +59,10 @@ import { PatchTableComponent } from './pages/table/patch-table/patch-table.compo
     CreateRoleComponent,
     GetTableComponent,
     CreateTableComponent,
-    PatchTableComponent
+    PatchTableComponent,
+    RoleComponent,
+    TableComponent,
+
   ],
   imports: [
     BrowserModule,
