@@ -14,6 +14,7 @@ export class ProductService {
   constructor(
     private http: HttpClient,
     private loadingService: AlertService,
+    private alertService: AlertService,
   ) { }
 
   createProduct(dto: FormData) {

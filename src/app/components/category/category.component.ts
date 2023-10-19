@@ -21,7 +21,6 @@ export class CategoryComponent {
   navigateTo(e: Event){
     e.preventDefault();
     const url: string = `/products-category/${this.category.id}`;
-    console.log(url);
     this.router.navigate([url]);
   }
 }

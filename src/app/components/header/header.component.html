@@ -1,7 +1,7 @@
 <form class="container" [formGroup]="form">
   <input type="text" class="search" formControlName="search" [placeholder]="Input" (input)="onSearchChange()">
-  <a class="create" [href]="url">
+  <button class="create" (click)="request()">
     <p>{{button}}</p>
     <img src="../../../../assets/icons/formIcons/create.svg" alt="">
-  </a>
+  </button>
 </form>
