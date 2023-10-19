@@ -1,24 +1,31 @@
-
-a {
-  width: calc(25% - 20px);
-  height: 315px;
+div.content{
+  width: 250px;
+  height: 335px;
+  font-family: 'Kalam', 'san-serif';
+  text-align: center;
   background: #d9d9d975;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+a.btn {
+  margin-top: 20px;
+  height: 280px;
   margin: 0 10px 20px;
   border: none;
   outline: none;
   cursor: pointer;
-  color: #000000;
+  color: #fff;
   text-decoration: none;
+
 }
 
-.content {
-  width: 100%;
-  height: 280px;
-  font-family: 'Kalam', sans-serif;
-  text-align: center;
-}
-
-.content img {
+.btn img {
   width: 170px;
   height: 170px;
   border: none;

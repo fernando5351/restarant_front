@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CreateProduct } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product/product.service';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { GetIdService } from 'src/app/services/get-id.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,22 +12,25 @@ import Swal from 'sweetalert2';
   styleUrls: ['./create.component.scss']
 })
 export class CreateProductComponent implements OnInit {
-  form: FormGroup = new FormGroup({
-  });
+  form: FormGroup = new FormGroup({});
   imagePreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
+  categoryId: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private getIdService: GetIdService,
   ) {}
 
   ngOnInit() {
+    this.categoryId = this.getIdService.getId();
+
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
-      status: ['Estado', [Validators.required]],
+      status: ['', [Validators.required]],
       price: ['', [Validators.required]],
       description: ['', [Validators.required]],
       file: [null, [Validators.required]],
@@ -87,7 +91,7 @@ export class CreateProductComponent implements OnInit {
       quantity: this.form.get('quantity')?.value,
       price: this.form.get('price')?.value,
       description: this.form.get('description')?.value,
-      categoryId: 1,
+      categoryId: this.categoryId,
       file: this.selectedFile
     };
 
@@ -127,4 +131,6 @@ export class CreateProductComponent implements OnInit {
       }
     });
   }
+
+
 }

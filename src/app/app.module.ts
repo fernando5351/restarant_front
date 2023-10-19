@@ -32,7 +32,7 @@ import { CreateTableComponent } from './pages/table/create-table/create-table.co
 import { PatchTableComponent } from './pages/table/patch-table/patch-table.component';
 import { RoleComponent } from './components/role/role.component';
 import { TableComponent } from './components/table/table.component';
-
+import { HeaderComponent } from './components/header/header.component';
 
 
 
@@ -51,7 +51,6 @@ import { TableComponent } from './components/table/table.component';
     CreateProductComponent,
     CreateCategoryComponent,
     GetByIdComponent,
-
     ProductComponent,
     GetProductComponent,
     PatchCategoryComponent,
@@ -62,7 +61,7 @@ import { TableComponent } from './components/table/table.component';
     PatchTableComponent,
     RoleComponent,
     TableComponent,
-
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

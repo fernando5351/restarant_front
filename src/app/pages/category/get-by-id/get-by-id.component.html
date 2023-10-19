@@ -1,1 +1,14 @@
-<p>get-by-id works!</p>
+<app-header
+[Input]="placeholder"
+[button]="btn"
+[url]="url"
+(searchChange)="getRequestSearch($event)"
+>
+</app-header>
+<div class="container">
+  <app-product
+  [product]="product"
+  *ngFor="let product of category.data.Product"
+  ></app-product>
+</div>
+<app-loading></app-loading>

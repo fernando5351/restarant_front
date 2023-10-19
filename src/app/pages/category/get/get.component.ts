@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetCategories } from '../../../models/category.models';
 import { CategoryService } from '../../../services/category/category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-get',
@@ -8,6 +9,10 @@ import { CategoryService } from '../../../services/category/category.service';
   styleUrls: ['./get.component.scss']
 })
 export class GetComponent implements OnInit {
+
+  url: string = '/category-create';
+  placeholder: string = 'Buscar categoria...';
+  btn: string = 'Crear Categoria';
 
   categories: GetCategories = {
     statusCode: 0,
@@ -22,8 +27,10 @@ export class GetComponent implements OnInit {
     ]
   }
 
-
-  constructor(private categoryService: CategoryService ) {};
+  constructor(
+    private categoryService: CategoryService,
+    private router: Router
+  ) {};
 
   ngOnInit(): void {
     this.getCategories()
@@ -36,5 +43,19 @@ export class GetComponent implements OnInit {
     })
   }
 
+  onSearchChange(name: string) {
+    console.log('Texto de búsqueda:', name);
+    if (name.length > 0) {
+      this.categoryService.search(name).subscribe((response) => {
+        console.log(response);
+        this.categories.data = response.data
+      });
+    } else {
+      this.getCategories();
+    }
+  }
 
+  createCategory(){
+    this.router.navigate(['/product-create']);
+  }
 }

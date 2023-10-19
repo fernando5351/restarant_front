@@ -31,7 +31,7 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   isImageFile(file: File): boolean {
-    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp|\.bmp|\.tiff|\.svg)$/i;
+    const allowedExtensions = /(\.jpg|\.jpeg|\.avif|\.png|\.gif|\.webp|\.bmp|\.tiff|\.svg|\.svg)$/i;
     return allowedExtensions.test(file.name);
   }
   onFileChange(event: any) {
@@ -65,7 +65,6 @@ export class CreateCategoryComponent implements OnInit {
 
   sendRequest(event: Event) {
     event.preventDefault();
-
     if (this.form.invalid || this.selectedFile === null) {
       console.log('El formulario no es válido o no se seleccionó ningún archivo');
       return;
@@ -81,12 +80,13 @@ export class CreateCategoryComponent implements OnInit {
     formData.append('name', dto.name);
     formData.append('status', dto.status);
     formData.append('file', this.selectedFile);
-
+    console.log(this.selectedFile.name);
 
     this.categoryService.createCategory(formData).subscribe({
       next: (response) => {
         console.log(response);
-        this.router.navigate(['/home']);
+        console.log(this.selectedFile?.name);
+        this.router.navigate(['/categories']);
       },
       error: (error) => {
         console.log(error);

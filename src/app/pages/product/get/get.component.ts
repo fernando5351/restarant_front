@@ -9,6 +9,9 @@ import { CategoryService } from 'src/app/services/category/category.service';
   styleUrls: ['./get.component.scss']
 })
 export class GetProductComponent implements OnInit {
+  url: string = '/product-create';
+  placeholder: string = 'Buscar producto...';
+  btn: string = 'Crear Producto';
 
   products: GetProducts = {
     statusCode: 0,
@@ -41,6 +44,10 @@ export class GetProductComponent implements OnInit {
       this.products = data;
       console.log('Get Products : ', this.products.data);
     })
+  }
+
+  getRequestSearch(search: string) {
+    console.log('texto a buscar: ' + search);
   }
 
 }

@@ -1,3 +1,5 @@
+import { Products } from "./product.model";
+
 export interface CreateCategory {
   id: number;
   name: string;
@@ -11,10 +13,13 @@ export interface Category extends Omit <CreateCategory, 'file'>{
 
 export interface CreateCategories extends Omit<CreateCategory,'id'>{}
 
+export interface CategoryDetails extends Category{
+  Product: Products[];
+}
 export interface GetCategory {
   statusCode: number,
   message: string,
-  data: Category
+  data: CategoryDetails
 }
 
 export interface CategoryDetail{
