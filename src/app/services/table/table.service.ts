@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment'
 import { HttpClient } from '@angular/common/http';
-import {GetTable,GetTables} from '../../models/table.model';
+import {GetTable,GetTables, Table} from '../../models/table.model';
 import {AlertService} from '../alert.service';
 import {finalize} from 'rxjs'
 import { Form } from '@angular/forms';
@@ -36,7 +36,16 @@ export class TableService {
     );
   };
 
-  patcTable(dto: FormData, id: number){
+  getTableById(id:number){
+    this.loadingService.showLoading();
+    return this.http.get<GetTable>(`${this.url}/${id}`).pipe(
+      finalize(()=>{
+        this.loadingService.hideLoading();
+      })
+    );
+  };
+
+  patchTable(dto: Table, id: number){
     this.loadingService.showLoading();
     return this.http.patch(`${this.url}/${id}`, dto).pipe(
       finalize(()=>{

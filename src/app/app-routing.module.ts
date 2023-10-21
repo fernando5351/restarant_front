@@ -13,7 +13,7 @@ import { GetByIdComponent } from './pages/category/get-by-id/get-by-id.component
 import  { PatchCategoryComponent } from './pages/category/patch-category/patch-category.component';
 import { GetRoleComponent} from './pages/role/get-role/get-role.component';
 import {CreateRoleComponent} from './pages/role/create-role/create-role.component';
-import {GetTableComponent} from './pages/table/get-table/get-table.component';
+import {TableComponent} from './components/table/table.component';
 
 import { GetProductComponent } from './pages/product/get/get.component';
 
@@ -87,7 +87,7 @@ const routes: Routes = [
   },
   {
     path: 'table',
-    component: GetTableComponent,
+    component: TableComponent,
     canActivate: [AuthGuard]
   }
 ];

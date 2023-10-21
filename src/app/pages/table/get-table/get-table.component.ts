@@ -7,32 +7,8 @@ import {TableService} from '../../../services/table/table.service';
   templateUrl: './get-table.component.html',
   styleUrls: ['./get-table.component.scss']
 })
-export class GetTableComponent implements OnInit {
+export class GetTableComponent  {
 
-  table: GetTables = {
-    statusCode: 0,
-    messsage: '',
-    data: [
-      {
-        id: 0,
-        quantity: 0,
-        status: '',
-        number: 0
-      }
-    ]
   }
 
-  constructor (private tableService: TableService){};
 
-  ngOnInit(): void {
-    this.getTables()
-  }
-
-  getTables(){
-    this.tableService.getTable().subscribe((data)=>{
-      this.table = data;
-      console.log(this.table.data);
-    })
-  }
-
-}
