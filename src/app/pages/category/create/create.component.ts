@@ -80,12 +80,10 @@ export class CreateCategoryComponent implements OnInit {
     formData.append('name', dto.name);
     formData.append('status', dto.status);
     formData.append('file', this.selectedFile);
-    console.log(this.selectedFile.name);
 
     this.categoryService.createCategory(formData).subscribe({
       next: (response) => {
         console.log(response);
-        console.log(this.selectedFile?.name);
         this.router.navigate(['/categories']);
       },
       error: (error) => {

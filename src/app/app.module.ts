@@ -33,6 +33,7 @@ import { PatchTableComponent } from './pages/table/patch-table/patch-table.compo
 import { RoleComponent } from './components/role/role.component';
 import { TableComponent } from './components/table/table.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ButtonsComponent } from './components/buttons/buttons.component';
 
 
 
@@ -59,6 +60,8 @@ import { HeaderComponent } from './components/header/header.component';
     GetTableComponent,
     CreateTableComponent,
     PatchTableComponent,
+    HeaderComponent,
+    ButtonsComponent,
     RoleComponent,
     TableComponent,
     HeaderComponent

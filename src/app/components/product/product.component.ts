@@ -7,6 +7,8 @@ import { Products } from 'src/app/models/product.model';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent {
+  @Input() url: string | null = null;
+  @Input() apiUrl: string = '';
   @Input() product: Products = {
     id: 0,
     name: '',
@@ -17,12 +19,15 @@ export class ProductComponent {
     quantity: 0,
     categoryId: 0
   };
+  ProductId: number = 0;
 
-  request(e: Event) {
-    e.preventDefault();
-    console.log(e);
+  request(id: number) {
+    return `${this.apiUrl}/${id}`;
+  }
 
-    console.log(this.product.id + " id");
+  update(id: number) {
+    this.ProductId = id;
+    console.log(this.ProductId + ' valor del id a actualizar');
   }
 
 }

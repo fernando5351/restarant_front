@@ -9,6 +9,7 @@
   <app-product
   [product]="product"
   *ngFor="let product of category.data.Product"
+  [apiUrl]="apiUrl"
   ></app-product>
 </div>
 <app-loading></app-loading>

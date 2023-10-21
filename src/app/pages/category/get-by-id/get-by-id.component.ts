@@ -15,6 +15,7 @@ export class GetByIdComponent {
   url: string = '/product-create';
   placeholder: string = 'Buscar producto...';
   btn: string = 'Crear Producto';
+  apiUrl: string = '/product'
   categoryId: number = 0;
   category: GetCategory = {
     statusCode: 0,
@@ -78,6 +79,8 @@ export class GetByIdComponent {
   getProducts(id: number){
     this.categoryService.getCategoryById(id).subscribe((data) => {
       this.category = data;
+      console.log(this.category);
+
     })
   }
 
