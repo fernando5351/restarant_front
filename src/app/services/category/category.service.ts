@@ -18,6 +18,7 @@ export class CategoryService {
   ) { }
 
   createCategory(dto: FormData): Observable<GetCategory> {
+    console.log(dto.get('file'));
     this.alertService.showLoading();
     return this.http.post<GetCategory>(`${this.url}`, dto).pipe(
       finalize(() => {

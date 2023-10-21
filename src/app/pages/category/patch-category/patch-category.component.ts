@@ -45,7 +45,11 @@ export class PatchCategoryComponent implements OnInit {
 
       this.categoryService.getCategoryById(id).subscribe({
         next: (response) => {
+          console.log(response);
+
           this.categoryDetail =  response.data;
+          console.log(this.categoryDetail);
+
           console.log(this.categoryDetail);
           console.log(this.categoryDetail.imgUrl);
 

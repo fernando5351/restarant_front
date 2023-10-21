@@ -5,5 +5,11 @@
       <p class="scrollable-content">{{ product.description }}</p>
       <h3>Precio {{ product.price | currency: 'USD'}}</h3>
   </a>
-  <button (click)="($event)">Ver Producto</button>
+  <app-buttons
+  [id]="product.id"
+  [apiUrl]="request(product.id)"
+  [url]="url"
+  (clickEvent)="update($event)"
+  >
+  </app-buttons>
 </div>

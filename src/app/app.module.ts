@@ -31,6 +31,7 @@ import { GetTableComponent } from './pages/table/get-table/get-table.component';
 import { CreateTableComponent } from './pages/table/create-table/create-table.component';
 import { PatchTableComponent } from './pages/table/patch-table/patch-table.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ButtonsComponent } from './components/buttons/buttons.component';
 
 
 
@@ -58,7 +59,8 @@ import { HeaderComponent } from './components/header/header.component';
     GetTableComponent,
     CreateTableComponent,
     PatchTableComponent,
-    HeaderComponent
+    HeaderComponent,
+    ButtonsComponent
   ],
   imports: [
     BrowserModule,

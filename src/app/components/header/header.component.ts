@@ -9,7 +9,6 @@ import { Router } from '@angular/router'
 })
 export class HeaderComponent implements OnInit {
   @Input() Input: string = 'Buscar';
-  @Input() id: number = 0;
   @Input() button: string = 'Crear';
   @Input() url!: void | string;
   @Output() searchChange: EventEmitter<string> = new EventEmitter<string>();

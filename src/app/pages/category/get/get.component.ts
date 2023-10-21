@@ -44,10 +44,8 @@ export class GetComponent implements OnInit {
   }
 
   onSearchChange(name: string) {
-    console.log('Texto de búsqueda:', name);
     if (name.length > 0) {
       this.categoryService.search(name).subscribe((response) => {
-        console.log(response);
         this.categories.data = response.data
       });
     } else {

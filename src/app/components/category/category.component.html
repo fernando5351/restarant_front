@@ -1,6 +1,13 @@
   <div class="content">
-    <a (click)="navigateTo($event)" class="btn">
-      <h1>{{ category.name }}</h1>
-      <img [src]="category.imgUrl" [alt]="category.name">
-    </a>
+    <div class="btn">
+      <a (click)="navigateTo($event)">
+        <h1>{{ category.name }}</h1>
+        <img [src]="category.imgUrl" [alt]="category.name">
+      </a>
+      <app-buttons
+        [apiUrl]="delete(category.id)"
+        (clickEvent)="update()"
+        >
+        </app-buttons>
+    </div>
   </div>
