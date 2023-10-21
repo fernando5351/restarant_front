@@ -9,6 +9,10 @@ import {RoleService} from '../../../services/role/role.service';
 })
 export class GetRoleComponent implements OnInit {
 
+  placeholder = 'Buscar rol...';
+  btn = 'Crear rol';
+  url = '/create-rol';
+
   roles: GetRoles = {
     statusCode: 0,
     message: '',
@@ -33,6 +37,11 @@ export class GetRoleComponent implements OnInit {
       console.log(this.roles.data);
 
     })
+  }
+
+  searchChange(name: string) {
+    console.log(name);
+
   }
 
 
