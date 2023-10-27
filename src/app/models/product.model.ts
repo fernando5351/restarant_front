@@ -14,11 +14,11 @@ export interface CreateProduct extends Omit<Product, 'id'>{}
 export interface GetProduct {
   statusCode: number;
   message: string;
-  data: Product;
+  data: Products;
 }
 
 export interface Products extends Omit<Product,  'file'> {
-  imgUrl: string
+  imgUrl: File | null
 }
 
 export interface GetProducts extends Omit<GetProduct,  'data'> {

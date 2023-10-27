@@ -1,4 +1,5 @@
 import { Component, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Products } from 'src/app/models/product.model';
 
 @Component({
@@ -15,19 +16,20 @@ export class ProductComponent {
     price: 0,
     status: '',
     description: '',
-    imgUrl: '',
+    imgUrl: null,
     quantity: 0,
     categoryId: 0
   };
   ProductId: number = 0;
 
+  constructor(private router: Router) {}
   request(id: number) {
     return `${this.apiUrl}/${id}`;
   }
 
   update(id: number) {
     this.ProductId = id;
-    console.log(this.ProductId + ' valor del id a actualizar');
+    this.router.navigate([`/update-product/${this.product.id}`])
   }
 
 }

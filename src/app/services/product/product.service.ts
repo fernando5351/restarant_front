@@ -14,7 +14,6 @@ export class ProductService {
   constructor(
     private http: HttpClient,
     private loadingService: AlertService,
-    private alertService: AlertService,
   ) { }
 
   createProduct(dto: FormData) {
@@ -29,6 +28,15 @@ export class ProductService {
   getProducts() {
     this.loadingService.showLoading();
     return  this.http.get<GetProducts>(`${this.url}`).pipe(
+      finalize(()=> {
+        this.loadingService.hideLoading();
+      })
+    );
+  }
+
+  getProduct(id: number) {
+    this.loadingService.showLoading();
+    return  this.http.get<GetProduct>(`${this.url}/${id}`).pipe(
       finalize(()=> {
         this.loadingService.hideLoading();
       })

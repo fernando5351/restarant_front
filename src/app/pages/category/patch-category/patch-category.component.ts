@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { CategoryDetail, Category } from '../../../models/category.models';
 import { CategoryService } from '../../../services/category/category.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-get',
@@ -11,6 +12,8 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class PatchCategoryComponent implements OnInit {
 
+  imagePreview: string | File | Blob = '';
+  selectedFile: File  | null = null;
   form: FormGroup = new FormGroup({});
   category: CategoryDetail = {
     id: 0
@@ -26,53 +29,96 @@ export class PatchCategoryComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      file: [null, [Validators.required]],
+      status: ['Seleccionar', [Validators.required]]
+    });
+
     this.route.paramMap.subscribe(params => {
       this.category.id = Number(params.get('id'));
       this.getCategoryById(this.category.id);
     });
-
-    this.form = this.formBuilder.group({
-      name: ['', [Validators.required]]
-    })
   }
 
-    getCategoryById(id: number): void {
-      console.log('id recibo es: ' + id);
+  getCategoryById(id: number) {
+    this.categoryService.getCategoryById(id).subscribe({
+      next: (response) => {
+        this.categoryDetail =  response.data;
+        console.log(this.categoryDetail);
 
-      this.categoryService.getCategoryById(id).subscribe({
-        next: (response) => {
-          console.log(response);
+        this.form = this.formBuilder.group({
+          name: [this.categoryDetail.name, [Validators.required]],
+          status: [this.categoryDetail.status, [Validators.required]]
+        });
 
-          this.categoryDetail =  response.data;
-          console.log(this.categoryDetail);
+        this.imagePreview = this.categoryDetail.imgUrl;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 
-          console.log(this.categoryDetail);
-          console.log(this.categoryDetail.imgUrl);
+  isImageFile(file: File): boolean {
+    const allowedExtensions = /(\.jpg|\.jpeg|\.avif|\.png|\.gif|\.webp|\.bmp|\.tiff|\.svg|\.svg)$/i;
+    return allowedExtensions.test(file.name);
+  }
 
-          this.form = this.formBuilder.group({
-            name: [this.categoryDetail.name, [Validators.required]]
-          })
-        },
-        error: (error) => {
-          console.log(error);
+  onFileSelected(event: any) {
+    console.log(event.target.files.length);
 
-        }
-      });
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+
+      if (this.isImageFile(file)) {
+        this.selectedFile = file;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreview = e.target?.result as string;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'El archivo seleccionado no es una imagen válida.',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        this.selectedFile = null;
+        this.imagePreview = '';
+      }
+    } else {
+      this.selectedFile = null;
+      this.imagePreview = '';
     }
-
-  // Método para manejar el evento de cambio de archivo
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    // Aquí puedes realizar acciones adicionales, como cargar la imagen o mostrar una vista previa.
   }
 
-  // Método para manejar el envío del formulario
-  onSubmit(): void {
-    // Aquí puedes llamar al servicio para actualizar la categoría con los datos del formulario.
-    // Ejemplo: this.categoryService.updateCategory(this.category).subscribe((result) => { ... });
+  onSubmit(event: Event): void {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('name', this.form.get('name')?.value);
+    formData.append('status', this.form.get('status')?.value);
+    formData.append('file', this.imagePreview);
+    this.categoryService.patchCategory(formData, this.category.id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.router.navigate([`/categories`])
+      },
+      error: (error) => {
+        if (error) {
+          console.log(error);
+        }
+        console.log(error);
+      }
+    });
   }
 }

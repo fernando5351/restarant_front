@@ -23,7 +23,7 @@ export class GetProductComponent implements OnInit {
         price: 0,
         status: '',
         description: '',
-        imgUrl: '',
+        imgUrl: null,
         quantity: 0,
         categoryId: 0
       }

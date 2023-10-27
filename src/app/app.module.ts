@@ -34,6 +34,10 @@ import { RoleComponent } from './components/role/role.component';
 import { TableComponent } from './components/table/table.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
+import { UpdateComponent } from './pages/product/update/update.component';
+import { ComboComponent } from './components/combo/combo.component';
+import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
+import { GetComboComponent } from './pages/combos/get-combo/get-combo.component';
 
 
 
@@ -64,7 +68,11 @@ import { ButtonsComponent } from './components/buttons/buttons.component';
     ButtonsComponent,
     RoleComponent,
     TableComponent,
-    HeaderComponent
+    HeaderComponent,
+    UpdateComponent,
+    ComboComponent,
+    CreateComboComponent,
+    GetComboComponent,
   ],
   imports: [
     BrowserModule,

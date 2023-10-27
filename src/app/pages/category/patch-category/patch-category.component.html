@@ -4,9 +4,9 @@
       <h1>Actualizar Categoría</h1>
     </div>
     <div class="img-container">
-      <input type="file" formControlName="imgUrl" (change)="onFileSelected($event)">
+      <input type="file" (change)="onFileSelected($event)">
       <label class="image-label">
-        <img [src]="categoryDetail.imgUrl ? categoryDetail.imgUrl : '../../../../assets/icons/formIcons/image.svg'" alt="Imagen">
+        <img [src]="imagePreview ? imagePreview : '../../../../assets/icons/formIcons/image.svg'" alt="Imagen">
       </label>
     </div>
     <div class="category-data">
@@ -18,12 +18,13 @@
         <label for="status">Estado:</label>
       </div>
       <select id="status" formControlName="status">
+        <option value="" selected>Seleccione un estado</option>
         <option value="true">Activo</option>
         <option value="false">Inactivo</option>
       </select>
     </div>
     <div class="btn-container">
-      <button (click)="onSubmit()">Guardar Cambios</button>
+      <button (click)="onSubmit($event)">Guardar Cambios</button>
     </div>
   </form>
 </div>
