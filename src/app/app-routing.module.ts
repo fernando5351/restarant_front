@@ -17,6 +17,7 @@ import {CreateRoleComponent} from './pages/role/create-role/create-role.componen
 import {TableComponent} from './components/table/table.component';
 
 import { GetProductComponent } from './pages/product/get/get.component';
+import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
 
 
 const routes: Routes = [
@@ -49,6 +50,11 @@ const routes: Routes = [
   {
     path: 'update-product/:id',
     component: UpdateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'combos',
+    component: CreateComboComponent,
     canActivate: [AuthGuard]
   },
   {
