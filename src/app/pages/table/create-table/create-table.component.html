@@ -1,1 +1,28 @@
-<p>create-table works!</p>
+<div class="container">
+  <form [formGroup]="form" enctype="multipart/form-data">
+    <div class="title-container">
+      <h1>Crear una mesa</h1>
+    </div>
+    <div class="table-data">
+      <div class="label-container">
+        <label for="number">Numero de mesa</label>
+      </div>
+      <input type="number" formControlName="number" placeholder="Numero de mesa">
+      <div class="label-container">
+        <label for="quantity">Cantidad de personas</label>
+      </div>
+      <input type="number" formControlName="quantity" placeholder="Cantidad de personas">
+      <div class="label-container">
+        <label for="status">Estado</label>
+      </div>
+      <select id="status" formControlName="status" class="custom-select">
+        <option>Estado</option>
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
+      </select>
+    </div>
+    <div class="btn-container">
+      <button (click)="sendRequest($event)" >Crear Mesa</button>
+    </div>
+  </form>
+</div>

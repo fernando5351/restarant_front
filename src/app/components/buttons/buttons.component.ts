@@ -27,6 +27,8 @@ export class ButtonsComponent {
   ) {}
 
   update(id: number) {
+    console.log(id);
+
     if (this.url !== null) {
       this.router.navigate([this.url]);
     } else {

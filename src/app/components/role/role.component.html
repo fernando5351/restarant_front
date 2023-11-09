@@ -1,11 +1,11 @@
-<div class="container">
-  <div class="content">
-    <a href="/home"  >
-      <div class="content"  >
-        <h1>{{role.name}}</h1>
-        <h3>Estado: {{role.status ? 'Activo' : 'Inactivo'}}</h3>
-        <img src="../../../../assets/icons/roles/roles (1).png" alt="">
-      </div>
-    </a>
-  </div>
+<div class="content">
+  <a href="#" class="btn">
+    <h1>{{ role.name }}</h1>
+    <h3>Estado: {{ role.status  }}</h3>
+    <img src="../../../../assets/icons/roles/roles (1).png" alt="">
+  </a>
+  <app-buttons
+    [apiUrl]="request(role.id)"
+    (clickEvent)="update(role.id)"
+  ></app-buttons>
 </div>

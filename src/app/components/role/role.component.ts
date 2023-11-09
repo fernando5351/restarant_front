@@ -1,6 +1,8 @@
-import { Component,Input } from '@angular/core';
-import {Role} from '../../models/role.model'
-import {RoleService} from '../../services/role/role.service'
+import { Component, Input } from '@angular/core';
+import { Role,GetRole,GetRoles } from '../../models/role.model';
+import {RoleService} from '../../services/role/role.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-role',
@@ -8,25 +10,109 @@ import {RoleService} from '../../services/role/role.service'
   styleUrls: ['./role.component.scss']
 })
 export class RoleComponent {
-
+  apiUrl: string = '/rol';
+  url: string = '/rol';
+  roleId: number = 0;
   @Input() role: Role = {
-        id: 0,
-        name: '' ,
-        status: ''
+    id: 0,
+    name: '',
+    status: ''
   }
 
-  // constructor(private roleService: RoleService){};
+  roles: GetRoles = {
+    statusCode: 0,
+    message: '',
+    data: [
+      {
+        id: 0,
+        name: '',
+        status: ''
+      }
+    ]
+  }
 
-  // ngOnInit(): void{
-  //   this.getRoles()
-  // }
+  selectedRole: GetRole ={
+    statusCode: 0,
+    message: '',
+    data:{
+      id: 0,
+      name: '',
+      status: ''
+    }
+  }
+  constructor(
+    private roleService: RoleService,
+    private router: Router
+  ) {};
 
-  // getRoles(){
-  //   this.roleService.getRoles().subscribe((data)=>{
-  //     this.roles = data;
-  //     console.log(this.roles.data);
+  refrescarPagina() {
+    window.location.reload();
+  }
 
-  //   })
-  // }
+  request(id: number){
+    return `${this.apiUrl}/${id}`;
+  }
+
+  update(id: number) {
+    this.roleService.getRoleById(id).subscribe((rol) => {
+      this.selectedRole = rol;
+      console.log(rol);
+
+      const roleEditable = { ...this.selectedRole };
+      console.log(roleEditable);
+
+      Swal.fire({
+        title: 'Editar Rol',
+        html: `
+          <form>
+            <div class="form-group">
+              <label for="name">Nombre:</label>
+              <input type="text" id="name" class="swal2-input" value="${roleEditable.data.name}">
+            </div>
+            <div class="form-group">
+              <label for="status">Estado:</label>
+              <select id="status" class="swal2-input">
+                <option value="Activo" ${
+                  roleEditable.data.status === 'Activo' ? 'selected' : ''
+                }>Activo</option>
+                <option value="Inactivo" ${
+                  roleEditable.data.status === 'Inactivo' ? 'selected' : ''
+                }>Inactivo</option>
+              </select>
+            </div>
+          </form>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar Cambios',
+        preConfirm: () => {
+          // Captura los valores de los campos en el formulario antes de confirmar
+          roleEditable.data.name = (document.getElementById('name') as HTMLInputElement).value;
+          roleEditable.data.status = (document.getElementById('status') as HTMLSelectElement).value;
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Realizar una solicitud HTTP PATCH para actualizar el rol en el servidor
+          this.roleService.pathcRole(roleEditable.data, id).subscribe(
+            (response) => {
+              if (response = 200) {
+                Swal.fire('Actualizado', 'Los cambios han sido guardados.', 'success').then(() => {
+                  this.refrescarPagina(); // Redirige a la página de después de la actualización.
+                });
+              } else {
+                Swal.fire('Error', 'No se pudo actualizar el rol.', 'error');
+              }
+            },
+            (error) => {
+              if (error.status === 409) {
+                Swal.fire('Error', 'El rol que quieres actualizar ya existe.', 'error');
+              } else if(error.status == 400) {
+                Swal.fire('Error', 'Ocurrio un error verifica que envias los datos correctamente.', 'error');
+              }
+            }
+          );
+        }
+      });
+    });
+  }
 
 }

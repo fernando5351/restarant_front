@@ -1,0 +1,14 @@
+<div class="content">
+  <div class="user-info">
+    <img src="'../../../../../assets/icons/user/user.png" alt="">
+    <h2>{{ user.name }}</h2>
+    <h2>{{ user.lastname }}</h2>
+    <h3>Email: {{ user.email }}</h3>
+    <h2>Rol: {{ user.role.name }}</h2>
+  </div>
+  <div class="buttons-container">
+    <app-buttons
+      [apiUrl]="request(user.id)"
+    ></app-buttons>
+  </div>
+</div>

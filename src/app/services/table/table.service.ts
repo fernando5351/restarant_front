@@ -45,6 +45,10 @@ export class TableService {
     );
   };
 
+  search(number: number){
+    return this.http.get<GetTables>(`${this.url}/search/${number}`);
+  }
+
   patchTable(dto: Table, id: number){
     this.loadingService.showLoading();
     return this.http.patch(`${this.url}/${id}`, dto).pipe(

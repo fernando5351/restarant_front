@@ -32,7 +32,7 @@ input[type="file"] {
   color: #d9d9d90f;
 }
 
-.table-data {
+.user-data {
   width: 40%;
   height: 250px;
   display: flex;
@@ -41,7 +41,7 @@ input[type="file"] {
   flex-direction: column;
 }
 
-.table-data input, .table-data select {
+.user-data input, .user-data select {
   width: 80%;
   height: 40px;
   background: #d9d9d975;
@@ -65,7 +65,7 @@ input[type="file"] {
   overflow: hidden;
 }
 
-.table-data input[type="text"][formControlName="name"]::after {
+.user-data input[type="text"][formControlName="name"]::after {
   position: absolute;
 }
 
@@ -80,11 +80,11 @@ input[type="file"] {
   padding-inline-start: 40px;
 }
 
-.table-data > input::placeholder {
+.user-data > input::placeholder {
   color: #fff;
 }
 
-.table-data > input:hover::placeholder {
+.user-data > input:hover::placeholder {
   color: #000000;
 }
 
@@ -115,4 +115,9 @@ input[type="file"] {
 .btn-container button:hover {
   transform: translateY(-5%);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.option {
+  color: black;
+  font-family: 'Kalam', sans-serif;
 }

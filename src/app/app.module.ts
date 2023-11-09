@@ -34,6 +34,9 @@ import { RoleComponent } from './components/role/role.component';
 import { TableComponent } from './components/table/table.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
+import { GetUserComponent } from './pages/user/get-user/get-user.component';
+import { CreateUserComponent } from './pages/user/create-user/create-user.component';
+import { UserComponent } from './components/user/user.component';
 
 
 
@@ -64,7 +67,10 @@ import { ButtonsComponent } from './components/buttons/buttons.component';
     ButtonsComponent,
     RoleComponent,
     TableComponent,
-    HeaderComponent
+    HeaderComponent,
+    GetUserComponent,
+    CreateUserComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
