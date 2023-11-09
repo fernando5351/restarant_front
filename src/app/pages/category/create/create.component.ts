@@ -34,6 +34,7 @@ export class CreateCategoryComponent implements OnInit {
     const allowedExtensions = /(\.jpg|\.jpeg|\.avif|\.png|\.gif|\.webp|\.bmp|\.tiff|\.svg|\.svg)$/i;
     return allowedExtensions.test(file.name);
   }
+
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];

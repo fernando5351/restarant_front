@@ -37,6 +37,11 @@ import { ButtonsComponent } from './components/buttons/buttons.component';
 import { GetUserComponent } from './pages/user/get-user/get-user.component';
 import { CreateUserComponent } from './pages/user/create-user/create-user.component';
 import { UserComponent } from './components/user/user.component';
+import { UpdateComponent } from './pages/product/update/update.component';
+import { ComboComponent } from './components/combo/combo.component';
+import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
+import { GetComboComponent } from './pages/combos/get-combo/get-combo.component';
+import { SaleComponent } from './pages/sale/sale.component';
 
 
 
@@ -71,6 +76,11 @@ import { UserComponent } from './components/user/user.component';
     GetUserComponent,
     CreateUserComponent,
     UserComponent,
+    UpdateComponent,
+    ComboComponent,
+    CreateComboComponent,
+    GetComboComponent,
+    SaleComponent,
   ],
   imports: [
     BrowserModule,

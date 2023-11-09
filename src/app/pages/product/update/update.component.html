@@ -1,0 +1,42 @@
+<div class="container">
+  <form [formGroup]="form" enctype="multipart/form-data" >
+    <div class="title-container">
+      <h1>Actualizar Producto</h1>
+    </div>
+    <div class="img-container">
+      <input type="file" formControlName="file" placeholder="Image" (change)="onFileChange($event)">
+      <label class="image-label">
+        <img [src]="imagePreview ? imagePreview : '../../../../assets/icons/formIcons/image.svg'" alt="imagen">
+      </label>
+    </div>
+    <div class="product-data">
+      <div class="label-container">
+        <label  for="name">Nombre</label>
+      </div>
+      <input type="text" formControlName="name" placeholder="Hamburguesa">
+      <div class="label-container">
+        <label  for="name">Cantidad</label>
+      </div>
+      <input type="number" formControlName="quantity" placeholder="100">
+      <div class="label-container">
+        <label  for="name">Estado</label>
+      </div>
+      <select id="status" formControlName="status">
+        <option>Estado</option>
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
+      </select>
+      <div class="label-container">
+        <label  for="name">Precio</label>
+      </div>
+      <input type="number" formControlName="price" placeholder="5.99">
+      <span>$</span>
+    </div>
+    <div class="product-description">
+      <input type="text" formControlName="description" placeholder="Descripcion">
+    </div>
+    <div class="btn-container">
+      <button (click)="sendRequest($event)">Enviar</button>
+    </div>
+  </form>
+</div>

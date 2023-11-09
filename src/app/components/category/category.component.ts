@@ -35,12 +35,8 @@ export class CategoryComponent {
   update() {
     this.categoryId = this.category.id;
     console.log('el id recibido es: ' + this.categoryId);
-    // Swal.fire({
-    //   icon: 'info',
-    //   title: `actualizar el id: ${this.categoryId}`
-    // })
 
-    //return `${this.url}/${this.categoryId}`;
-
+    const update = `${this.url}/${this.categoryId}`;
+    this.router.navigate([update]);
   }
 }

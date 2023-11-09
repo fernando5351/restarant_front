@@ -32,7 +32,7 @@ export class GetByIdComponent {
           price: 0,
           status: '',
           description: '',
-          imgUrl: '',
+          imgUrl: null,
           quantity: 0,
           categoryId: 0
         }
@@ -49,7 +49,7 @@ export class GetByIdComponent {
       price: 0,
       status: '',
       description: '',
-      imgUrl: '',
+      imgUrl: null,
       quantity: 0,
       categoryId: 0
     }]

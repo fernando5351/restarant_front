@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-password.component';
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
+import { UpdateComponent } from './pages/product/update/update.component';
 import { GetComponent } from './pages/category/get/get.component';
 import { GetByIdComponent } from './pages/category/get-by-id/get-by-id.component';
 import  { PatchCategoryComponent } from './pages/category/patch-category/patch-category.component';
@@ -18,6 +19,10 @@ import { GetProductComponent } from './pages/product/get/get.component';
 import {CreateTableComponent} from './pages/table/create-table/create-table.component'
 import { CreateUserComponent} from './pages/user/create-user/create-user.component'
 import { GetUserComponent } from './pages/user/get-user/get-user.component';
+import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
+
+import { SaleComponent } from './pages/sale/sale.component';
+
 
 const routes: Routes = [
   {
@@ -47,6 +52,16 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'update-product/:id',
+    component: UpdateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'combos',
+    component: CreateComboComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path:'category-create',
     component: CreateCategoryComponent,
     canActivate: [AuthGuard]
@@ -59,7 +74,7 @@ const routes: Routes = [
   {
     path:'product-create',
     component: CreateProductComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'products',
@@ -104,6 +119,11 @@ const routes: Routes = [
   {
     path: 'user',
     component: GetUserComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'venta',
+    component: SaleComponent,
     canActivate: [AuthGuard]
   }
 ];

@@ -1,13 +1,40 @@
 <nav>
   <ul *ngIf="isAuthenticated">
+    <li><a href="/home">Inicio</a></li>
+
+    <ng-container *ngIf="role === 'Gerente';else userOptions">
+      <!-- Opciones para admin -->
+      <li><a href="/categories">Categoría</a></li>
+      <li><a href="/combos">Combos</a></li>
+      <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
+    </ng-container>
+
+    <ng-template #userOptions>
+      <!-- Opciones para usuario común -->
+      <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
+    </ng-template>
+
+    <li><a style="cursor: pointer;" (click)="logOut()">Cerrar Sesión</a></li>
+  </ul>
+
+  <ul *ngIf="!isAuthenticated">
+    <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
+    <li><a (click)="logOut()">Iniciar Sesión</a></li>
+  </ul>
+</nav>
+
+
+<!-- <nav>
+  <ul *ngIf="isAuthenticated">
     <li><a href="/home">Incio</a></li>
     <li><a href="/rol">Rol</a></li>
     <li><a href="/products">Productos</a></li>
     <li><a href="/categories">Categoria</a></li>
+    <li><a href="/combos">Combos</a></li>
     <li><a style="cursor: pointer;" (click)="logOut()">Cerrar Sesion</a></li>
   </ul>
   <ul *ngIf="!isAuthenticated">
     <li><a href="/venta">Realizar Venta</a></li>
     <li><a (click)="logOut()">Iniciar Sesion</a></li>
   </ul>
-</nav>
+</nav> -->
