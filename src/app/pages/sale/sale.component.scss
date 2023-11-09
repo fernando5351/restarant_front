@@ -1,0 +1,192 @@
+.container {
+  width: 100%;
+  height: 91.6vh;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  margin-top: 10px;
+  // background: #fff;
+  width: 90%;
+  height: 95%;
+  display: flex;
+  justify-content: center;
+}
+
+.left-aside {
+  width: 49%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.sale-product {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: 40px;
+}
+
+.sale-product h1 {
+  font-family: 'Kalam', sans-serif;
+}
+
+.sale {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.input-group {
+  flex-basis: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label-quantity,
+.label-search {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.product-quantity,
+.sale-search {
+  width: 100%;
+  outline: none;
+  height: 25px;
+  border-radius: 5px;
+  padding-inline-start: 15px;
+  font-size: 16px;
+  font-weight: 200;
+  letter-spacing: 0.1rem;
+  font-family: 'Kalam', sans-serif;
+}
+
+.show-sale {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.sale-content {
+  width: 90%;
+  height: 40px;
+  background: #fff;
+  box-shadow: 0px 5px 5px 2px #00000054;
+  border-radius: 8px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.img-content {
+  width: 35px;
+  height: 35px;
+  border-radius: 20px;
+}
+
+.img-content img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  margin-inline-start: 10px;
+}
+
+.product-info {
+  width: 70%;
+  display:  flex;
+  align-items: center;
+  flex-direction: row;
+  margin-inline-start: 30px;
+  font-family: 'kalam', sans-serif;
+  gap: 30px;
+}
+
+.sale-action {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.sale-action button {
+  border: none;
+  background: none;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+img.delete-btn {
+  height: 80%;
+  width: 80%;
+}
+
+div.product-quantity {
+  margin-inline-start: 20px;
+  width: 20%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'kalam', sans-serif;
+}
+
+.rigth-aside {
+  width: 49%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sale-summary {
+  width: 90%;
+  height: 90%;
+  border-radius: 3px;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 5px 5px 2px #00000054;
+}
+
+.sale-detail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  color: #000;
+  background: #fff;
+  font-family: 'kalam', sans-serif;
+  flex-wrap: wrap;
+}
+
+.detail-sale-content {
+  width: 60%;
+  height: 10%;
+  background: red;
+}
+
+.discount-input {
+  outline: none;
+  border: none;
+  width: 220px;
+  height: 35px;
+  font-size: 16px;
+  font-family: 'kalam', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+  padding-inline-start: 3px;
+}

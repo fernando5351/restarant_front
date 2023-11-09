@@ -19,6 +19,8 @@ import {TableComponent} from './components/table/table.component';
 import { GetProductComponent } from './pages/product/get/get.component';
 import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
 
+import { SaleComponent } from './pages/sale/sale.component';
+
 
 const routes: Routes = [
   {
@@ -70,7 +72,7 @@ const routes: Routes = [
   {
     path:'product-create',
     component: CreateProductComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'products',
@@ -100,6 +102,11 @@ const routes: Routes = [
   {
     path: 'table',
     component: TableComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'venta',
+    component: SaleComponent,
     canActivate: [AuthGuard]
   }
 ];

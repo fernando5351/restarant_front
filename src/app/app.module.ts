@@ -38,6 +38,7 @@ import { UpdateComponent } from './pages/product/update/update.component';
 import { ComboComponent } from './components/combo/combo.component';
 import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
 import { GetComboComponent } from './pages/combos/get-combo/get-combo.component';
+import { SaleComponent } from './pages/sale/sale.component';
 
 
 
@@ -73,6 +74,7 @@ import { GetComboComponent } from './pages/combos/get-combo/get-combo.component'
     ComboComponent,
     CreateComboComponent,
     GetComboComponent,
+    SaleComponent,
   ],
   imports: [
     BrowserModule,

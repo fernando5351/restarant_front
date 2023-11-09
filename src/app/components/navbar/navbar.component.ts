@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { TokenService } from 'src/app/services/token/token.service';
 
@@ -10,6 +11,7 @@ import { TokenService } from 'src/app/services/token/token.service';
 })
 export class NavbarComponent {
   isAuthenticated: boolean = false;
+  role: string = 'admin';
 
   constructor(
     private router: Router,
@@ -19,9 +21,12 @@ export class NavbarComponent {
 
   ngOnInit(): void {
     this.authService.isAuthenticated$().subscribe((isAuthenticated) => {
-      // console.log("init status: " + isAuthenticated);
       this.isAuthenticated = isAuthenticated;
     });
+    const user: User = this.tokenService.getUser();
+    if (user) {
+      this.role = user.role.name;
+    }
   }
 
   logOut(){

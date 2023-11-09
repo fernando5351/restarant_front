@@ -1,1 +1,15 @@
-<p>create-combo works!</p>
+<div class="container">
+  <form [formGroup]="form" enctype="multipart/form-data" >
+    <div class="title-container">
+      <h1>Crear Producto</h1>
+    </div>
+    <div class="img-container">
+      <input type="file" formControlName="file" placeholder="Image" (change)="onFileChange($event)">
+      <label class="image-label">
+        <img [src]="imagePreview ? imagePreview : '../../../../assets/icons/formIcons/image.svg'" alt="imagen">
+      </label>
+    </div>
+    <div class="product-data">
+    </div>
+  </form>
+</div>

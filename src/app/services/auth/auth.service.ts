@@ -49,6 +49,7 @@ export class AuthService {
     return this.http.get<getUser>(`${this.apiUrl}/user/${id}`)
     .pipe(
       tap(user => {
+        console.log(user);
         this.tokenService.saveUser(user.data);
       })
     )

@@ -6,7 +6,7 @@ export interface User {
   role: {
     id: number;
     name: string;
-    stats: Boolean;
+    status: Boolean;
   };
   lastname: string;
   status: Boolean;
