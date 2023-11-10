@@ -107,7 +107,9 @@ export class PatchCategoryComponent implements OnInit {
     const formData = new FormData();
     formData.append('name', this.form.get('name')?.value);
     formData.append('status', this.form.get('status')?.value);
-    formData.append('file', this.imagePreview);
+    if (this.selectedFile != null) {
+      formData.append('file', this.selectedFile);
+    }
     this.categoryService.patchCategory(formData, this.category.id).subscribe({
       next: (data) => {
         console.log(data);

@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { CreateProduct } from 'src/app/models/product.model';
-import { ProductService } from 'src/app/services/product/product.service';
-import { Router } from '@angular/router';
-import { GetIdService } from 'src/app/services/get-id.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { CombosService } from 'src/app/services/combos/combos.service'; // Asegúrate de importar el servicio correcto
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,30 +8,46 @@ import Swal from 'sweetalert2';
   templateUrl: './create-combo.component.html',
   styleUrls: ['./create-combo.component.scss']
 })
-export class CreateComboComponent {
+export class CreateComboComponent implements OnInit {
   form: FormGroup = new FormGroup({});
-  imagePreview: string | ArrayBuffer | null = null;
-  selectedFile: File | null = null;
-  categoryId: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
-    private productService: ProductService,
-    private router: Router,
-    private getIdService: GetIdService,
+    private comboService: CombosService, // Asegúrate de inyectar el servicio correcto
   ) {}
 
   ngOnInit() {
-    this.categoryId = this.getIdService.getId();
+    this.initializeForm();
+  }
 
+  initializeForm() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
+      price: ['', [Validators.required]],
       status: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      products: this.formBuilder.array([]),
+    });
+  }
+
+  get productFormArray(): FormArray {
+    return this.form.get('products') as FormArray;
+  }
+
+  addProduct() {
+    const productFormGroup = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
       price: ['', [Validators.required]],
       description: ['', [Validators.required]],
       file: [null, [Validators.required]],
     });
+
+    this.productFormArray.push(productFormGroup);
+  }
+
+  removeProduct(index: number) {
+    this.productFormArray.removeAt(index);
   }
 
   isImageFile(file: File): boolean {
@@ -42,92 +55,62 @@ export class CreateComboComponent {
     return allowedExtensions.test(file.name);
   }
 
-  onFileChange(event: any) {
+  onFileChange(event: any, index: number) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-
-      if (this.isImageFile(file)) {
-        this.selectedFile = file;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imagePreview = e.target?.result as string;
-        };
-        reader.readAsDataURL(event.target.files[0]);
+      const productFormGroup = this.productFormArray.at(index) as FormGroup | null;
+      if (productFormGroup !== null) {
+        const fileControl = productFormGroup.get('file');
+        if (fileControl) {
+          fileControl.setValue(file);
+        } else {
+          console.error('FormControl "file" not found in productFormGroup');
+        }
       } else {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: 'El archivo seleccionado no es una imagen válida.',
-          showConfirmButton: false,
-          timer: 2000
-        })
-        this.selectedFile = null;
-        this.imagePreview = null;
-      }
-    } else {
-      this.selectedFile = null;
-      this.imagePreview = null;
+  console.error('FormGroup at index is null');
+}
     }
   }
 
-  sendRequest(event: Event) {
-    event.preventDefault();
-
-    if (this.form.invalid || this.selectedFile === null) {
+  sendRequest() {
+    if (this.form.invalid || this.productFormArray.length === 0) {
       Swal.fire({
         position: 'top-end',
         icon: 'error',
-        title: 'El formulario no es válido o no se seleccionó ningún archivo',
+        title: 'El formulario no es válido o no se han agregado productos',
         showConfirmButton: false,
         timer: 1000
-      })
+      });
       return;
     }
 
-    const dto: CreateProduct = {
+    const dto = {
       name: this.form.get('name')?.value,
-      status: this.form.get('status')?.value,
-      quantity: this.form.get('quantity')?.value,
       price: this.form.get('price')?.value,
+      status: this.form.get('status')?.value,
       description: this.form.get('description')?.value,
-      categoryId: this.categoryId,
-      file: this.selectedFile
+      products: this.productFormArray.value,
     };
 
-    if (dto.price <= 0) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'No puedes guardar un producto con valor a cero o menor',
-        showConfirmButton: false,
-        timer: 1600
-      });
-      return
-    }
-
     const formData = new FormData();
-    formData.append('name', dto.name);
-    formData.append('status', dto.status);
-    formData.append('quantity', dto.quantity.toString());
-    formData.append('price', dto.price.toString());
-    formData.append('description', dto.description);
-    formData.append('categoryId', dto.categoryId.toString());
-    formData.append('file', this.selectedFile);
 
-    this.productService.createProduct(formData).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.router.navigate([`/products-category/${this.categoryId}`]);
+    formData.append('name', this.form.get('name')?.value || '');
+    formData.append('price', this.form.get('price')?.value || '');
+    formData.append('status', this.form.get('status')?.value || '');
+    formData.append('description', this.form.get('description')?.value || '');
+
+    this.comboService.createCombo(formData).subscribe({
+      next: data => {
+        console.log(data);
       },
-      error: (error) => {
+      error: error => {
         Swal.fire({
           position: 'top-end',
           icon: 'error',
           title: error,
           showConfirmButton: false,
           timer: 2600
-        })
+        });
       }
     });
   }

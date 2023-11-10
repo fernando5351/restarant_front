@@ -2,6 +2,7 @@
   <a href="#" class="btn">
       <h1>{{ product.name }}</h1>
       <img [src]='product.imgUrl' alt="arbol">
+      <h3>Cantidad {{product.quantity}}</h3>
       <p class="scrollable-content">{{ product.description }}</p>
       <h3>Precio {{ product.price | currency: 'USD'}}</h3>
   </a>

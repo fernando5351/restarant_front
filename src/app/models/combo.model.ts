@@ -3,6 +3,18 @@ export interface Combo {
   name: string;
   price: number;
   status: string;
+  productIds: [
+    {
+      id: number,
+      name: string,
+      description: string,
+      price: string,
+      quantity: string,
+      imgUrl: string,
+      status: boolean
+    }
+
+  ]
 }
 
 export interface CreateCombo extends Omit<Combo, 'id'>{}
