@@ -3,7 +3,7 @@ import { CategoryService } from 'src/app/services/category/category.service';
 import { GetCategory } from 'src/app/models/category.models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product/product.service';
-import { GetProducts } from 'src/app/models/product.model';
+import { GetProducts, Products } from 'src/app/models/product.model';
 import { GetIdService } from 'src/app/services/get-id.service';
 
 @Component({
@@ -87,12 +87,20 @@ export class GetByIdComponent {
   getRequestSearch(search: string) {
     if (search.length > 0) {
       this.productService.search(search).subscribe((finded)=> {
-        this.products = finded;
-        this.category.data.Product = this.products.data;
+        const productsArray: Products[] = [];
+
+        finded.data.forEach(prod => {
+          if (prod.categoryId === this.categoryId) {
+            productsArray.push(prod);
+          }
+        });
+
+        this.category.data.Product = productsArray;
       });
     } else {
       this.getProducts(this.category.data.id);
     }
   }
+
 
 }
