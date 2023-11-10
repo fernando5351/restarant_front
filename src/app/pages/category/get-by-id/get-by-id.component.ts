@@ -87,6 +87,9 @@ export class GetByIdComponent {
   getRequestSearch(search: string) {
     if (search.length > 0) {
       this.productService.search(search).subscribe((finded)=> {
+        finded.data.forEach(productResponse => {
+          const productCatetegory = '';
+        });
         this.products = finded;
         this.category.data.Product = this.products.data;
       });
