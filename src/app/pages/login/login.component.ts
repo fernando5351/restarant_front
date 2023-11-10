@@ -41,6 +41,8 @@ export class LoginComponent {
         next: (response) => {
           if (response.statusCode === 200) {
             this.router.navigate(['/home']);
+            // window.location.href = '/home';
+            // window.open('/home');
           } else {
             console.log(response);
           }
