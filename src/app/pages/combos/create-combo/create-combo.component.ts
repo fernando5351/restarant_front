@@ -10,13 +10,15 @@ import Swal from 'sweetalert2';
 })
 export class CreateComboComponent implements OnInit {
   form: FormGroup = new FormGroup({});
+  imagePreview: string | ArrayBuffer | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private comboService: CombosService, // Asegúrate de inyectar el servicio correcto
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeForm();
   }
 
@@ -55,20 +57,32 @@ export class CreateComboComponent implements OnInit {
     return allowedExtensions.test(file.name);
   }
 
-  onFileChange(event: any, index: number) {
+  onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      const productFormGroup = this.productFormArray.at(index) as FormGroup | null;
-      if (productFormGroup !== null) {
-        const fileControl = productFormGroup.get('file');
-        if (fileControl) {
-          fileControl.setValue(file);
-        } else {
-          console.error('FormControl "file" not found in productFormGroup');
-        }
+
+      if (this.isImageFile(file)) {
+        this.selectedFile = file;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreview = e.target?.result as string;
+        };
+        reader.readAsDataURL(event.target.files[0]);
       } else {
-  console.error('FormGroup at index is null');
-}
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'El archivo seleccionado no es una imagen válida.',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        this.selectedFile = null;
+        this.imagePreview = null;
+      }
+    } else {
+      this.selectedFile = null;
+      this.imagePreview = null;
     }
   }
 
