@@ -6,18 +6,31 @@ export interface User {
   role: {
     id: number;
     name: string;
-    status: Boolean;
+    status: string;
   };
   lastname: string;
-  status: Boolean;
-  createdAt: Date;
+  status: string;
+  createdAt: string;
+  password: string;
 }
+
+export interface CreateUser extends Omit <User,'id' | 'createdAt'>{};
 
 export interface AuthUser {
   statusCode: number;
   message: string;
   data: User;
   token: string;
+}
+
+export interface GetUser{
+  statusCode: number,
+  message: string,
+  data: User
+}
+
+export interface getUsers extends Omit<GetUser, 'data'>{
+  data:Array<User>
 }
 
 export interface getUser extends Omit<AuthUser, 'token'>{}

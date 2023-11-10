@@ -1,4 +1,10 @@
+<app-header
+  [Input]="placeholder"
+  [button]="btn"
+  [url]="url"
+  (searchChange)="searchChange($event)"
 
+></app-header>
 <div class="container">
   <app-role
     [role]="role"

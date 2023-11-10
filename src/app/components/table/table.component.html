@@ -1,12 +1,15 @@
-<div class="container">
-  <div class="con" *ngFor="let table of tables.data">
     <div class="content">
-      <h1>Mesa: {{table.number}}</h1>
-      <h3>Cantidad: {{table.quantity}}</h3>
-      <h3>Estado: {{table.status ? 'Activo' : 'Inactivo'}}</h3>
-      <img src="../../../../assets//icons/table/restaurante (1).png" alt="">
-      <button (click)="actualizarMesa(table.id)">Actualizar</button> <!-- Agregamos el evento para mostrar el formulario -->
-      <button (click)="eliminarElemento(table.id)">Eliminar</button>
+      <a href="" class="btn">
+        <h1>Mesa: {{table.number}}</h1>
+        <h2>Cantidad: {{table.quantity}}</h2>
+        <h3>Estado: {{table.status }}</h3>
+        <img src="../../../assets/icons/table/restaurante (1).png" alt="">
+      </a>
+      <app-buttons
+        [apiUrl]="request(table.id)"
+        (clickEvent)="update(table.id)"
+      >
+      </app-buttons>
     </div>
-  </div>
-</div>
+
+

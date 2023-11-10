@@ -1,8 +1,8 @@
 import { Component,Input, } from '@angular/core';
-import {GetTables, GetTable} from '../../models/table.model';
+import {Table,GetTable,GetTables} from '../../models/table.model';
 import {TableService} from '../../services/table/table.service'
 import Swal from 'sweetalert2';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,24 +12,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class TableComponent {
 
+  apiUrl = '/table';
+  url = '/table';
+  tableId: Number = 0;
+  @Input() table: Table = {
+    id: 0,
+    quantity: 0,
+    number: 0,
+    status: ''
+  }
 
-
-   tables: GetTables = {
+  tables: GetTables = {
     statusCode: 0,
-    messsage: '',
+    message: '',
     data: [
       {
         id: 0,
         quantity: 0,
         status: '',
-        number: 0,
+        number: 0
       }
     ]
   }
 
   selectedTable: GetTable = {
     statusCode: 0,
-    messsage: '',
+    message: '',
     data: {
       id: 0,
       quantity: 0,
@@ -37,68 +45,22 @@ export class TableComponent {
       number: 0,
     }
   };
-  constructor (
+
+  constructor(
     private tableService: TableService,
-    private formBuilder: FormBuilder
-    ){};
+    private router: Router
+  ){}
 
-  ngOnInit(): void {
-    this.getTables()
+  refrescarPagina() {
+    window.location.reload();
   }
 
-  getTables(){
-    this.tableService.getTable().subscribe((data)=>{
-      this.tables = data;
-      console.log(this.tables.data);
-    })
-  }
-
-  request(e: Event) {
-    e.preventDefault();
-    console.log(e);
-
-    for (const item of this.tables.data) {
-      console.log('id',item.id );
-    }
-
-  }
-
-  eliminarElemento(id: number) {
-    // Mostrar una alerta SweetAlert2 de confirmación
-    Swal.fire({
-      title: '¿Estás seguro de eliminar esta mesa?',
-      text: 'Esta acción no se puede deshacer.',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Realizar una solicitud HTTP DELETE al servidor
-        // Asegúrate de ajustar la URL de la API según tus necesidades
-        fetch(`http://localhost:3000/api/v1/table/${id}`, {
-          method: 'DELETE',
-        })
-        .then(response => {
-          if (response.status === 200) {
-            // Eliminar la mesa del arreglo en tu componente
-            this.tables.data = this.tables.data.filter(table => table.id !== id);
-            Swal.fire('Eliminado', 'La mesa ha sido eliminada.', 'success');
-          } else {
-            Swal.fire('Error', 'No se pudo eliminar la mesa.', 'error');
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          Swal.fire('Error', 'No se pudo conectar al servidor.', 'error');
-        });
-      }
-    });
+  request(id: number){
+    return `${this.apiUrl}/${id}`
   }
 
 
-
-  actualizarMesa(id: number) {
+  update(id: number) {
     // Obtener los detalles de la mesa por su ID (puedes configurar tu servicio para hacer esto)
     this.tableService.getTableById(id).subscribe((mesa) => {
       this.selectedTable = mesa;
@@ -114,8 +76,8 @@ export class TableComponent {
         html: `
           <form>
             <div class="form-group">
-              <label for="number">Número de Mesa:</label>
-              <input type="text" id=" " class="swal2-input" value="${mesaEditable.data.number}">
+              <label for="number"> Mesa:</label>
+              <input type="text" id="number" class="swal2-input" value="${mesaEditable.data.number}">
             </div>
             <div class="form-group">
               <label for="quantity">Cantidad:</label>
@@ -131,7 +93,7 @@ export class TableComponent {
           </form>
         `,
         showCancelButton: true,
-        confirmButtonText: 'Guardar Cambios',
+        confirmButtonText: 'Guardar Cambios ',
         preConfirm: () => {
           // Captura los valores de los campos en el formulario antes de confirmar
           mesaEditable.data.number = parseInt((document.getElementById('number') as HTMLInputElement).value);
@@ -142,21 +104,29 @@ export class TableComponent {
         if (result.isConfirmed) {
           // Realizar una solicitud HTTP PATCH para actualizar la mesa en el servidor
           this.tableService.patchTable(mesaEditable.data,id).subscribe((response) => {
-            if (response === 200) {
-              Swal.fire('Actualizado', 'Los cambios han sido guardados.', 'success');
+            console.log(response);
+            if (response = 200) {
+              Swal.fire('Actualizado', 'Los cambios han sido guardados.', 'success').then(() => {
+                    this.refrescarPagina()
+              });
             } else {
               Swal.fire('Error', 'No se pudo actualizar la mesa.', 'error');
             }
-          });
+          },
+          (error) =>{
+            if (error.status == 409) {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'el numero de mesa al que quieres actualizar ya existe',
+                timer: 3000
+              })
+            }
+          }
+          );
         }
       });
     });
-  }
-
-
-
-
-
-
+}
 
 }

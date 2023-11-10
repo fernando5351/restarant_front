@@ -1,4 +1,15 @@
-
+<app-header
+  [Input]="placeholder"
+  [button]="btn"
+  [url]="url"
+  (searchChange)="searchByNumber($event)"
+>
+</app-header>
+<div class="container">
   <app-table
-  ></app-table>
+    [table]="table"
+    *ngFor=" let table of tables.data"
+  >
 
+  </app-table>
+</div>

@@ -34,6 +34,9 @@ import { RoleComponent } from './components/role/role.component';
 import { TableComponent } from './components/table/table.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
+import { GetUserComponent } from './pages/user/get-user/get-user.component';
+import { CreateUserComponent } from './pages/user/create-user/create-user.component';
+import { UserComponent } from './components/user/user.component';
 import { UpdateComponent } from './pages/product/update/update.component';
 import { ComboComponent } from './components/combo/combo.component';
 import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
@@ -70,6 +73,9 @@ import { SaleComponent } from './pages/sale/sale.component';
     RoleComponent,
     TableComponent,
     HeaderComponent,
+    GetUserComponent,
+    CreateUserComponent,
+    UserComponent,
     UpdateComponent,
     ComboComponent,
     CreateComboComponent,

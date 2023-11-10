@@ -1,0 +1,16 @@
+
+  <app-header
+    [Input]="placeholder"
+    [button]="btn"
+    [url]="url"
+    (searchChange)="search($event)"
+  >
+  </app-header>
+
+  <div class="container">
+    <app-user
+      [user]="user"
+      *ngFor=" let user of users.data"
+    >
+    </app-user>
+</div>

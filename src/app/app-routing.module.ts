@@ -14,9 +14,11 @@ import { GetByIdComponent } from './pages/category/get-by-id/get-by-id.component
 import  { PatchCategoryComponent } from './pages/category/patch-category/patch-category.component';
 import { GetRoleComponent} from './pages/role/get-role/get-role.component';
 import {CreateRoleComponent} from './pages/role/create-role/create-role.component';
-import {TableComponent} from './components/table/table.component';
-
+import {GetTableComponent} from './pages/table/get-table/get-table.component';
 import { GetProductComponent } from './pages/product/get/get.component';
+import {CreateTableComponent} from './pages/table/create-table/create-table.component'
+import { CreateUserComponent} from './pages/user/create-user/create-user.component'
+import { GetUserComponent } from './pages/user/get-user/get-user.component';
 import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
 
 import { SaleComponent } from './pages/sale/sale.component';
@@ -101,7 +103,22 @@ const routes: Routes = [
   },
   {
     path: 'table',
-    component: TableComponent,
+    component: GetTableComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'create-table',
+    component: CreateTableComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'create-user',
+    component: CreateUserComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'user',
+    component: GetUserComponent,
     canActivate: [AuthGuard]
   },
   {

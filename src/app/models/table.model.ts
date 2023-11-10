@@ -9,7 +9,7 @@ export interface CreateTable extends Omit <Table ,'id'>{};
 
 export interface GetTable{
   statusCode: number,
-  messsage: string,
+  message: string,
   data: Table
 }
 

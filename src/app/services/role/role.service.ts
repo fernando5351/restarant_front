@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {GetRole,GetRoles} from '../../models/role.model';
+import {GetRole,GetRoles, Role} from '../../models/role.model';
 import {AlertService} from '../alert.service';
-import { finalize } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +33,20 @@ export class RoleService {
       );
     };
 
+    getRoleById(id: number){
+      this.loadingService.showLoading();
+      return this.http.get<GetRole>(`${this.url}/${id}`).pipe(
+        finalize(()=>{
+          this.loadingService.hideLoading();
+        })
+      );
+    }
 
-    pathcRole(dto: FormData, id: number){
+    search(name: string) {
+      return this.http.get<GetRoles>(`${this.url}/search/${name}`);
+    }
+
+    pathcRole(dto: Role, id: number){
       this.loadingService.showLoading();
       return this.http.patch(`${this.url}/${id}`, dto ).pipe(
         finalize(() => {
@@ -44,7 +56,7 @@ export class RoleService {
     };
 
 
-    deleteRole(id: number){
+    deleteRole(id: number): Observable<any>{
       this.loadingService.showLoading();
       return this.http.delete(`${this.url}/${id}`).pipe(
         finalize(() => {
