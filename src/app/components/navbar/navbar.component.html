@@ -3,17 +3,14 @@
     <li><a href="/home">Inicio</a></li>
 
     <ng-container *ngIf="role === 'Gerente';else userOptions">
-      <!-- Opciones para admin -->
-      <li><a href="/categories">Categoría</a></li>
-      <li><a href="/combos">Combos</a></li>
-      <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
+      <li><a href="/user">Usuarios</a></li>
     </ng-container>
 
     <ng-template #userOptions>
-      <!-- Opciones para usuario común -->
-      <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
     </ng-template>
-
+    <li><a href="/categories">Categoría</a></li>
+    <li><a href="/combos">Combos</a></li>
+    <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
     <li><a style="cursor: pointer;" (click)="logOut()">Cerrar Sesión</a></li>
   </ul>
 
