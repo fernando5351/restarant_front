@@ -1,15 +1,33 @@
-<div class="container">
-  <form [formGroup]="form" enctype="multipart/form-data" >
-    <div class="title-container">
-      <h1>Crear Producto</h1>
-    </div>
-    <div class="img-container">
-      <input type="file" formControlName="file" placeholder="Image" (change)="onFileChange($event)">
-      <label class="image-label">
-        <img [src]="imagePreview ? imagePreview : '../../../../assets/icons/formIcons/image.svg'" alt="imagen">
-      </label>
-    </div>
-    <div class="product-data">
-    </div>
-  </form>
-</div>
+<!-- Aquí va tu formulario para crear un combo -->
+<form [formGroup]="comboForm" enctype="multipart/form-data">
+
+  <label for="comboName">Nombre del Combo:</label>
+  <input type="text" id="comboName" formControlName="comboName" required>
+
+  <label for="comboPrice">Precio del Combo:</label>
+  <input type="number" id="comboPrice" formControlName="comboPrice" required>
+
+  <!-- Otros campos del combo según tu estructura -->
+
+  <label for="searchTerm">Buscar Productos:</label>
+  <input type="text" id="searchTerm" (input)="search(comboForm.get('selectedProduct')?.value)">
+
+  <ul *ngIf="showResults">
+    <!-- Lista de productos filtrada por el término de búsqueda -->
+    <li *ngFor="let product of products.data">
+      {{ product.name }}
+      <button type="button" (click)="onSelectProduct(product)">Agregar al Combo</button>
+    </li>
+  </ul>
+
+
+  <h2>Productos en el Combo:</h2>
+  <ul>
+    <!-- Lista de productos agregados al combo -->
+    <li *ngFor="let productId of comboForm.get('selectedProduct')?.value">
+      {{ productId.name }}
+    </li>
+  </ul>
+
+  <button type="submit" (click)="sendRequest($event)">Guardar Combo</button>
+</form>

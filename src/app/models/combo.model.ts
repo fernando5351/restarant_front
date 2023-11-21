@@ -3,21 +3,33 @@ export interface Combo {
   name: string;
   price: number;
   status: string;
-  productIds: [
-    {
-      id: number,
-      name: string,
-      description: string,
-      price: string,
-      quantity: string,
-      imgUrl: string,
-      status: boolean
-    }
-
-  ]
+  Product: Array<{
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+    status: boolean;
+    categoryId: number;
+  }>;
 }
 
-export interface CreateCombo extends Omit<Combo, 'id'>{}
+export interface CreateCombo {
+  name: string;
+  price: number;
+  status: string;
+  Product: Array<{
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+    status: boolean;
+    categoryId: number;
+  }>;
+}
+
+
 
 export interface GetCombo {
   statusCode: number;
