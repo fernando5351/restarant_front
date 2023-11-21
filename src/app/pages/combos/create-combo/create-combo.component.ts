@@ -98,7 +98,7 @@ export class CreateComboComponent implements OnInit, OnDestroy {
     const comboData: CreateCombo = {
       name: this.comboForm.get('comboName')?.value,
       price: this.comboForm.get('comboPrice')?.value,
-      status: '',
+      status: 'true',
       Product: this.comboForm.get('selectedProduct')?.value || [],
     };
 
