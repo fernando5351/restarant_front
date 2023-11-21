@@ -15,7 +15,7 @@
         </div>
       </form>
 
-      <div style="margin-inline-start: 26px;" class="sale-content">
+      <div style="margin-inline-start: 26px;" class="sale-content-title">
         <div class="img-content">
           <img src="https://assets.unileversolutions.com/recipes-v2/235485.jpg" alt="">
         </div>
@@ -36,28 +36,11 @@
             <img src="https://assets.unileversolutions.com/recipes-v2/235485.jpg" alt="">
           </div>
           <div class="product-quantity">
-            <p class="price">5</p>
+            <p class="price" id="quantity">5</p>
           </div>
           <div class="product-info">
             <p class="name">Doubble cheese</p>
-            <div class="price">$10.99</div>
-          </div>
-          <div class="sale-action">
-            <button>
-              <img class="delete-btn" src="../../../assets/icons/delete.svg" alt="">
-            </button>
-          </div>
-        </div>
-        <div class="sale-content">
-          <div class="img-content">
-            <img src="https://assets.unileversolutions.com/recipes-v2/235485.jpg" alt="">
-          </div>
-          <div class="product-quantity">
-            <p class="price">5</p>
-          </div>
-          <div class="product-info">
-            <p class="name">Doubble cheese</p>
-            <div class="price">$10.99</div>
+            <div id="price" class="price">$10.99</div>
           </div>
           <div class="sale-action">
             <button>
@@ -68,29 +51,45 @@
       </div>
     </div>
     <div class="rigth-aside">
-      <div class="sale-detail">
-        <h2>Resumen de la compra</h2>
+      <form class="sale-detail" [formGroup]="saleForm">
+        <h2>Resumen de la venta</h2>
+
+        <div class="detail-sale-content">
+          <label for="name">Nombre:</label>
+          <input class="discount-input" type="text" placeholder="Nombre del cliente" formControlName="name">
+        </div>
+
+        <div class="detail-sale-content">
+          <label for="cellphone">Celular:</label>
+          <input class="discount-input" type="text" placeholder="Celular del cliente" formControlName="cellphone">
+        </div>
+
         <div class="detail-sale-content">
           <label for="discount">Descuento</label>
-          <input class="discount-input" type="text" placeholder="Descuento" name="discount">
+          <input class="discount-input" (input)="discount()" type="number" placeholder="Descuento" formControlName="discount">
         </div>
+
         <div class="detail-sale-content">
-          <label for="discount">Sub Total</label>
-          <input class="discount-input" type="text" placeholder="Descuento" name="discount">
+          <label for="subtotal">Sub Total</label>
+          <input class="discount-input" type="text" placeholder="$0.00" formControlName="subtotal" readonly>
         </div>
+
         <div class="detail-sale-content">
-          <label for="discount">Pago con:</label>
-          <input class="discount-input" type="text" placeholder="Descuento" name="discount">
+          <label for="paymentMethod">Pago con:</label>
+          <input class="discount-input" (input)="changePayment()" type="number" placeholder="20.00" formControlName="paymentMethod">
         </div>
+
         <div class="detail-sale-content">
-          <label for="discount">Cambio</label>
-          <input class="discount-input" type="text" placeholder="Descuento" name="discount">
+          <label for="change">Cambio</label>
+          <input class="discount-input" type="text" placeholder="$2.00" formControlName="change" readonly>
         </div>
+
         <div class="detail-sale-content">
-          <label for="discount">Total</label>
-          <input class="discount-input" type="text" placeholder="Descuento" name="discount">
+          <label for="total">Total</label>
+          <input class="discount-input" type="text" placeholder="$18.00" formControlName="total" readonly>
         </div>
-      </div>
+      </form>
+
     </div>
   </div>
 </div>
