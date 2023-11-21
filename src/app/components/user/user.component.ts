@@ -30,8 +30,13 @@ export class UserComponent {
 
   }
 
-
+  //ELIMINAR
   request(id:number){
     return `${this.apiUrl}/${id}`
   }
+
+
+  //ACTUALIZAR DATOS DE USUARIO
+
+
 }

@@ -1,134 +1,145 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { CreateProduct } from 'src/app/models/product.model';
-import { ProductService } from 'src/app/services/product/product.service';
-import { Router } from '@angular/router';
-import { GetIdService } from 'src/app/services/get-id.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProductService } from '../../../services/product/product.service';
+import { GetProducts } from 'src/app/models/product.model';
+import { CombosService } from '../../../services/combos/combos.service';
+import { Subscription } from 'rxjs';
+import { CreateCombo } from '../../../models/combo.model';
 
 @Component({
   selector: 'app-create-combo',
   templateUrl: './create-combo.component.html',
   styleUrls: ['./create-combo.component.scss']
 })
-export class CreateComboComponent {
-  form: FormGroup = new FormGroup({});
-  imagePreview: string | ArrayBuffer | null = null;
-  selectedFile: File | null = null;
-  categoryId: number = 0;
+export class CreateComboComponent implements OnInit, OnDestroy {
+  productsId: number[] = []
+  products: GetProducts = {
+    statusCode: 0,
+    message: '',
+    data: [{
+      id: 0,
+      name: '',
+      description: '',
+      categoryId: 0,
+      price: 0,
+      quantity: 0,
+      status: '',
+      imgUrl: null
+    }]
+  };
+
+  comboForm: FormGroup = new FormGroup({});
+  searchSubscription: Subscription = new Subscription()
+  showResults: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
     private productService: ProductService,
-    private router: Router,
-    private getIdService: GetIdService,
+    private fb: FormBuilder,
+    private combosService: CombosService
   ) {}
 
-  ngOnInit() {
-    this.categoryId = this.getIdService.getId();
+  ngOnInit(): void {
+    this.getProducts();
+    this.initializeForm();
+  }
 
-    this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      file: [null, [Validators.required]],
+  ngOnDestroy(): void {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+  }
+
+  getProducts() {
+    this.productService.getProducts().subscribe((data) => {
+      this.products = data;
     });
   }
 
-  isImageFile(file: File): boolean {
-    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp|\.bmp|\.avif|\.tiff|\.svg)$/i;
-    return allowedExtensions.test(file.name);
+  initializeForm() {
+    this.comboForm = this.fb.group({
+      comboName: ['', Validators.required],
+      comboPrice: [0, Validators.required],
+      selectedProduct: ['']
+    });
   }
 
-  onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+  search(name: string) {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
 
-      if (this.isImageFile(file)) {
-        this.selectedFile = file;
+    if (name.length >= 2) {
+      this.searchSubscription = this.productService.search(name).subscribe((response) => {
+        this.products.data = response.data;
+      });
+    }
+    this.showResults = this.products.data.length > 0;
+  }
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imagePreview = e.target?.result as string;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-      } else {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: 'El archivo seleccionado no es una imagen válida.',
-          showConfirmButton: false,
-          timer: 2000
-        })
-        this.selectedFile = null;
-        this.imagePreview = null;
-      }
-    } else {
-      this.selectedFile = null;
-      this.imagePreview = null;
+  onSelectProduct(product: any) {
+    const selectedProduct = this.comboForm.get('selectedProduct');
+
+    const currentProducts: any[] = selectedProduct?.value || [];
+
+    if (!currentProducts.some(p => p.id === product.id)) {
+      currentProducts.push(product);
+      selectedProduct?.setValue(currentProducts);
+      this.productsId.push(product.id)
+      console.log(this.productsId + ' Array de productos');
+      console.log('Productos seleccionados:', this.comboForm.get('selectedProduct')?.value);
+      console.log('Producto agregado al combo:', product);
     }
   }
+
 
   sendRequest(event: Event) {
-    event.preventDefault();
 
-    if (this.form.invalid || this.selectedFile === null) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'El formulario no es válido o no se seleccionó ningún archivo',
-        showConfirmButton: false,
-        timer: 1000
-      })
-      return;
-    }
-
-    const dto: CreateProduct = {
-      name: this.form.get('name')?.value,
-      status: this.form.get('status')?.value,
-      quantity: this.form.get('quantity')?.value,
-      price: this.form.get('price')?.value,
-      description: this.form.get('description')?.value,
-      categoryId: this.categoryId,
-      file: this.selectedFile
+    console.log('Datos del formulario:', this.comboForm.value);
+    const comboData: CreateCombo = {
+      name: this.comboForm.get('comboName')?.value,
+      price: this.comboForm.get('comboPrice')?.value,
+      status: '',
+      Product: this.comboForm.get('selectedProduct')?.value || [],
     };
 
-    if (dto.price <= 0) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'No puedes guardar un producto con valor a cero o menor',
-        showConfirmButton: false,
-        timer: 1600
-      });
-      return
-    }
-
     const formData = new FormData();
-    formData.append('name', dto.name);
-    formData.append('status', dto.status);
-    formData.append('quantity', dto.quantity.toString());
-    formData.append('price', dto.price.toString());
-    formData.append('description', dto.description);
-    formData.append('categoryId', dto.categoryId.toString());
-    formData.append('file', this.selectedFile);
 
-    this.productService.createProduct(formData).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.router.navigate([`/products-category/${this.categoryId}`]);
+    const productsIdString = this.productsId.join(',');
+    // Agrega los campos del combo al FormData
+    formData.append('name', comboData.name);
+    formData.append('price', String(comboData.price));
+    formData.append('status', comboData.status);
+    formData.append('productIds', productsIdString);
+    formData.forEach((value,key)=>{
+      console.log("clave " + key + " valor " + value);
+    })
+
+
+     // Agrega los productos al FormData
+    // for (let i = 0; i < comboData.Product.length; i++) {
+    //   const product = comboData.Product[i];
+    //   console.log('ID del producto:', product.id);
+    //   formData.append(`Product[${i}].id`, String(product.id));
+    //   formData.append(`Product[${i}].name`, product.name);
+    //   // Agrega otros campos del producto según sea necesario
+    // }
+
+
+
+   // Envía el FormData al backend
+    this.combosService.createCombo(formData).subscribe(
+      (response: any) => {
+        if (response) {
+          console.log('Respuesta completa:', response);
+          console.log(formData);
+        } else {
+          console.error('La respuesta del servidor no contiene el ID del combo:', response);
+        }
       },
-      error: (error) => {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: error,
-          showConfirmButton: false,
-          timer: 2600
-        })
+      (error: any) => {
+        console.error('Error al crear el combo:', error);
       }
-    });
-  }
+    );
+   }
+
 }

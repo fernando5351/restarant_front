@@ -86,7 +86,7 @@ export class CreateUserComponent implements OnInit {
             showConfirmButton: true,
           })
         }
-        this.router.navigate(['/home'])
+        this.router.navigate(['/user'])
       },
       error:(error)=>{
         console.log('error', error);
