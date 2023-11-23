@@ -1,18 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../../services/product/product.service';
 import { GetProducts } from 'src/app/models/product.model';
 import { CombosService } from '../../../services/combos/combos.service';
 import { Subscription } from 'rxjs';
 import { CreateCombo } from '../../../models/combo.model';
+import { debounceTime,switchMap,of } from 'rxjs';
 
 @Component({
   selector: 'app-create-combo',
   templateUrl: './create-combo.component.html',
   styleUrls: ['./create-combo.component.scss']
 })
-export class CreateComboComponent implements OnInit, OnDestroy {
-  productsId: number[] = []
+export class CreateComboComponent implements OnInit {
+  productsId: number[] = [];
   products: GetProducts = {
     statusCode: 0,
     message: '',
@@ -29,7 +30,6 @@ export class CreateComboComponent implements OnInit, OnDestroy {
   };
 
   comboForm: FormGroup = new FormGroup({});
-  searchSubscription: Subscription = new Subscription()
   showResults: boolean = false;
 
   constructor(
@@ -43,11 +43,7 @@ export class CreateComboComponent implements OnInit, OnDestroy {
     this.initializeForm();
   }
 
-  ngOnDestroy(): void {
-    if (this.searchSubscription) {
-      this.searchSubscription.unsubscribe();
-    }
-  }
+
 
   getProducts() {
     this.productService.getProducts().subscribe((data) => {
@@ -58,42 +54,48 @@ export class CreateComboComponent implements OnInit, OnDestroy {
   initializeForm() {
     this.comboForm = this.fb.group({
       comboName: ['', Validators.required],
-      comboPrice: [0, Validators.required],
+      comboPrice: [, Validators.required],
+      status: ['Estado', Validators.required],
+      searchTerm: [''],
       selectedProduct: ['']
     });
   }
 
   search(name: string) {
-    if (this.searchSubscription) {
-      this.searchSubscription.unsubscribe();
-    }
 
-    if (name.length >= 2) {
-      this.searchSubscription = this.productService.search(name).subscribe((response) => {
-        this.products.data = response.data;
+    if (name.length >= 3) {
+       this.productService.search(name).subscribe((response) => {
+        const productosFiltrados = response.data.filter(product => product.name.toLowerCase().includes(name.toLowerCase()));
+        this.products.data = productosFiltrados;
+
       });
     }
     this.showResults = this.products.data.length > 0;
   }
+
+
+
+
+
+
+
 
   onSelectProduct(product: any) {
     const selectedProduct = this.comboForm.get('selectedProduct');
 
     const currentProducts: any[] = selectedProduct?.value || [];
 
-    if (!currentProducts.some(p => p.id === product.id)) {
+    if (!currentProducts.some((p) => p.id === product.id)) {
       currentProducts.push(product);
       selectedProduct?.setValue(currentProducts);
-      this.productsId.push(product.id)
+      this.productsId.push(product.id);
       console.log(this.productsId + ' Array de productos');
       console.log('Productos seleccionados:', this.comboForm.get('selectedProduct')?.value);
       console.log('Producto agregado al combo:', product);
     }
   }
 
-
   sendRequest(event: Event) {
-
     console.log('Datos del formulario:', this.comboForm.value);
     const comboData: CreateCombo = {
       name: this.comboForm.get('comboName')?.value,
@@ -105,28 +107,11 @@ export class CreateComboComponent implements OnInit, OnDestroy {
     const formData = new FormData();
 
     const productsIdString = this.productsId.join(',');
-    // Agrega los campos del combo al FormData
     formData.append('name', comboData.name);
     formData.append('price', String(comboData.price));
     formData.append('status', comboData.status);
     formData.append('productIds', productsIdString);
-    formData.forEach((value,key)=>{
-      console.log("clave " + key + " valor " + value);
-    })
 
-
-     // Agrega los productos al FormData
-    // for (let i = 0; i < comboData.Product.length; i++) {
-    //   const product = comboData.Product[i];
-    //   console.log('ID del producto:', product.id);
-    //   formData.append(`Product[${i}].id`, String(product.id));
-    //   formData.append(`Product[${i}].name`, product.name);
-    //   // Agrega otros campos del producto según sea necesario
-    // }
-
-
-
-   // Envía el FormData al backend
     this.combosService.createCombo(formData).subscribe(
       (response: any) => {
         if (response) {
@@ -140,6 +125,5 @@ export class CreateComboComponent implements OnInit, OnDestroy {
         console.error('Error al crear el combo:', error);
       }
     );
-   }
-
+  }
 }

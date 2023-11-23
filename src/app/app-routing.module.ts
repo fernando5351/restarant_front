@@ -20,6 +20,7 @@ import {CreateTableComponent} from './pages/table/create-table/create-table.comp
 import { CreateUserComponent} from './pages/user/create-user/create-user.component'
 import { GetUserComponent } from './pages/user/get-user/get-user.component';
 import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
+import { GetComboComponent } from './pages/combos/get-combo/get-combo.component'
 
 import { SaleComponent } from './pages/sale/sale.component';
 
@@ -57,8 +58,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'combos',
+    path: 'create-combo',
     component: CreateComboComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'combos',
+    component: GetComboComponent,
     canActivate: [AuthGuard]
   },
   {

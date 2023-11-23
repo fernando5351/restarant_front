@@ -1,33 +1,50 @@
-<!-- Aquí va tu formulario para crear un combo -->
-<form [formGroup]="comboForm" enctype="multipart/form-data">
+<div class="container">
+  <form [formGroup]="comboForm" enctype="multipart/form-data">
+    <div class="title-container">
+      <h1>Crear un Combo</h1>
+    </div>
+    <div class="combo-data">
+      <div class="label-container">
+        <label for="comboName">Nombre del Combo</label>
+      </div>
+      <input type="text" id="comboName" formControlName="comboName" placeholder="Nombre del Combo" required>
+      <div class="label-container">
+        <label for="comboPrice">Precio del Combo</label>
+      </div>
+      <input type="number" placeholder="$5.99" id="comboPrice" formControlName="comboPrice" >
+      <div class="label-container">
+        <label for="status">Estado</label>
+      </div>
+      <select id="status" formControlName="status">
+        <option>Estado</option>
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
 
-  <label for="comboName">Nombre del Combo:</label>
-  <input type="text" id="comboName" formControlName="comboName" required>
+      <!-- Otros campos del combo según tu estructura -->
 
-  <label for="comboPrice">Precio del Combo:</label>
-  <input type="number" id="comboPrice" formControlName="comboPrice" required>
+      <div class="label-container">
+        <label for="searchTerm">Buscar Productos</label>
+      </div>
+      <input placeholder="Buscar productos para el combo" type="text" id="searchTerm"  (input)="search(comboForm.get('searchTerm')?.value)">
+      <ul *ngIf="showResults">
+        <!-- Lista de productos filtrada por el término de búsqueda -->
+        <li *ngFor="let product of products.data">
+          <span class="product-name">{{ product.name }}</span>
+          <button type="button" (click)="onSelectProduct(product)">Agregar al Combo</button>
+        </li>
+      </ul>
+      <h2>Productos en el Combo</h2>
+      <ul>
+        <!-- Lista de productos agregados al combo -->
+        <li *ngFor="let productId of comboForm.get('selectedProduct')?.value">
+          {{ productId.name }}
+        </li>
+      </ul>
+    </div>
 
-  <!-- Otros campos del combo según tu estructura -->
-
-  <label for="searchTerm">Buscar Productos:</label>
-  <input type="text" id="searchTerm" (input)="search(comboForm.get('selectedProduct')?.value)">
-
-  <ul *ngIf="showResults">
-    <!-- Lista de productos filtrada por el término de búsqueda -->
-    <li *ngFor="let product of products.data">
-      {{ product.name }}
-      <button type="button" (click)="onSelectProduct(product)">Agregar al Combo</button>
-    </li>
-  </ul>
-
-
-  <h2>Productos en el Combo:</h2>
-  <ul>
-    <!-- Lista de productos agregados al combo -->
-    <li *ngFor="let productId of comboForm.get('selectedProduct')?.value">
-      {{ productId.name }}
-    </li>
-  </ul>
-
-  <button type="submit" (click)="sendRequest($event)">Guardar Combo</button>
-</form>
+      <div class="btn-container">
+        <button (click)="sendRequest($event)">Guardar Combo</button>
+      </div>
+  </form>
+</div>
