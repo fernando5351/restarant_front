@@ -10,7 +10,21 @@
           </div>
           <div class="input-group">
             <label for="" class="label-search">Buscar producto</label>
-            <input class="sale-search" type="search" style="width: 250px;">
+            <input class="sale-search" type="search" style="width: 250px;" (input)="saleProduct($event)">
+          </div>
+          <div class="prod-modal" *ngIf="showProd">
+            <div class="sale-content" style="background: #ffffff5d;">
+              <div class="img-content">
+                <img src="https://assets.unileversolutions.com/recipes-v2/235485.jpg" alt="">
+              </div>
+              <div class="product-quantity">
+                <p class="price" id="quantity">5</p>
+              </div>
+              <div class="product-info">
+                <p class="name">Doubble cheese</p>
+                <div id="price" class="price">$10.99</div>
+              </div>
+            </div>
           </div>
         </div>
       </form>

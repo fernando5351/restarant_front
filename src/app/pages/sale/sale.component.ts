@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'
+import { SaleService } from 'src/app/services/sale/sale.service';
 
 @Component({
   selector: 'app-sale',
@@ -10,8 +11,12 @@ export class SaleComponent implements OnInit {
   discountValue: number = 0;
   saleForm: FormGroup = new FormGroup({});
   show: boolean = true;
+  showProd: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private saleService: SaleService
+  ) {}
 
   ngOnInit(): void {
     this.saleForm = this.formBuilder.group({
@@ -26,9 +31,21 @@ export class SaleComponent implements OnInit {
     this.sale();
   }
 
-  saleProduct(){
-
+  saleProduct(event: Event) {
+    const name = (event.target as HTMLInputElement).value;
+    console.log(name);
+    this.saleService.search(name, true).subscribe({
+      next: Response => {
+        let prod = Response.data;
+        console.log(prod);
+        this.showProd = true;
+      },
+      error: error => {
+        console.log(error);
+      }
+    })
   }
+
 
   sale(){
     let total: number = 0;
