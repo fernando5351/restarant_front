@@ -6,25 +6,33 @@
         <div class="sale">
           <div class="input-group">
             <label for="" class="label-quantity">Cantidad</label>
-            <input type="number" style="width: 30%;" class="product-quantity">
+            <input type="number" style="width: 30%;" class="product-quantity"  (input)="quantity($event)">
           </div>
           <div class="input-group">
             <label for="" class="label-search">Buscar producto</label>
             <input class="sale-search" type="search" style="width: 250px;" (input)="saleProduct($event)">
           </div>
           <div class="prod-modal" *ngIf="showProd">
-            <div class="sale-content" style="background: #ffffff5d;">
-              <div class="img-content">
-                <img src="https://assets.unileversolutions.com/recipes-v2/235485.jpg" alt="">
+              <div class="sale-content" style="background: #ffffff5d;" *ngFor="let prod of products" (click)="onProductClick(prod)" style="cursor: pointer;">
+                <input type="hidden" [value]="prod.id">
+                <div class="img-content">
+                  <img [src]="prod.imgUrl" [alt]="prod.name">
+                </div>
+                <div class="product-info" style="margin-left: 40px;">
+                  <p class="name">{{prod.name}}</p>
+                  <div id="price" class="price">${{prod.price}}</div>
+                </div>
               </div>
-              <div class="product-quantity">
-                <p class="price" id="quantity">5</p>
-              </div>
-              <div class="product-info">
-                <p class="name">Doubble cheese</p>
-                <div id="price" class="price">$10.99</div>
-              </div>
-            </div>
+              <div class="sale-content" style="background: #ffffff5d;" *ngFor="let combo of combo" (click)="onComboClick(combo)" style="cursor: pointer;">
+               <input type="hidden" [value]="combo.id">
+               <div class="img-content">
+                 <img [src]="combo.imgUrl ?  combo.imgUrl : '../../../../assets/icons/formIcons/image.svg'" [alt]="combo.name">
+               </div>
+               <div class="product-info" style="margin-left: 40px;">
+                 <p class="name">{{combo.name}}</p>
+                 <div id="price" class="price">${{combo.price}}</div>
+               </div>
+             </div>
           </div>
         </div>
       </form>
@@ -45,19 +53,38 @@
         </div>
       </div>
       <div class="show-sale">
-        <div class="sale-content">
+        <div id="selectedProduct" class="sale-content" *ngFor="let selectedProduct of product">
+          <input type="hidden" [value]="selectedProduct.id">
           <div class="img-content">
-            <img src="https://assets.unileversolutions.com/recipes-v2/235485.jpg" alt="">
+            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../assets/icons/formIcons/image.svg'" alt="">
           </div>
           <div class="product-quantity">
-            <p class="price" id="quantity">5</p>
+            <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
           </div>
           <div class="product-info">
-            <p class="name">Doubble cheese</p>
-            <div id="price" class="price">$10.99</div>
+            <p class="name">{{selectedProduct.name}}</p>
+            <div id="price" class="price">${{selectedProduct.price}}</div>
           </div>
           <div class="sale-action">
-            <button>
+            <button (click)="delete(selectedProduct)">
+              <img class="delete-btn" src="../../../assets/icons/delete.svg" alt="">
+            </button>
+          </div>
+        </div>
+        <div id="selectedProduct" class="sale-content" *ngFor="let selectedProduct of comboSelected">
+          <input type="hidden" [value]="selectedProduct.id">
+          <div class="img-content">
+            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../assets/icons/formIcons/image.svg'" alt="">
+          </div>
+          <div class="product-quantity">
+            <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
+          </div>
+          <div class="product-info">
+            <p class="name">{{selectedProduct.name}}</p>
+            <div id="price" class="price">${{selectedProduct.price}}</div>
+          </div>
+          <div class="sale-action">
+            <button (click)="deleteCombo(selectedProduct)">
               <img class="delete-btn" src="../../../assets/icons/delete.svg" alt="">
             </button>
           </div>
@@ -102,8 +129,11 @@
           <label for="total">Total</label>
           <input class="discount-input" type="text" placeholder="$18.00" formControlName="total" readonly>
         </div>
+        <div class="detail-sale-content">
+          <button (click)="sendRequest()">Terminar venta</button>
+          <button>Venta en espera</button>
+        </div>
       </form>
-
     </div>
   </div>
 </div>
