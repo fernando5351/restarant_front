@@ -3,6 +3,7 @@ export interface Combo {
   name: string;
   price: number;
   status: string;
+  imgUrl?: File | null;
   Product: Array<{
     id: number;
     name: string;

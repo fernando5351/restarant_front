@@ -81,6 +81,15 @@
   flex-wrap: wrap;
 }
 
+.prod-container {
+  display: flex;
+  width: 95%;
+  height: 100px;
+  z-index: 99999;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .show-sale {
   width: 100%;
   height: 50%;
