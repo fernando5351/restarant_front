@@ -61,23 +61,22 @@ export class CreateComboComponent implements OnInit {
     });
   }
 
-  search(name: string) {
 
-    if (name.length >= 3) {
+  search(event: Event ) {
+    const name = (event.target as HTMLInputElement).value;
+    console.log(name,' este es el name');
+    if (name.length >=1) {
        this.productService.search(name).subscribe((response) => {
-        const productosFiltrados = response.data.filter(product => product.name.toLowerCase().includes(name.toLowerCase()));
+        const productosFiltrados = response.data
         this.products.data = productosFiltrados;
-
+        this.showResults = this.products.data.length > 0;
       });
+    } else {
+      this.products.data = []
+      this.showResults = false;
     }
-    this.showResults = this.products.data.length > 0;
+
   }
-
-
-
-
-
-
 
 
   onSelectProduct(product: any) {
@@ -93,6 +92,20 @@ export class CreateComboComponent implements OnInit {
       console.log('Productos seleccionados:', this.comboForm.get('selectedProduct')?.value);
       console.log('Producto agregado al combo:', product);
     }
+  }
+
+  onRemoveProduct(product: any) {
+    const selectedProduct = this.comboForm.get('selectedProduct');
+
+    const currentProducts: any[] = selectedProduct?.value || [];
+
+    const updatedProducts = currentProducts.filter((p) => p.id !== product.id);
+
+    selectedProduct?.setValue(updatedProducts);
+    this.productsId = updatedProducts.map((p) => p.id);
+
+    console.log('Producto eliminado del combo:', product);
+    console.log('Productos seleccionados:', this.comboForm.get('selectedProduct')?.value);
   }
 
   sendRequest(event: Event) {

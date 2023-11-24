@@ -4,3 +4,13 @@
   [url]="url"
 >
 </app-header>
+
+<div class="container">
+  <div class="title-container">
+    <h1>Combos</h1>
+  </div>
+  <app-combo
+    [combo]="combo"
+    *ngFor=" let combo of combos.data"
+  ></app-combo>
+</div>

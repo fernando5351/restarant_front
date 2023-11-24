@@ -4,7 +4,7 @@ import { AlertService } from '../alert.service';
 import { GetProducts } from 'src/app/models/product.model';
 import { environment } from 'src/environments/environment';
 import { finalize } from 'rxjs';
-import { GetCombo } from 'src/app/models/combo.model';
+import { GetCombo, GetCombos } from 'src/app/models/combo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class CombosService {
 
   getCombos(){
     this.loadingService.showLoading();
-    return this.http.get<GetProducts>(`${this.url}`).pipe(
+    return this.http.get<GetCombos>(`${this.url}`).pipe(
       finalize( ()=> {
         this.loadingService.hideLoading();
       })

@@ -3,11 +3,7 @@ import {getUsers} from '../../../models/user.model';
 import {GetRoles} from  '../../../models/role.model';
 import {RoleService} from '../../../services/role/role.service';
 import {UserService} from '../../../services/user/user.service';
-import Swal from 'sweetalert2';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-
 
 @Component({
   selector: 'app-get-user',

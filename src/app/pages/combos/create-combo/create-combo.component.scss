@@ -1,10 +1,33 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas, una para el formulario y otra para la lista de productos */
+  grid-gap: 20px; /* Espacio entre las columnas */
   width: 100%;
   height: calc(100vh - 45px);
 }
+
+.combo-form-container {
+  width: 40%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.products-container {
+  width: 30%;
+  height: 60%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items:normal;
+  justify-content: center;
+  padding: 10px;
+}
+
 
 .container > form {
   width: 80%;
@@ -92,6 +115,7 @@
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .btn-container {

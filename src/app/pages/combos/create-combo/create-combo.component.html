@@ -26,19 +26,12 @@
       <div class="label-container">
         <label for="searchTerm">Buscar Productos</label>
       </div>
-      <input placeholder="Buscar productos para el combo" type="text" id="searchTerm"  (input)="search(comboForm.get('searchTerm')?.value)">
+      <input placeholder="Buscar productos" type="text" id="searchTerm"  (input)="search($event)">
       <ul *ngIf="showResults">
         <!-- Lista de productos filtrada por el término de búsqueda -->
         <li *ngFor="let product of products.data">
           <span class="product-name">{{ product.name }}</span>
           <button type="button" (click)="onSelectProduct(product)">Agregar al Combo</button>
-        </li>
-      </ul>
-      <h2>Productos en el Combo</h2>
-      <ul>
-        <!-- Lista de productos agregados al combo -->
-        <li *ngFor="let productId of comboForm.get('selectedProduct')?.value">
-          {{ productId.name }}
         </li>
       </ul>
     </div>
@@ -47,4 +40,19 @@
         <button (click)="sendRequest($event)">Guardar Combo</button>
       </div>
   </form>
+  <div class="products-container">
+    <div class="title-container">
+      <h1>Productos en el Combo</h1>
+    </div>
+    <div class="combo-data">
+      <ul>
+        <!-- Lista de productos agregados al combo -->
+        <li *ngFor="let product of comboForm.get('selectedProduct')?.value">
+          <span class="product-name">{{ product.name }}</span>
+          <button type="button" (click)="onRemoveProduct(product)">Quitar del Combo</button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
+
