@@ -2,6 +2,7 @@ export interface SaleModel {
   id: number;
   client: string;
   total: number;
+  subTotal: number;
   idMesa?: number;
   discount: number;
   productIds: Array<number>;

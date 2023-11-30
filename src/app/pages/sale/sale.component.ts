@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { Combo } from 'src/app/models/combo.model';
 import { Products } from 'src/app/models/product.model';
 import { SaleInsert } from 'src/app/models/sale.model';
+import { PrintsaleService } from 'src/app/services/printsale/printsale.service';
 import { SaleService } from 'src/app/services/sale/sale.service';
+//import png from 'src/assets/bamboo.png';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sale',
@@ -20,6 +23,9 @@ export class SaleComponent implements OnInit {
   selectedProduct: any;
   isSelectedProduct: boolean = false;
   productQuantity: number = 1;
+  comboQuantity: number = 1;
+
+  img: any = '';
 
   combos: number[] = [];
   combosQuantiy: number[] = [];
@@ -55,7 +61,10 @@ export class SaleComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private saleService: SaleService
+    private saleService: SaleService,
+    private el: ElementRef,
+    private renderer: Renderer2,
+    private printSaleService: PrintsaleService
   ) {}
 
   ngOnInit(): void {
@@ -118,8 +127,11 @@ export class SaleComponent implements OnInit {
   delete(prod: any) {
     const newArray = this.product.filter((product: any) => product !== prod);
 
-    this.productsSelected.push(this.selectedProduct.id);
-    this.productsQuantity.push(this.selectedProduct.quantity);
+    let index = this.productsSelected.findIndex((item) => item === prod.id);
+    this.productsSelected.splice(index, 1);
+
+    let indexQuantity = this.productsQuantity.findIndex((item) => item === prod.quantity);
+    this.productsQuantity.splice(indexQuantity, 1);
 
     this.product = newArray;
     setTimeout(() => {
@@ -131,16 +143,11 @@ export class SaleComponent implements OnInit {
     const newArray = this.comboSelected.filter((product: any) => product !== prod);
     this.comboSelected = newArray;
 
-    console.log(prod);
-    let newCombos = this.combos.filter((getCombo: any) => getCombo.id !== prod.id);
-    console.log(newCombos + ' => new combos id');
-    console.log(this.combos + ' => combos id');
-    this.combos = newCombos;
+    let index = this.combo.findIndex((item) => item === prod.id);
+    this.combo.splice(index, 1);
 
-    let newCombosQuantity = this.combosQuantiy.filter((getCombo: any) => getCombo.id !== prod.quantity);
-    console.log(newCombosQuantity + ' => new combos qantity');
-    console.log(this.combosQuantiy + ' => combos qantity');
-    this.combosQuantiy = newCombosQuantity;
+    let indexQuantity = this.combosQuantiy.findIndex((item) => item === prod.quantity);
+    this.combosQuantiy.splice(indexQuantity, 1);
 
     setTimeout(() => {
       this.sale();
@@ -252,18 +259,27 @@ export class SaleComponent implements OnInit {
       alert("Hay posibles errores, como campos vacios");
       return;
     }
+    if (this.saleForm.get('subtotal')?.value == "$0.00") {
+      alert("Hay posibles errores, como campos vacios");
+      return;
+    }
 
     const name = this.saleForm.get('name')?.value;
-    const cellphone = this.saleForm.get('cellphone')?.value;
-    const discount = this.saleForm.get('discount')?.value;
-    const subtotal = this.saleForm.get('subtotal')?.value;
+    const cellphone = Number(this.saleForm.get('cellphone')?.value);
+    const discount = Number(this.saleForm.get('discount')?.value);
+    let subTotal = (this.saleForm.get('subtotal')?.value);
+    subTotal = subTotal.replace('$', '');
+    subTotal = parseFloat(subTotal);
     const paymentMethod = this.saleForm.get('paymentMethod')?.value;
     const change = this.saleForm.get('change')?.value;
-    const total = this.saleForm.get('total')?.value;
+    let total = (this.saleForm.get('total')?.value);
+    total = total.replace('$', '');
+    total = parseFloat(total);
 
     const dto: SaleInsert = {
       client: name,
       total: total,
+      subTotal,
       discount: discount,
       status: true,
       cellphone: cellphone,
@@ -278,6 +294,14 @@ export class SaleComponent implements OnInit {
     this.saleService.create(dto).subscribe({
       next: (response) => {
         console.log(response);
+        this.combos = [];
+        this.combosQuantiy = [];
+        this.productsSelected = [];
+        this.productsQuantity = [];
+        this.product = [];
+        this.comboSelected = [];
+        this.imprimirTicket(response.data);
+        window.location.reload();
       },
       error: (error) => {
         console.log(error);
@@ -285,4 +309,180 @@ export class SaleComponent implements OnInit {
     });
 
   }
+
+async imprimirTicket(ventaInfo: any) {
+
+  const horaActual = new Date();
+  const day = horaActual.getDate();
+  const month = horaActual.getMonth();
+  const year = horaActual.getFullYear();
+  const horas = horaActual.getHours();
+  const minutos = horaActual.getMinutes();
+
+  const ampm = horas >= 12 ? 'PM' : 'AM';
+  const horas12 = horas % 12 || 12;
+  const hora = `${horas12}:${minutos < 10 ? '0' : ''}${minutos} ${ampm}`;
+
+  const doc = this.renderer.createElement('div');
+
+  doc.innerHTML = `
+  <style>
+    :root {
+      --width: 95%;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+    }
+
+    .ticket {
+      width: 400px;
+      height: max-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .img-sale-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    .img-sale-container, img {
+      width: 330px;
+      height: 110px;
+      margin-top: -60px;
+    }
+
+    .info-container {
+      width: var(--width);
+      height: max-content;
+      margin-top: 27px;
+      margin-bottom: 10px;
+    }
+
+    .client-container {
+      width: var(--width);
+      height: max-content;
+      margin-bottom: 10px;
+    }
+
+    .sale-title {
+      width: var(--width);
+      height: max-content;
+      display: flex;
+      justify-content: center;
+    }
+
+    .table-sale {
+      width: var(--width);
+      border-collapse: collapse;
+    }
+
+    .thead-sale {
+      font-weight: 500;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+    }
+
+    th, td {
+      width: 25%;
+      text-align: left;
+      vertical-align: top;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .tbody-sale{
+      border-bottom: 2px solid black;
+    }
+
+    .time-container {
+      width: var(--width);
+      height: max-content;
+      margin-top: 25px;
+    }
+  </style>
+  <div class="ticket">
+    <div class="img-sale-container">
+      <img src="/assets/bamboo.svg" style="width: 320px; height:320px">
+    </div>
+    <div class="info-container">
+      <p>Telefono: 6860-9643</p>
+      <p>Direccion: Col. La bendición, sobre la carretera, San Julian, Sonsonate</p>
+      <p>Mesero: Juan Valdez</p>
+    </div>
+    <div class="client-container">
+      <p>Cliente: ${ventaInfo.client}</p>
+      <p>Teléfono: ${ventaInfo.cellphone}</p>
+    </div>
+    <div class="sale-title">
+      <h4>Detalle de venta</h4>
+    </div>
+    <table class="table-sale">
+        <thead class="thead-sale">
+          <tr>
+            <td>Cantidad</td>
+            <td>Producto</td>
+            <td>Total Gravado</td>
+          </tr>
+        </thead>
+        <tbody class="tbody-sale">
+            ${ventaInfo.SaleProducts.map((producto: any) => `
+              <tr>
+                <td>${producto.SaleProduct.quantity}</td>
+                <td>${producto.name}</td>
+                <td>$${(producto.price * producto.SaleProduct.quantity).toFixed(2)}</td>
+              </tr>
+            `)}
+            ${ventaInfo.SaleCombo.map((combo: any) => {`
+              <tr>
+                <td>${combo.SaleProduct.quantity}</td>
+                <td>${combo.name}</td>
+                <td>${(combo.price * combo.SaleProduct.quantity).toFixed(2)}</td>
+              </tr>
+            `})}
+        </tbody>
+        <tr>
+          <td></td>
+          <td>Subtotal:</td>
+          <td>$${ventaInfo.subTotal}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Descuento:</td>
+          <td>$${(ventaInfo.discount * ventaInfo.total)/100}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Total:</td>
+          <td>$${ventaInfo.total}</td>
+        </tr>
+    </table>
+    <div class="time-container">
+      <p>Visita: ${hora} - ${day}/${month}/${year}</p>
+    </div>
+  </div>
+  `;
+
+  const body = this.el.nativeElement.ownerDocument.body;
+
+  this.renderer.appendChild(body, doc);
+
+  const ventanaEmergente = window.open('', 'about:blank', 'width=800,height=600');
+
+  await ventanaEmergente?.document.write(doc.innerHTML.trimEnd());
+
+  setTimeout(() => {
+    ventanaEmergente?.print();
+    ventanaEmergente?.close();
+  }, 3500);
+}
+
 }
