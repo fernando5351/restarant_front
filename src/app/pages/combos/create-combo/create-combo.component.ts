@@ -5,7 +5,8 @@ import { GetProducts } from 'src/app/models/product.model';
 import { CombosService } from '../../../services/combos/combos.service';
 import { Subscription } from 'rxjs';
 import { CreateCombo } from '../../../models/combo.model';
-import { debounceTime,switchMap,of } from 'rxjs';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-combo',
@@ -35,6 +36,7 @@ export class CreateComboComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
+    private router: Router,
     private combosService: CombosService
   ) {}
 
@@ -56,7 +58,6 @@ export class CreateComboComponent implements OnInit {
       comboName: ['', Validators.required],
       comboPrice: [, Validators.required],
       status: ['Estado', Validators.required],
-      searchTerm: [''],
       selectedProduct: ['']
     });
   }
@@ -127,15 +128,28 @@ export class CreateComboComponent implements OnInit {
 
     this.combosService.createCombo(formData).subscribe(
       (response: any) => {
-        if (response) {
-          console.log('Respuesta completa:', response);
-          console.log(formData);
-        } else {
+        if (response.statusCode = 201) {
+         Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Combo creado con exito',
+          showCancelButton: true
+         })
+        }
+         else {
           console.error('La respuesta del servidor no contiene el ID del combo:', response);
         }
+        this.router.navigate(['/combos'])
       },
       (error: any) => {
-        console.error('Error al crear el combo:', error);
+        if (error.status = 400) {
+          Swal.fire({
+            position: 'center',
+            title: 'Algo salio mal, verifica que envias los datos correctamente',
+            icon: 'warning',
+            timer: 2000
+          })
+        }
       }
     );
   }

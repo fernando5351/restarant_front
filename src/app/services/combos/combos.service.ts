@@ -35,7 +35,11 @@ export class CombosService {
     )
   }
 
-  getCombo(id: number) {
+  search(name: string){
+    return this.http.get<GetCombos>(`${this.url}/search/${name}`)
+  }
+
+  getComboById(id: number) {
     this.loadingService.showLoading();
     return this.http.get<GetCombo>(`${this.url}/${id}`).pipe(
       finalize(()=> {

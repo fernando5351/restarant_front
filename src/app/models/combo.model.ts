@@ -10,7 +10,8 @@ export interface Combo {
     description: string;
     price: number;
     quantity: number;
-    status: boolean;
+    imgUrl: File | null;
+    status: string;
     categoryId: number;
   }>;
 }
@@ -29,6 +30,23 @@ export interface CreateCombo {
     categoryId: number;
   }>;
 }
+
+
+export interface UpdateCombo {
+  name?: string;
+  price?: number;
+  status?: string;
+  products?: Array<{
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+    status: boolean;
+    categoryId: number;
+  }>;
+}
+
 
 
 

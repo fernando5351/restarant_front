@@ -16,6 +16,13 @@ export interface User {
 
 export interface CreateUser extends Omit <User,'id' | 'createdAt'>{};
 
+export interface UpdateUser {
+  name: string;
+  lastname: string;
+  status: string;
+  idRole: number;
+}
+
 export interface AuthUser {
   statusCode: number;
   message: string;
@@ -28,6 +35,7 @@ export interface GetUser{
   message: string,
   data: User
 }
+
 
 export interface getUsers extends Omit<GetUser, 'data'>{
   data:Array<User>

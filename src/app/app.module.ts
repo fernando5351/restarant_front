@@ -42,6 +42,7 @@ import { ComboComponent } from './components/combo/combo.component';
 import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
 import { GetComboComponent } from './pages/combos/get-combo/get-combo.component';
 import { SaleComponent } from './pages/sale/sale.component';
+import { PatchComboComponent } from './pages/combos/patch-combo/patch-combo.component';
 
 
 
@@ -81,6 +82,7 @@ import { SaleComponent } from './pages/sale/sale.component';
     CreateComboComponent,
     GetComboComponent,
     SaleComponent,
+    PatchComboComponent,
   ],
   imports: [
     BrowserModule,
