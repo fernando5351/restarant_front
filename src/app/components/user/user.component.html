@@ -1,3 +1,4 @@
+
 <div class="content">
   <div class="user-info">
     <img src="'../../../../../assets/icons/user/user.png" alt="">
@@ -9,6 +10,7 @@
   <div class="buttons-container">
     <app-buttons
       [apiUrl]="request(user.id)"
+      (clickEvent)="update(user.id)"
     ></app-buttons>
   </div>
 </div>

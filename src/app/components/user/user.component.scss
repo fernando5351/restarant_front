@@ -11,7 +11,16 @@ div.content {
   border-radius: 5px;
   overflow: hidden;
 }
+.title-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
+.title-container > h1 {
+  font-family: 'Kalam', sans-serif;
+  color: #fff;
+}
 .user-info {
   padding: 10px;
 }

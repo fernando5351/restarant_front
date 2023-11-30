@@ -1,1 +1,17 @@
-<p>get-combo works!</p>
+<app-header
+  [Input]="placeholder"
+  [button]="btn"
+  [url]="url"
+  (searchChange)="onSearchChange($event)"
+>
+</app-header>
+
+<div class="container">
+  <div class="title-container">
+    <h1>Combos</h1>
+  </div>
+  <app-combo
+    [combo]="combo"
+    *ngFor=" let combo of combos.data"
+  ></app-combo>
+</div>

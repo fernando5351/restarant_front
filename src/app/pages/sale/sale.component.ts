@@ -53,8 +53,9 @@ export class SaleComponent implements OnInit {
       description: '',
       price: 0,
       quantity: 0,
-      status: false,
-      categoryId: 0
+      status: '',
+      categoryId: 0,
+      imgUrl: null
     }],
     status: ''
   }];
@@ -63,8 +64,7 @@ export class SaleComponent implements OnInit {
     private formBuilder: FormBuilder,
     private saleService: SaleService,
     private el: ElementRef,
-    private renderer: Renderer2,
-    private printSaleService: PrintsaleService
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {

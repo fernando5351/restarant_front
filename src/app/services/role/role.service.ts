@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {GetRole,GetRoles, Role} from '../../models/role.model';
+
 import {AlertService} from '../alert.service';
 import { Observable, finalize } from 'rxjs';
 
@@ -46,7 +47,7 @@ export class RoleService {
       return this.http.get<GetRoles>(`${this.url}/search/${name}`);
     }
 
-    pathcRole(dto: Role, id: number){
+    pathcRole(dto: Role, id: number): Observable<any> {
       this.loadingService.showLoading();
       return this.http.patch(`${this.url}/${id}`, dto ).pipe(
         finalize(() => {

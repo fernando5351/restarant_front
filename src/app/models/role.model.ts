@@ -12,6 +12,12 @@ export interface GetRole {
   data: Role
 }
 
+export interface UpdateRole {
+  name: string,
+  status: string
+}
+
+
 export interface GetRoles extends Omit<GetRole, 'data'>{
   data: Array<Role>
 }

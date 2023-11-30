@@ -78,7 +78,7 @@ export class CreateUserComponent implements OnInit {
     this.userService.createUser(formData).subscribe({
       next:(response) =>{
         console.log(response);
-        if (response.statusCode === 201) {
+        if (response.statusCode = 201) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
