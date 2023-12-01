@@ -32,6 +32,7 @@ import { CreateTableComponent } from './pages/table/create-table/create-table.co
 import { PatchTableComponent } from './pages/table/patch-table/patch-table.component';
 import { RoleComponent } from './components/role/role.component';
 import { TableComponent } from './components/table/table.component';
+import { SaleComponentApi } from './components/sale/sale.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
 import { GetUserComponent } from './pages/user/get-user/get-user.component';
@@ -41,9 +42,11 @@ import { UpdateComponent } from './pages/product/update/update.component';
 import { ComboComponent } from './components/combo/combo.component';
 import { CreateComboComponent } from './pages/combos/create-combo/create-combo.component';
 import { GetComboComponent } from './pages/combos/get-combo/get-combo.component';
+import { GetSaleComponent } from './pages/sales/get/get.component';
 import { SaleComponent } from './pages/sale/sale.component';
 import { PrintSaleComponent } from './components/print-sale/print-sale.component';
 import { PatchComboComponent } from './pages/combos/patch-combo/patch-combo.component';
+import { PatchComponent } from './pages/sales/patch/patch.component';
 
 
 
@@ -85,6 +88,9 @@ import { PatchComboComponent } from './pages/combos/patch-combo/patch-combo.comp
     SaleComponent,
     PrintSaleComponent,
     PatchComboComponent,
+    PatchComponent,
+    GetSaleComponent,
+    SaleComponentApi
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,6 @@
+import { Combo } from "./combo.model";
+import { Products } from "./product.model";
+
 export interface SaleModel {
   id: number;
   client: string;
@@ -12,6 +15,8 @@ export interface SaleModel {
   comboQuantity: Array<number>;
   status: boolean;
   createdAt: string;
+  SaleCombo?: Combo[];
+  SaleProducts?: Products[];
 }
 
 export interface SaleResponse {

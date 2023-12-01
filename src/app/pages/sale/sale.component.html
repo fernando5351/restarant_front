@@ -95,18 +95,23 @@
         <h2>Resumen de la venta</h2>
 
         <div class="detail-sale-content">
-          <label for="name">Nombre:</label>
+          <label for="name">Cliente:</label>
           <input class="discount-input" type="text" placeholder="Nombre del cliente" formControlName="name" value="Isaac Fernando">
         </div>
 
         <div class="detail-sale-content">
           <label for="cellphone">Celular:</label>
-          <input class="discount-input" type="text" placeholder="Celular del cliente" formControlName="cellphone">
+          <input class="discount-input" type="number" placeholder="Celular del cliente" formControlName="cellphone">
         </div>
 
         <div class="detail-sale-content">
           <label for="discount">Descuento</label>
           <input class="discount-input" (input)="discount()" type="number" placeholder="Descuento" formControlName="discount">
+        </div>
+
+        <div class="detail-sale-content">
+          <label for="discount">Mesero</label>
+          <input class="discount-input" type="string" placeholder="Mesero" formControlName="mesero">
         </div>
 
         <div class="detail-sale-content">
@@ -116,21 +121,21 @@
 
         <div class="detail-sale-content">
           <label for="paymentMethod">Pago con:</label>
-          <input class="discount-input" (input)="changePayment()" type="number" placeholder="20.00" formControlName="paymentMethod">
+          <input class="discount-input" (input)="changePayment()" type="number" placeholder="0.00" formControlName="paymentMethod">
         </div>
 
         <div class="detail-sale-content">
           <label for="change">Cambio</label>
-          <input class="discount-input" type="text" placeholder="$2.00" formControlName="change" readonly>
+          <input class="discount-input" type="text" placeholder="$0.00" formControlName="change" readonly>
         </div>
 
         <div class="detail-sale-content">
           <label for="total">Total</label>
-          <input class="discount-input" type="text" placeholder="$18.00" formControlName="total" readonly>
+          <input class="discount-input" type="text" placeholder="$0.00" formControlName="total" readonly>
         </div>
         <div class="detail-sale-content">
           <button (click)="sendRequest()">Terminar venta</button>
-          <button>Venta en espera</button>
+          <button (click)="saleInStop()">Venta en espera</button>
         </div>
       </form>
     </div>
