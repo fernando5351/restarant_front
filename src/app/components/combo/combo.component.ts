@@ -22,9 +22,10 @@ export class ComboComponent {
       name: '',
       description: '',
       price: 0,
-      status: true,
+      status: '',
       quantity: 0,
-      categoryId: 0
+      categoryId: 0,
+      imgUrl: null
     }]
   }
 

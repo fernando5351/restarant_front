@@ -3,10 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { Combo } from 'src/app/models/combo.model';
 import { Products } from 'src/app/models/product.model';
 import { SaleInsert } from 'src/app/models/sale.model';
-import { PrintsaleService } from 'src/app/services/printsale/printsale.service';
 import { SaleService } from 'src/app/services/sale/sale.service';
 //import png from 'src/assets/bamboo.png';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sale',
@@ -283,9 +281,9 @@ export class SaleComponent implements OnInit {
       discount: discount,
       status: true,
       cellphone: cellphone,
-      comboIds: this.combos,
+      comboArray: this.combos,
       comboQuantity: this.combosQuantiy,
-      productIds: this.productsSelected,
+      productArray: this.productsSelected,
       quantity: this.productsQuantity
     }
 
@@ -301,7 +299,15 @@ export class SaleComponent implements OnInit {
         this.product = [];
         this.comboSelected = [];
         this.imprimirTicket(response.data);
-        window.location.reload();
+        this.saleForm = this.formBuilder.group({
+          name: ['', [Validators.required]],
+          cellphone: [''],
+          discount: [''],
+          subtotal: ['', [Validators.required]],
+          paymentMethod: [''],
+          change: [''],
+          total: ['', [Validators.required]],
+        });
       },
       error: (error) => {
         console.log(error);
@@ -441,13 +447,13 @@ async imprimirTicket(ventaInfo: any) {
                 <td>$${(producto.price * producto.SaleProduct.quantity).toFixed(2)}</td>
               </tr>
             `)}
-            ${ventaInfo.SaleCombo.map((combo: any) => {`
+            ${ventaInfo.SaleCombo.map((producto: any) => `
               <tr>
-                <td>${combo.SaleProduct.quantity}</td>
-                <td>${combo.name}</td>
-                <td>${(combo.price * combo.SaleProduct.quantity).toFixed(2)}</td>
+                <td>${producto.SaleProduct.quantity}</td>
+                <td>${producto.name}</td>
+                <td>$${(producto.price * producto.SaleProduct.quantity).toFixed(2)}</td>
               </tr>
-            `})}
+            `)}
         </tbody>
         <tr>
           <td></td>
@@ -457,7 +463,7 @@ async imprimirTicket(ventaInfo: any) {
         <tr>
           <td></td>
           <td>Descuento:</td>
-          <td>$${(ventaInfo.discount * ventaInfo.total)/100}</td>
+          <td>$${((ventaInfo.discount * ventaInfo.total)/100).toFixed(2)}</td>
         </tr>
         <tr>
           <td></td>
