@@ -12,7 +12,12 @@ export interface Combo {
     quantity: number;
     imgUrl: File | null;
     status: string;
-    categoryId: number;
+    categoryId: number;SaleProduct?: {
+      saleId: number;
+      productId: number;
+      comboId: number;
+      quantity: number
+    },
   }>;
 }
 
@@ -46,9 +51,6 @@ export interface UpdateCombo {
     categoryId: number;
   }>;
 }
-
-
-
 
 export interface GetCombo {
   statusCode: number;

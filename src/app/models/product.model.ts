@@ -7,6 +7,12 @@ export interface Product {
   file: unknown;
   quantity: number;
   categoryId: number;
+  SaleProduct?: {
+    saleId: number;
+    productId: number;
+    comboId: number;
+    quantity: number
+  },
 }
 
 export interface CreateProduct extends Omit<Product, 'id'>{}

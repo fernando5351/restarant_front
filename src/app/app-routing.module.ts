@@ -25,6 +25,8 @@ import {PatchComboComponent} from './pages/combos/patch-combo/patch-combo.compon
 
 
 import { SaleComponent } from './pages/sale/sale.component';
+import { GetSaleComponent } from './pages/sales/get/get.component';
+import { PatchComponent } from './pages/sales/patch/patch.component';
 
 
 const routes: Routes = [
@@ -137,6 +139,16 @@ const routes: Routes = [
   {
     path: 'venta',
     component: SaleComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'venta/status/espera',
+    component: GetSaleComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'venta/continuar/:id',
+    component: PatchComponent,
     canActivate: [AuthGuard]
   }
 ];

@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms'
+import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms'
 import { Combo } from 'src/app/models/combo.model';
 import { Products } from 'src/app/models/product.model';
 import { SaleInsert } from 'src/app/models/sale.model';
@@ -69,6 +69,7 @@ export class SaleComponent implements OnInit {
     this.saleForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       cellphone: [''],
+      mesero: [''],
       discount: [''],
       subtotal: ['', [Validators.required]],
       paymentMethod: [''],
@@ -97,6 +98,8 @@ export class SaleComponent implements OnInit {
     this.productsSelected.push(this.selectedProduct.id);
     this.productsQuantity.push(this.selectedProduct.quantity);
     this.product.push(this.selectedProduct);
+    console.log(this.productsSelected);
+    console.log(this.productsQuantity);
 
     setTimeout(() => {
       this.sale();
@@ -116,6 +119,8 @@ export class SaleComponent implements OnInit {
     this.comboSelected.push(this.selectedProduct)
     this.combos.push(this.selectedProduct.id);
     this.combosQuantiy.push(this.selectedProduct.quantity);
+    console.log(this.combos);
+    console.log(this.combosQuantiy);
 
     setTimeout(() => {
       this.sale();
@@ -268,8 +273,6 @@ export class SaleComponent implements OnInit {
     let subTotal = (this.saleForm.get('subtotal')?.value);
     subTotal = subTotal.replace('$', '');
     subTotal = parseFloat(subTotal);
-    const paymentMethod = this.saleForm.get('paymentMethod')?.value;
-    const change = this.saleForm.get('change')?.value;
     let total = (this.saleForm.get('total')?.value);
     total = total.replace('$', '');
     total = parseFloat(total);
@@ -286,8 +289,6 @@ export class SaleComponent implements OnInit {
       productArray: this.productsSelected,
       quantity: this.productsQuantity
     }
-
-    console.log(dto);
 
     this.saleService.create(dto).subscribe({
       next: (response) => {
@@ -308,6 +309,67 @@ export class SaleComponent implements OnInit {
           change: [''],
           total: ['', [Validators.required]],
         });
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+
+  }
+
+  saleInStop(){
+    if (this.saleForm.invalid) {
+      alert("Hay posibles errores, como campos vacios");
+      return;
+    }
+    if (this.saleForm.get('subtotal')?.value == "$0.00") {
+      alert("Hay posibles errores, como campos vacios");
+      return;
+    }
+
+    const name = this.saleForm.get('name')?.value;
+    const cellphone = Number(this.saleForm.get('cellphone')?.value);
+    const discount = Number(this.saleForm.get('discount')?.value);
+    let subTotal = (this.saleForm.get('subtotal')?.value);
+    subTotal = subTotal.replace('$', '');
+    subTotal = parseFloat(subTotal);
+    let total = (this.saleForm.get('total')?.value);
+    total = total.replace('$', '');
+    total = parseFloat(total);
+
+    const dto: SaleInsert = {
+      client: name,
+      total: total,
+      subTotal,
+      discount: discount,
+      status: false,
+      cellphone: cellphone,
+      comboArray: this.combos,
+      comboQuantity: this.combosQuantiy,
+      productArray: this.productsSelected,
+      quantity: this.productsQuantity
+    }
+
+    this.saleService.create(dto).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.combos = [];
+        this.combosQuantiy = [];
+        this.productsSelected = [];
+        this.productsQuantity = [];
+        this.product = [];
+        this.comboSelected = [];
+        this.saleForm = this.formBuilder.group({
+          name: ['', [Validators.required]],
+          cellphone: [''],
+          mesero: [''],
+          discount: [''],
+          subtotal: ['', [Validators.required]],
+          paymentMethod: [''],
+          change: [''],
+          total: ['', [Validators.required]],
+        });
+        window.location.reload();
       },
       error: (error) => {
         console.log(error);
@@ -422,11 +484,11 @@ async imprimirTicket(ventaInfo: any) {
     <div class="info-container">
       <p>Telefono: 6860-9643</p>
       <p>Direccion: Col. La bendición, sobre la carretera, San Julian, Sonsonate</p>
-      <p>Mesero: Juan Valdez</p>
+      <p>Mesero: ${ventaInfo.waiter ? ventaInfo.waiter : ''}</p>
     </div>
     <div class="client-container">
       <p>Cliente: ${ventaInfo.client}</p>
-      <p>Teléfono: ${ventaInfo.cellphone}</p>
+      <p>Teléfono: ${ventaInfo.cellphone ? ventaInfo.cellphone : '0000-0000'}</p>
     </div>
     <div class="sale-title">
       <h4>Detalle de venta</h4>

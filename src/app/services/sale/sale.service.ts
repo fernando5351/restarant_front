@@ -28,8 +28,13 @@ export class SaleService {
     );
   }
 
-  getImg() {
-    return this.httpClient.get(`${this.url}/sale/img`);
+  GetSale(){
+    this.loading.showLoading();
+    return this.httpClient.get<GetSales>(`${this.url}/sale`).pipe(
+      finalize(()=> {
+        this.loading.hideLoading();
+      })
+    );
   }
 
 
