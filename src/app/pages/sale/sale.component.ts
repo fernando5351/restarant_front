@@ -47,7 +47,8 @@ export class SaleComponent implements OnInit {
       description: '',
       price: 0,
       quantity: 0,
-      status: false,
+      status: '',
+      imgUrl:null,
       categoryId: 0
     }],
     status: ''

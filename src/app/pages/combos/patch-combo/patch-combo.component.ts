@@ -83,18 +83,30 @@ export class PatchComboComponent implements OnInit {
     });
   }
 
-  loadComboData() {
-    this.combosService.getComboById(this.comboId).subscribe((combo) => {
-      this.comboForm.patchValue({
-        comboName: combo.data.name,
-        comboPrice: combo.data.price,
-        status: combo.data.status
-      });
+        // loadComboData() {
+        //   this.combosService.getComboById(this.comboId).subscribe((combo) => {
+        //     this.comboForm.patchValue({
+        //       comboName: combo.data.name,
+        //       comboPrice: combo.data.price,
+        //       status: combo.data.status
+        //     });
 
-      // Carga los productos actuales del combo
-      this.products.data = combo.data.Product;
-    });
-  }
+        //     // Carga los productos actuales del combo
+        //     this.products.data = combo.data.Product;
+        //   });
+        // }
+
+        loadComboData() {
+          this.combosService.getComboById(this.comboId).subscribe((combo) => {
+            this.comboForm.patchValue({
+              comboName: combo.data.name,
+              comboPrice: combo.data.price,
+              status: combo.data.status,
+              selectedProduct: combo.data.Product  // Asigna directamente la lista de productos al formulario
+            });
+          });
+        }
+
 
   initializeForm() {
     this.comboForm = this.fb.group({
@@ -126,11 +138,14 @@ export class PatchComboComponent implements OnInit {
 
     if (!currentProducts.some((p) => p.id === product.id)) {
       currentProducts.push(product);
-      selectedProduct.setValue(currentProducts);
-      console.log('Productos seleccionados:', selectedProduct.value);
+      this.comboForm.patchValue({
+        selectedProduct: currentProducts
+      });
+      console.log('Productos seleccionados:', currentProducts);
       console.log('Producto agregado al combo:', product);
     }
   }
+
 
   onRemoveProduct(product: any) {
     const selectedProduct = this.comboForm.get('selectedProduct')!;
@@ -138,11 +153,14 @@ export class PatchComboComponent implements OnInit {
 
     const updatedProducts = currentProducts.filter((p) => p.id !== product.id);
 
-    selectedProduct.setValue(updatedProducts);
+    this.comboForm.patchValue({
+      selectedProduct: updatedProducts
+    });
 
     console.log('Producto eliminado del combo:', product);
-    console.log('Productos seleccionados:', selectedProduct.value);
+    console.log('Productos seleccionados:', updatedProducts);
   }
+
 
   sendRequest(event: Event) {
     const comboData: UpdateCombo = {
@@ -153,13 +171,18 @@ export class PatchComboComponent implements OnInit {
     };
 
     const formData = new FormData();
-    const productsIdString = this.productsId.join(',')
+
+    if (comboData.products) {
+      const productsIdArray = comboData.products.map((product: any) => product.id);
+      productsIdArray.forEach((productId) => {
+        formData.append('productIds', String(productId));
+      });
+    }
+
     formData.append('name', comboData.name || '');
     formData.append('price', comboData.price?.toString() || '');
     formData.append('status', comboData.status || '');
-    formData.append('productIds',productsIdString)
 
-    // Añadir la lógica para agregar los productos al formData si es necesario
 
     this.combosService.updateCombo(formData, this.comboId).subscribe(
       (response: any) => {
@@ -186,5 +209,5 @@ export class PatchComboComponent implements OnInit {
         }
       }
     );
-}
-}
+  }
+  }
