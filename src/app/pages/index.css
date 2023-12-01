@@ -1,0 +1,81 @@
+:root {
+  --width: 95%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+}
+
+.ticket {
+  width: 400px;
+  height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.img-sale-container {
+  width: 100%;
+  height: 100%;
+}
+
+.img-sale-container, img {
+  width: 330px;
+  height: 110px;
+  margin-top: -60px;
+}
+
+.info-container {
+  width: var(--width);
+  height: max-content;
+  margin-top: 27px;
+  margin-bottom: 10px;
+}
+
+.client-container {
+  width: var(--width);
+  height: max-content;
+  margin-bottom: 10px;
+}
+
+.sale-title {
+  width: var(--width);
+  height: max-content;
+  display: flex;
+  justify-content: center;
+}
+
+.table-sale {
+  width: var(--width);
+  border-collapse: collapse;
+}
+
+.thead-sale {
+  font-weight: 500;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+th, td {
+  width: 25%;
+  text-align: left;
+  vertical-align: top;
+  padding: 8px;
+  text-align: left;
+}
+
+.tbody-sale{
+  border-bottom: 2px solid black;
+}
+
+.time-container {
+  width: var(--width);
+  height: max-content;
+  margin-top: 25px;
+}

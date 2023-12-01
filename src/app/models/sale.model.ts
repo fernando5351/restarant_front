@@ -2,6 +2,7 @@ export interface SaleModel {
   id: number;
   client: string;
   total: number;
+  subTotal: number;
   idMesa?: number;
   discount: number;
   productIds: Array<number>;
@@ -22,7 +23,10 @@ export interface GetSearch extends SaleResponse {
   data: any;
 }
 
-export interface SaleInsert extends Omit<SaleModel, 'id' | 'createdAt'> {}
+export interface SaleInsert extends Omit<SaleModel, 'id' | 'createdAt'| 'productIds'| 'comboIds'> {
+  productArray: Array<number>;
+  comboArray: Array<number>;
+}
 
 export interface SaleInsertResponse extends SaleResponse {
   data: SaleModel;

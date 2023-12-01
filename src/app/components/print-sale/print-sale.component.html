@@ -1,0 +1,56 @@
+<div class="ticket">
+  <div class="img-sale-container">
+    <img src="/assets/bamboo.svg" style="width: 320px; height:320px">
+  </div>
+  <div class="info-container">
+    <p>Telefono: 6860-9643</p>
+    <p>Direccion: Col. La bendición, sobre la carretera, San Julian, Sonsonate</p>
+    <p>Mesero: Juan Valdez</p>
+  </div>
+  <div class="client-container">
+    <p>Cliente: {{saleInfo.client}}</p>
+    <p>Teléfono: {{saleInfo.cellphone}}</p>
+  </div>
+  <div class="sale-title">
+    <h4>Detalle de venta</h4>
+  </div>
+  <table class="table-sale">
+      <thead class="thead-sale">
+        <tr>
+          <td>Cantidad</td>
+          <td>Producto</td>
+          <td>Total Gravado</td>
+        </tr>
+      </thead>
+      <tbody class="tbody-sale">
+          <tr *ngFor="let product of saleInfo.SaleProducts">
+            <td>{{product.SaleProduct.quantity}}</td>
+            <td>{{product.name}}</td>
+            <td>${{product.price}}</td>
+          </tr>
+          <tr *ngFor="let combo of saleInfo.SaleCombo">
+            <td>{{combo.SaleProduct.quantity}}</td>
+            <td>{{combo.name}}</td>
+            <td>${{combo.price}}</td>
+          </tr>
+      </tbody>
+      <tr>
+        <td></td>
+        <td>Subtotal:</td>
+        <td>{{saleInfo.subTotal || 'USD'}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Descuento:</td>
+        <td>{{(saleInfo.discount * saleInfo.total)/100 || 'USD'}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Total:</td>
+        <td>{{saleInfo.total || 'USD'}}</td>
+      </tr>
+  </table>
+  <div class="time-container">
+    <p>Visita: {{hora}} - {{day}}/{{month}}/{{year}}</p>
+  </div>
+</div>

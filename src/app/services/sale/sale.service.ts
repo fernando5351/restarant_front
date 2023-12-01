@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AlertService } from 'src/app/services/alert.service'
-import { finalize } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { GetSales, GetSearch, SaleInsert, SaleInsertResponse, SaleResponse } from 'src/app/models/sale.model';
 import { Combo, GetCombos } from 'src/app/models/combo.model';
 import { GetProducts, Products } from 'src/app/models/product.model';
@@ -12,7 +13,7 @@ import { GetProducts, Products } from 'src/app/models/product.model';
 })
 export class SaleService {
 
-  url = environment.API_URL;
+  private url = environment.API_URL;
   constructor(
     private loading: AlertService,
     private httpClient: HttpClient
@@ -26,6 +27,11 @@ export class SaleService {
       })
     );
   }
+
+  getImg() {
+    return this.httpClient.get(`${this.url}/sale/img`);
+  }
+
 
   create(data: SaleInsert){
     this.loading.showLoading();

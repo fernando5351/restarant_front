@@ -24,9 +24,9 @@ export class ComboComponent {
       description: '',
       price: 0,
       status: '',
-      imgUrl: null,
       quantity: 0,
-      categoryId: 0
+      categoryId: 0,
+      imgUrl: null
     }]
   }
 
