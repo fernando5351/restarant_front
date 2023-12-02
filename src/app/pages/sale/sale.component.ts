@@ -95,6 +95,11 @@ export class SaleComponent implements OnInit {
       quantity: this.productQuantity,
       status: prod.status,
     };
+     let idProduct =  this.productsSelected.findIndex((product: any)=>{
+      product.id = this.selectedProduct.id
+     })
+     console.log(idProduct, 'este e el id de producto');
+
     this.productsSelected.push(this.selectedProduct.id);
     this.productsQuantity.push(this.selectedProduct.quantity);
     this.product.push(this.selectedProduct);

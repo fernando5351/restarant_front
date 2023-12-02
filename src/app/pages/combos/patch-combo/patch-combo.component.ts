@@ -83,18 +83,7 @@ export class PatchComboComponent implements OnInit {
     });
   }
 
-        // loadComboData() {
-        //   this.combosService.getComboById(this.comboId).subscribe((combo) => {
-        //     this.comboForm.patchValue({
-        //       comboName: combo.data.name,
-        //       comboPrice: combo.data.price,
-        //       status: combo.data.status
-        //     });
 
-        //     // Carga los productos actuales del combo
-        //     this.products.data = combo.data.Product;
-        //   });
-        // }
 
         loadComboData() {
           this.combosService.getComboById(this.comboId).subscribe((combo) => {
@@ -102,7 +91,7 @@ export class PatchComboComponent implements OnInit {
               comboName: combo.data.name,
               comboPrice: combo.data.price,
               status: combo.data.status,
-              selectedProduct: combo.data.Product  // Asigna directamente la lista de productos al formulario
+              selectedProduct: combo.data.Product
             });
           });
         }

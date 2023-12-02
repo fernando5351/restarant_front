@@ -37,6 +37,12 @@ export interface SaleInsertResponse extends SaleResponse {
   data: SaleModel;
 }
 
+export interface SaleGet {
+  statusCode: number,
+  message: string,
+  data: SaleModel
+}
+
 export interface GetSales extends SaleResponse{
   data: SaleModel[];
 }

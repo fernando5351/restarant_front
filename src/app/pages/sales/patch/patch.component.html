@@ -1,1 +1,143 @@
-<p>patch works!</p>
+<!-- <div class="container">
+  <div class="content">
+    <div class="left-aside">
+      <form action="" class="sale-product">
+        <h1>Vender Producto</h1>
+        <div class="sale">
+          <div class="input-group">
+            <label for="" class="label-quantity">Cantidad</label>
+            <input type="number" style="width: 30%;" class="product-quantity"  (input)="quantity($event)">
+          </div>
+          <div class="input-group">
+            <label for="" class="label-search">Buscar producto</label>
+            <input class="sale-search" type="search" style="width: 250px;" (input)="saleProduct($event)">
+          </div>
+          <div class="prod-modal" *ngIf="showProd">
+              <div class="sale-content" style="background: #ffffff5d;" *ngFor="let prod of products" (click)="onProductClick(prod)" style="cursor: pointer;">
+                <input type="hidden" [value]="prod.id">
+                <div class="img-content">
+                  <img [src]="prod.imgUrl" [alt]="prod.name">
+                </div>
+                <div class="product-info" style="margin-left: 40px;">
+                  <p class="name">{{prod.name}}</p>
+                  <div id="price" class="price">${{prod.price}}</div>
+                </div>
+              </div>
+              <div class="sale-content" style="background: #ffffff5d;" *ngFor="let combo of combo" (click)="onComboClick(combo)" style="cursor: pointer;">
+               <input type="hidden" [value]="combo.id">
+               <div class="img-content">
+                 <img [src]="combo.imgUrl ?  combo.imgUrl : '../../../../assets/icons/formIcons/image.svg'" [alt]="combo.name">
+               </div>
+               <div class="product-info" style="margin-left: 40px;">
+                 <p class="name">{{combo.name}}</p>
+                 <div id="price" class="price">${{combo.price}}</div>
+               </div>
+             </div>
+          </div>
+        </div>
+      </form>
+      <div style="margin-inline-start: 26px;" class="sale-content-title">
+        <div class="img-content">
+          <img src="https://assets.unileversolutions.com/recipes-v2/235485.jpg" alt="">
+        </div>
+        <div class="product-quantity">
+          <p class="price">Cantidad</p>
+        </div>
+        <div class="product-info">
+          <p style="margin-inline-start: 30px;" class="name">Producto</p>
+          <div style="margin-inline-start: 40px;" class="price">Precio</div>
+        </div>
+        <div class="sale-action">
+          Eliminar
+        </div>
+      </div>
+      <div class="show-sale">
+        <div id="selectedProduct" class="sale-content" *ngFor="let selectedProduct of product">
+          <input type="hidden" [value]="selectedProduct.id">
+          <div class="img-content">
+            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../assets/icons/formIcons/image.svg'" alt="">
+          </div>
+          <div class="product-quantity">
+            <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
+          </div>
+          <div class="product-info">
+            <p class="name">{{selectedProduct.name}}</p>
+            <div id="price" class="price">${{selectedProduct.price}}</div>
+          </div>
+          <div class="sale-action">
+            <button (click)="delete(selectedProduct)">
+              <img class="delete-btn" src="../../../assets/icons/delete.svg" alt="">
+            </button>
+          </div>
+        </div>
+        <div id="selectedProduct" class="sale-content" *ngFor="let selectedProduct of comboSelected">
+          <input type="hidden" [value]="selectedProduct.id">
+          <div class="img-content">
+            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../assets/icons/formIcons/image.svg'" alt="">
+          </div>
+          <div class="product-quantity">
+            <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
+          </div>
+          <div class="product-info">
+            <p class="name">{{selectedProduct.name}}</p>
+            <div id="price" class="price">${{selectedProduct.price}}</div>
+          </div>
+          <div class="sale-action">
+            <button (click)="deleteCombo(selectedProduct)">
+              <img class="delete-btn" src="../../../assets/icons/delete.svg" alt="">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rigth-aside">
+      <form class="sale-detail" [formGroup]="saleForm">
+        <h2>Resumen de la venta</h2>
+
+        <div class="detail-sale-content">
+          <label for="name">Cliente:</label>
+          <input class="discount-input" type="text" placeholder="Nombre del cliente" formControlName="name" value="Isaac Fernando">
+        </div>
+
+        <div class="detail-sale-content">
+          <label for="cellphone">Celular:</label>
+          <input class="discount-input" type="number" placeholder="Celular del cliente" formControlName="cellphone">
+        </div>
+
+        <div class="detail-sale-content">
+          <label for="discount">Descuento</label>
+          <input class="discount-input" (input)="discount()" type="number" placeholder="Descuento" formControlName="discount">
+        </div>
+
+        <div class="detail-sale-content">
+          <label for="discount">Mesero</label>
+          <input class="discount-input" type="string" placeholder="Mesero" formControlName="mesero">
+        </div>
+
+        <div class="detail-sale-content">
+          <label for="subtotal">Sub Total</label>
+          <input class="discount-input" type="text" placeholder="$0.00" formControlName="subtotal" readonly>
+        </div>
+
+        <div class="detail-sale-content">
+          <label for="paymentMethod">Pago con:</label>
+          <input class="discount-input" (input)="changePayment()" type="number" placeholder="0.00" formControlName="paymentMethod">
+        </div>
+
+        <div class="detail-sale-content">
+          <label for="change">Cambio</label>
+          <input class="discount-input" type="text" placeholder="$0.00" formControlName="change" readonly>
+        </div>
+
+        <div class="detail-sale-content">
+          <label for="total">Total</label>
+          <input class="discount-input" type="text" placeholder="$0.00" formControlName="total" readonly>
+        </div>
+        <div class="detail-sale-content">
+          <button (click)="sendRequest()">Terminar venta</button>
+          <button (click)="saleInStop()">Venta en espera</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> -->
