@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { NgApexchartsModule } from "ng-apexcharts";
 import Swal from 'sweetalert2';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +48,7 @@ import { SaleComponent } from './pages/sale/sale.component';
 import { PrintSaleComponent } from './components/print-sale/print-sale.component';
 import { PatchComboComponent } from './pages/combos/patch-combo/patch-combo.component';
 import { PatchComponent } from './pages/sales/patch/patch.component';
+import { defaults } from 'chart.js/dist';
 
 
 
@@ -97,7 +99,8 @@ import { PatchComponent } from './pages/sales/patch/patch.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgApexchartsModule
   ],
   providers: [
     {

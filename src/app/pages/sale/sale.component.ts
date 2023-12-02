@@ -95,9 +95,26 @@ export class SaleComponent implements OnInit {
       quantity: this.productQuantity,
       status: prod.status,
     };
-    this.productsSelected.push(this.selectedProduct.id);
-    this.productsQuantity.push(this.selectedProduct.quantity);
-    this.product.push(this.selectedProduct);
+
+    let found = false;
+
+    for (let i = 0; i < this.productsSelected.length; i++) {
+      const id = this.productsSelected[i];
+
+      if (id === prod.id) {
+        this.productsQuantity[i] += this.selectedProduct.quantity;
+        found = true;
+        this.product[i].quantity = this.productsQuantity[i];
+        break;
+      }
+    }
+
+    if (!found) {
+      this.productsSelected.push(this.selectedProduct.id);
+      this.productsQuantity.push(this.selectedProduct.quantity);
+      this.product.push(this.selectedProduct);
+    }
+
     console.log(this.productsSelected);
     console.log(this.productsQuantity);
 
@@ -105,6 +122,42 @@ export class SaleComponent implements OnInit {
       this.sale();
     }, 100);
   }
+
+  // onProductClick(prod: any) {
+  //   this.isSelectedProduct = true;
+  //   console.log(prod);
+  //   this.selectedProduct = {
+  //     id: prod.id,
+  //     name: prod.name,
+  //     description: prod.description,
+  //     price: prod.price,
+  //     quantity: this.productQuantity,
+  //     status: prod.status,
+  //   };
+
+  //   for (let i = 0; i < this.productsSelected.length; i++) {
+  //     const id = this.productsSelected[i];
+
+  //     if (id === prod.id) {
+  //       // Si el ID del producto coincide con el ID del elemento seleccionado
+  //       this.productsQuantity[i] += this.selectedProduct.quantity;
+  //     } else {
+  //       // Si el ID no coincide, simplemente asigna la cantidad del producto seleccionado
+  //       this.productsQuantity[i] = this.selectedProduct.quantity;
+  //     }
+
+  //     console.log(this.productsQuantity[i] + ' prod quantity');
+  //   }
+  //   this.productsSelected.push(this.selectedProduct.id);
+  //   this.productsQuantity.push(this.selectedProduct.quantity);
+  //   this.product.push(this.selectedProduct);
+  //   console.log(this.productsSelected);
+  //   console.log(this.productsQuantity);
+
+  //   setTimeout(() => {
+  //     this.sale();
+  //   }, 100);
+  // }
 
   onComboClick(prod: any) {
     this.isSelectedProduct = true;
