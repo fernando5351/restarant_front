@@ -4,7 +4,7 @@
       <img [src]='product.imgUrl' alt="arbol">
       <h3>Cantidad {{product.quantity}}</h3>
       <p class="scrollable-content">{{ product.description }}</p>
-      <h3>Precio {{ product.price | currency: 'USD'}}</h3>
+      <h3>Precio ${{ product.price.toFixed(2) }}</h3>
   </a>
   <app-buttons
   [id]="product.id"
