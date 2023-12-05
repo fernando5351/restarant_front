@@ -169,9 +169,28 @@ export class SaleComponent implements OnInit {
       quantity: this.productQuantity,
       status: prod.status,
     };
-    this.comboSelected.push(this.selectedProduct)
-    this.combos.push(this.selectedProduct.id);
-    this.combosQuantiy.push(this.selectedProduct.quantity);
+
+    let found = false;
+
+    console.log(this.comboSelected);
+
+    for (let i = 0; i < this.combos.length; i++) {
+      const id = this.combos[i];
+
+      if (id === prod.id) {
+        this.combosQuantiy[i] += this.selectedProduct.quantity;
+        found = true;
+        this.comboSelected[i].quantity = this.combosQuantiy[i];
+        break;
+      }
+    }
+
+    if (!found) {
+      this.comboSelected.push(this.selectedProduct)
+      this.combos.push(this.selectedProduct.id);
+      this.combosQuantiy.push(this.selectedProduct.quantity);
+    }
+
     console.log(this.combos);
     console.log(this.combosQuantiy);
 
