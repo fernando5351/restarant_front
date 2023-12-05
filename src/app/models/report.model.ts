@@ -46,6 +46,30 @@
     data: Sale;
   }
 
-  export interface GetSales extends Omit<GetSale, 'data'> {
-    data: Sale[];
+  export interface data {
+    totalSales: number;
+    totalDiscounts: number,
+    totalProductsSale: number,
+    productsSoldByNameAndCategory: []
   }
+  export interface ReportData {
+    totalSales: number;
+    totalDiscounts: number;
+    totalProductsSale: number;
+    productsSoldByNameAndCategory: [
+      {
+          product: string;
+          quantity: number;
+          categoryName: string;
+      }
+    ],
+    salesByDay: [{
+      date: string;
+      totalSales: number;
+      totalDiscounts: number;
+    }]
+  }
+  export interface GetSales extends Omit<GetSale, 'data'> {
+    data: ReportData;
+  }
+
