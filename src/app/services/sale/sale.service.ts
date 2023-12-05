@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AlertService } from 'src/app/services/alert.service'
 import { Observable, finalize } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GetSales, GetSearch, SaleInsert, SaleInsertResponse, SaleResponse } from 'src/app/models/sale.model';
+import { GetSales, GetSearch, SaleInsert, SaleInsertResponse, SaleModel, SaleResponse } from 'src/app/models/sale.model';
 import { Combo, GetCombos } from 'src/app/models/combo.model';
 import { GetProducts, Products } from 'src/app/models/product.model';
 
@@ -37,11 +37,30 @@ export class SaleService {
     );
   }
 
+  getSaleById(id: number){
+    this.loading.showLoading();
+    return this.httpClient.get<SaleModel>(`${this.url}/sale/${id}`).pipe(
+      finalize(()=> {
+        this.loading.hideLoading();
+      })
+    )
+   }
+
+   updateSale(saleId: number, data: SaleInsert): Observable<any> {
+    this.loading.showLoading();
+    return this.httpClient.put<SaleResponse>(`${this.url}/sale/${saleId}`, data).pipe(
+      finalize(() => {
+        this.loading.hideLoading();
+      })
+    );
+  }
+
+
 
   create(data: SaleInsert){
     this.loading.showLoading();
     return this.httpClient.post<SaleInsertResponse>(`${this.url}/sale`, data).pipe(
-      finalize(()=> {
+      finalize(()=>  {
         this.loading.hideLoading();
       })
     );

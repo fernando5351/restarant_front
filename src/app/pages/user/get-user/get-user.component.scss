@@ -10,3 +10,14 @@
   font-family: 'Kalam', sans-serif;
 }
 
+.title-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.title-container > h1 {
+  font-family: 'Kalam', sans-serif;
+  color: #fff;
+}
+

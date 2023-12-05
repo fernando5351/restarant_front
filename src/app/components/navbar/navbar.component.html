@@ -1,37 +1,24 @@
 <nav>
   <ul *ngIf="isAuthenticated">
-    <li><a href="/home">Inicio</a></li>
+    <li><a routerLink="/home">Inicio</a></li>
 
-    <ng-container *ngIf="role === 'Gerente';else userOptions">
-      <li><a href="/user">Usuarios</a></li>
+    <ng-container *ngIf="role ==='Gerente'; else empleadoOptions">
+      <li><a routerLink="/user">Usuarios</a></li>
+      <li><a routerLink="/venta">Realizar Venta</a></li>
+      <li><a routerLink="/categories">Categoría</a></li>
     </ng-container>
 
-    <ng-template #userOptions>
+    <ng-template #empleadoOptions>
+      <!-- Aquí puedes agregar enlaces específicos para empleados -->
+      <li><a routerLink="/venta">Realizar Venta</a></li>
+      <li><a routerLink="/categories">Categoría</a></li>
     </ng-template>
-    <li><a href="/categories">Categoría</a></li>
-    <li><a href="/combos">Combos</a></li>
-    <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
+    <li><a routerLink="/combos">Combos</a></li>
     <li><a style="cursor: pointer;" (click)="logOut()">Cerrar Sesión</a></li>
   </ul>
 
   <ul *ngIf="!isAuthenticated">
-    <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
+    <li><a routerLink="/venta">Realizar Venta</a></li>
     <li><a (click)="logOut()">Iniciar Sesión</a></li>
   </ul>
 </nav>
-
-
-<!-- <nav>
-  <ul *ngIf="isAuthenticated">
-    <li><a href="/home">Incio</a></li>
-    <li><a href="/rol">Rol</a></li>
-    <li><a href="/products">Productos</a></li>
-    <li><a href="/categories">Categoria</a></li>
-    <li><a href="/combos">Combos</a></li>
-    <li><a style="cursor: pointer;" (click)="logOut()">Cerrar Sesion</a></li>
-  </ul>
-  <ul *ngIf="!isAuthenticated">
-    <li><a href="/venta">Realizar Venta</a></li>
-    <li><a (click)="logOut()">Iniciar Sesion</a></li>
-  </ul>
-</nav> -->

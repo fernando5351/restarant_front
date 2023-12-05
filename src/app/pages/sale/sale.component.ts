@@ -259,28 +259,32 @@ export class SaleComponent implements OnInit {
     return total;
   }
 
+  descuentoDolares: number = 0;
+
+
   discount() {
     let change: number = 0;
     let discountValue = Number(this.saleForm.get('discount')?.value);
-    console.log(discountValue);
+
     if (discountValue > 0) {
       const totalValue = this.sale();
       const valueDiscount = totalValue * (discountValue / 100);
+      this.descuentoDolares = valueDiscount;  // Almacena la cantidad de dólares descontados
       const totalPayment = totalValue - valueDiscount;
       this.saleForm.get('total')?.setValue('$' + totalPayment.toFixed(2));
-      console.log(valueDiscount.toFixed(2));
-      const changeisTrue = this.saleForm.get('paymentMethod')?.value;
 
+      const changeisTrue = this.saleForm.get('paymentMethod')?.value;
       if (changeisTrue > 0) {
         change = changeisTrue - totalPayment;
         this.saleForm.get('change')?.setValue('$' + change.toFixed(2));
       }
     } else {
+      this.descuentoDolares = 0;  // Si no hay descuento, establece la cantidad a cero
       this.sale();
-      return change;
     }
     return change;
   }
+
 
   changePayment() {
     let changeVal:number = 0;
@@ -321,6 +325,7 @@ export class SaleComponent implements OnInit {
     }
 
     const name = this.saleForm.get('name')?.value;
+    const waiter = this.saleForm.get('mesero')?.value;
     const cellphone = Number(this.saleForm.get('cellphone')?.value);
     const discount = Number(this.saleForm.get('discount')?.value);
     let subTotal = (this.saleForm.get('subtotal')?.value);
@@ -333,6 +338,7 @@ export class SaleComponent implements OnInit {
     const dto: SaleInsert = {
       client: name,
       total: total,
+      waiter: waiter,
       subTotal,
       discount: discount,
       status: true,
@@ -381,6 +387,7 @@ export class SaleComponent implements OnInit {
     }
 
     const name = this.saleForm.get('name')?.value;
+    const waiter = this.saleForm.get('mesero')?.value;
     const cellphone = Number(this.saleForm.get('cellphone')?.value);
     const discount = Number(this.saleForm.get('discount')?.value);
     let subTotal = (this.saleForm.get('subtotal')?.value);
@@ -392,6 +399,7 @@ export class SaleComponent implements OnInit {
 
     const dto: SaleInsert = {
       client: name,
+      waiter: waiter,
       total: total,
       subTotal,
       discount: discount,
@@ -537,12 +545,9 @@ async imprimirTicket(ventaInfo: any) {
     <div class="info-container">
       <p>Telefono: 6860-9643</p>
       <p>Direccion: Col. La bendición, sobre la carretera, San Julian, Sonsonate</p>
-      <p>Mesero: ${ventaInfo.waiter ? ventaInfo.waiter : ''}</p>
+      <p>Cajero: ${ventaInfo.waiter ? ventaInfo.waiter : ''}</p>
     </div>
-    <div class="client-container">
-      <p>Cliente: ${ventaInfo.client}</p>
-      <p>Teléfono: ${ventaInfo.cellphone ? ventaInfo.cellphone : '0000-0000'}</p>
-    </div>
+
     <div class="sale-title">
       <h4>Detalle de venta</h4>
     </div>
@@ -578,16 +583,16 @@ async imprimirTicket(ventaInfo: any) {
         <tr>
           <td></td>
           <td>Descuento:</td>
-          <td>$${((ventaInfo.discount * ventaInfo.total)/100).toFixed(2)}</td>
+          <td>$${this.descuentoDolares.toFixed(2)}</td>
         </tr>
         <tr>
           <td></td>
-          <td>Total:</td>
+          <td>Total a pagar:</td>
           <td>$${ventaInfo.total}</td>
         </tr>
     </table>
     <div class="time-container">
-      <p>Visita: ${hora} - ${day}/${month}/${year}</p>
+      <p>Hora: ${hora} - ${day}/${month}/${year}</p>
     </div>
   </div>
   `;

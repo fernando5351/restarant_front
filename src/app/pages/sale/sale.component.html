@@ -2,14 +2,18 @@
   <div class="content">
     <div class="left-aside">
       <form action="" class="sale-product">
-        <h1>Vender Producto</h1>
+        <div class="title-container">
+          <h1>Vender Producto</h1>
+        </div>
         <div class="sale">
           <div class="input-group">
-            <label for="" class="label-quantity">Cantidad</label>
+            <!-- <label for="" class="label-quantity">Cantidad</label> -->
+            <h3>Cantidad</h3>
             <input type="number" style="width: 30%;" class="product-quantity"  (input)="quantity($event)">
           </div>
           <div class="input-group">
-            <label for="" class="label-search">Buscar producto</label>
+            <h3>Buscar Producto</h3>
+            <!-- <label for="" class="label-search">Buscar producto</label> -->
             <input class="sale-search" type="search" style="width: 250px;" (input)="saleProduct($event)">
           </div>
           <div class="prod-modal" *ngIf="showProd">
@@ -93,7 +97,6 @@
     <div class="rigth-aside">
       <form class="sale-detail" [formGroup]="saleForm">
         <h2>Resumen de la venta</h2>
-
         <div class="detail-sale-content">
           <label for="name">Cliente:</label>
           <input class="discount-input" type="text" placeholder="Nombre del cliente" formControlName="name" value="Isaac Fernando">
@@ -110,8 +113,8 @@
         </div>
 
         <div class="detail-sale-content">
-          <label for="discount">Mesero</label>
-          <input class="discount-input" type="string" placeholder="Mesero" formControlName="mesero">
+          <label for="discount">Cajero</label>
+          <input class="discount-input" type="string" placeholder="Cajero" formControlName="mesero">
         </div>
 
         <div class="detail-sale-content">

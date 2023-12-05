@@ -15,6 +15,7 @@ export class GetSaleComponent implements OnInit{
     data: [{
       id: 0,
       client: '',
+      waiter: '',
       total: 0,
       subTotal: 0,
       idMesa: 0,

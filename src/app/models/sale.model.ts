@@ -4,6 +4,7 @@ import { Products } from "./product.model";
 export interface SaleModel {
   id: number;
   client: string;
+  waiter: string
   total: number;
   subTotal: number;
   idMesa?: number;
@@ -24,6 +25,11 @@ export interface SaleResponse {
   message: string;
 }
 
+export interface saleUp {
+  statusCode:number,
+  message: string,
+  data: SaleModel
+}
 export interface GetSearch extends SaleResponse {
   data: any;
 }
