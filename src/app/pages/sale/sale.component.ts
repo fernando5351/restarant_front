@@ -95,14 +95,31 @@ export class SaleComponent implements OnInit {
       quantity: this.productQuantity,
       status: prod.status,
     };
-     let idProduct =  this.productsSelected.findIndex((product: any)=>{
+
+    let found = false;
+
+    for (let i = 0; i < this.productsSelected.length; i++) {
+      const id = this.productsSelected[i];
+
+      if (id === prod.id) {
+        this.productsQuantity[i] += this.selectedProduct.quantity;
+        found = true;
+        this.product[i].quantity = this.productsQuantity[i];
+        break;
+      }
+    }
+
+    if (!found) {
+       let idProduct =  this.productsSelected.findIndex((product: any)=>{
       product.id = this.selectedProduct.id
      })
      console.log(idProduct, 'este e el id de producto');
 
     this.productsSelected.push(this.selectedProduct.id);
-    this.productsQuantity.push(this.selectedProduct.quantity);
-    this.product.push(this.selectedProduct);
+      this.productsQuantity.push(this.selectedProduct.quantity);
+      this.product.push(this.selectedProduct);
+    }
+
     console.log(this.productsSelected);
     console.log(this.productsQuantity);
 
@@ -110,6 +127,42 @@ export class SaleComponent implements OnInit {
       this.sale();
     }, 100);
   }
+
+  // onProductClick(prod: any) {
+  //   this.isSelectedProduct = true;
+  //   console.log(prod);
+  //   this.selectedProduct = {
+  //     id: prod.id,
+  //     name: prod.name,
+  //     description: prod.description,
+  //     price: prod.price,
+  //     quantity: this.productQuantity,
+  //     status: prod.status,
+  //   };
+
+  //   for (let i = 0; i < this.productsSelected.length; i++) {
+  //     const id = this.productsSelected[i];
+
+  //     if (id === prod.id) {
+  //       // Si el ID del producto coincide con el ID del elemento seleccionado
+  //       this.productsQuantity[i] += this.selectedProduct.quantity;
+  //     } else {
+  //       // Si el ID no coincide, simplemente asigna la cantidad del producto seleccionado
+  //       this.productsQuantity[i] = this.selectedProduct.quantity;
+  //     }
+
+  //     console.log(this.productsQuantity[i] + ' prod quantity');
+  //   }
+  //   this.productsSelected.push(this.selectedProduct.id);
+  //   this.productsQuantity.push(this.selectedProduct.quantity);
+  //   this.product.push(this.selectedProduct);
+  //   console.log(this.productsSelected);
+  //   console.log(this.productsQuantity);
+
+  //   setTimeout(() => {
+  //     this.sale();
+  //   }, 100);
+  // }
 
   onComboClick(prod: any) {
     this.isSelectedProduct = true;
@@ -121,9 +174,28 @@ export class SaleComponent implements OnInit {
       quantity: this.productQuantity,
       status: prod.status,
     };
-    this.comboSelected.push(this.selectedProduct)
-    this.combos.push(this.selectedProduct.id);
-    this.combosQuantiy.push(this.selectedProduct.quantity);
+
+    let found = false;
+
+    console.log(this.comboSelected);
+
+    for (let i = 0; i < this.combos.length; i++) {
+      const id = this.combos[i];
+
+      if (id === prod.id) {
+        this.combosQuantiy[i] += this.selectedProduct.quantity;
+        found = true;
+        this.comboSelected[i].quantity = this.combosQuantiy[i];
+        break;
+      }
+    }
+
+    if (!found) {
+      this.comboSelected.push(this.selectedProduct)
+      this.combos.push(this.selectedProduct.id);
+      this.combosQuantiy.push(this.selectedProduct.quantity);
+    }
+
     console.log(this.combos);
     console.log(this.combosQuantiy);
 

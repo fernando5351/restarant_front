@@ -1,6 +1,41 @@
-<!-- home.component.html -->
+<!-- Componente HTML -->
+<mat-form-field>
+  <input matInput [matDatepicker]="startDatePicker" placeholder="Fecha Inicial" [max]="maxDate" [min]="minDate" (dateChange)="startDateChanged($event)">
+  <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+  <mat-datepicker #startDatePicker></mat-datepicker>
+</mat-form-field>
 
-<div class="report-container">
+<mat-form-field>
+  <input matInput [matDatepicker]="endDatePicker" placeholder="Fecha Final" [max]="maxDate" [min]="minDate" (dateChange)="endDateChanged($event)">
+  <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+  <mat-datepicker #endDatePicker></mat-datepicker>
+</mat-form-field>
+
+<div class="container">
+  <div id="chart">
+    <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [stroke]="chartOptions.stroke"
+    [dataLabels]="chartOptions.dataLabels"
+    [yaxis]="chartOptions.yaxis"
+    [labels]="chartOptions.labels"
+    [legend]="chartOptions.legend"
+    [title]="chartOptions.title"
+    [subtitle]="chartOptions.subtitle"
+    ></apx-chart>
+  </div>
+  <div id="pie">
+    <apx-chart
+    [series]="chartOption.series"
+    [chart]="chartOption.chart"
+    [labels]="chartOption.labels"
+    [responsive]="chartOption.responsive"
+    ></apx-chart>
+  </div>
+</div>
+<!-- <div class="report-container">
   <h1>Reportes de Ventas</h1>
 
   <div class="filter-section">
@@ -13,17 +48,14 @@
     <div class="sales-item" *ngFor="let sale of sales.data">
       <div class="sale-info">
         <p>Cliente: {{ sale.client }}</p>
-        <!-- Otros detalles de la venta según tu modelo -->
       </div>
       <div class="product-combo-info" *ngIf="sale.productIds && sale.productIds.length > 0 || sale.comboIds && sale.comboIds.length > 0">
         <p *ngFor="let productId of sale.productIds">Producto ID: {{ productId }}</p>
         <p *ngFor="let comboId of sale.comboIds">Combo ID: {{ comboId }}</p>
-        <!-- Otros detalles de productos y combos según tu modelo -->
       </div>
-      <!-- Otros detalles de la venta según tu modelo -->
     </div>
     <p>Total recaudado: {{ totalAmount | currency:'USD':'symbol':'1.2-2' }}</p>
   </div>
 
   <ng-template #noSales>
-    <p>No hay ventas disponibles para la fecha seleccionada.</p>
+    <p>No hay ventas disponibles para la fecha seleccionada.</p> -->

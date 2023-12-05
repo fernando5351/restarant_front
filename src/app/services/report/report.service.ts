@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AlertService } from '../alert.service';
-import { GetSales,GetSale } from 'src/app/models/sale.model';
+import { GetSales, GetSale } from 'src/app/models/report.model';
 import { finalize } from 'rxjs';
 
 
@@ -36,9 +36,11 @@ export class ReportService {
     )
   }
 
-  getSalesByDate(date: string) {
+  getSalesByDate(startDate: string, endDate: string) {
     this.loadingService.showLoading();
-    return this.http.get<GetSales>(`${this.url}/date/${date}`).pipe(
+    console.log(`${this.url}/date?start=${startDate}&end=${endDate}`);
+
+    return this.http.get<GetSales>(`${this.url}/date?start=${startDate}&end=${endDate}`).pipe(
       finalize(() => {
         this.loadingService.hideLoading();
       })
