@@ -194,6 +194,8 @@ export class HomeComponent implements OnInit, OnChanges{
 
     this.reportService.getSalesByDate(startDate, endDate).subscribe({
       next: (response) => {
+        console.log(response);
+
         this.salesLabel = [];
         this.seriesLabel = [];
         this.salesByDateLabel = [];
@@ -207,6 +209,7 @@ export class HomeComponent implements OnInit, OnChanges{
           this.salesLabel.push(element.product);
           this.seriesLabel.push(element.quantity);
         }
+        console.log(this.salesLabel);
 
         for (let i = 0; i < response.data.salesByDay.length; i++) {
           const saleDay = response.data.salesByDay[i];
