@@ -3,6 +3,7 @@ import { ReportService } from '../../services/report/report.service';
 import { GetSales } from 'src/app/models/report.model';
 import Swal from 'sweetalert2';
 import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexStroke, ApexDataLabels, ApexYAxis, ApexTitleSubtitle, ApexLegend, ApexNonAxisChartSeries, ApexResponsive } from 'ng-apexcharts';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -43,6 +44,13 @@ export class HomeComponent implements OnInit, OnChanges{
       salesByDay: [{ date: '', totalSales: 0, totalDiscounts:0}]
     },
   };
+
+  maxDate: Date = new Date();
+  minDate = '2023-12-01';
+  selectedDatePicker!: string;
+
+  selectedStartDate!: string | null;
+  selectedEndDate!: string | null;
 
   salesLabel: string[] = [];
   salesByDateLabel: string[] = []
@@ -156,10 +164,41 @@ export class HomeComponent implements OnInit, OnChanges{
     });
   }
 
+  private formatDate(date: Date): string | null {
+    if (date instanceof Date && !isNaN(date.getTime())) {
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    return null;
+  }
+
+  startDateChanged(event: MatDatepickerInputEvent<any>): void {
+    this.selectedStartDate = this.formatDate(event.value);
+    this.filterSales();
+  }
+
+  endDateChanged(event: MatDatepickerInputEvent<any>): void {
+    this.selectedEndDate = this.formatDate(event.value);
+    this.filterSales();
+  }
+
+  private filterSales(): void {
+    if (this.selectedStartDate && this.selectedEndDate) {
+      this.filterSalesByDate(this.selectedStartDate, this.selectedEndDate);
+    }
+  }
+
   filterSalesByDate(startDate: string, endDate: string) {
 
     this.reportService.getSalesByDate(startDate, endDate).subscribe({
       next: (response) => {
+        this.salesLabel = [];
+        this.seriesLabel = [];
+        this.salesByDateLabel = [];
+        this.seriesByDate = [];
+
         console.log('Ventas filtradas por fecha:', response);
         this.sales = response;
         for (let i = 0; i < response.data.productsSoldByNameAndCategory.length; i++) {
@@ -168,8 +207,10 @@ export class HomeComponent implements OnInit, OnChanges{
           this.salesLabel.push(element.product);
           this.seriesLabel.push(element.quantity);
         }
+
         for (let i = 0; i < response.data.salesByDay.length; i++) {
           const saleDay = response.data.salesByDay[i];
+          console.log(saleDay);
 
           this.salesByDateLabel.push(saleDay.date);
           const totalSalesNumber = parseFloat(saleDay.totalSales.toFixed(2));

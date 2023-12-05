@@ -1,9 +1,15 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+
 import Swal from 'sweetalert2';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -49,6 +55,7 @@ import { PrintSaleComponent } from './components/print-sale/print-sale.component
 import { PatchComboComponent } from './pages/combos/patch-combo/patch-combo.component';
 import { PatchComponent } from './pages/sales/patch/patch.component';
 import { defaults } from 'chart.js/dist';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -100,7 +107,12 @@ import { defaults } from 'chart.js/dist';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {
@@ -111,7 +123,8 @@ import { defaults } from 'chart.js/dist';
     {
       provide: 'Swal',
       useValue: Swal
-    }
+    },
+    { provide: LOCALE_ID, useValue: 'es' },
   ],
   bootstrap: [AppComponent]
 })

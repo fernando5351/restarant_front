@@ -1,6 +1,16 @@
-<div class="search-date">
-  <input type="text">
-</div>
+<!-- Componente HTML -->
+<mat-form-field>
+  <input matInput [matDatepicker]="startDatePicker" placeholder="Fecha Inicial" [max]="maxDate" [min]="minDate" (dateChange)="startDateChanged($event)">
+  <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+  <mat-datepicker #startDatePicker></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput [matDatepicker]="endDatePicker" placeholder="Fecha Final" [max]="maxDate" [min]="minDate" (dateChange)="endDateChanged($event)">
+  <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+  <mat-datepicker #endDatePicker></mat-datepicker>
+</mat-form-field>
+
 <div class="container">
   <div id="chart">
     <apx-chart

@@ -38,6 +38,8 @@ export class ReportService {
 
   getSalesByDate(startDate: string, endDate: string) {
     this.loadingService.showLoading();
+    console.log(`${this.url}/date?start=${startDate}&end=${endDate}`);
+
     return this.http.get<GetSales>(`${this.url}/date?start=${startDate}&end=${endDate}`).pipe(
       finalize(() => {
         this.loadingService.hideLoading();
