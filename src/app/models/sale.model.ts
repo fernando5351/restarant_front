@@ -4,6 +4,7 @@ import { Products } from "./product.model";
 export interface SaleModel {
   id: number;
   client: string;
+  waiter: string;
   total: number;
   subTotal: number;
   idMesa?: number;
@@ -35,6 +36,12 @@ export interface SaleInsert extends Omit<SaleModel, 'id' | 'createdAt'| 'product
 
 export interface SaleInsertResponse extends SaleResponse {
   data: SaleModel;
+}
+
+export interface SaleGet {
+  statusCode: number,
+  message: string,
+  data: SaleModel
 }
 
 export interface GetSales extends SaleResponse{

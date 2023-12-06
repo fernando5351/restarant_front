@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AlertService } from 'src/app/services/alert.service'
 import { Observable, finalize } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GetSales, GetSearch, SaleInsert, SaleInsertResponse, SaleResponse } from 'src/app/models/sale.model';
+import { GetSales, GetSearch, SaleInsert, SaleInsertResponse, SaleModel, SaleResponse } from 'src/app/models/sale.model';
 import { Combo, GetCombos } from 'src/app/models/combo.model';
 import { GetProducts, Products } from 'src/app/models/product.model';
 
@@ -46,5 +46,9 @@ export class SaleService {
       })
     );
   }
+
+  // updateSale(dto: SaleModel id: number ){}
+
+
 
 }
