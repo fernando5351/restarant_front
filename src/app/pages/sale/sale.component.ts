@@ -13,6 +13,7 @@ import { SaleService } from 'src/app/services/sale/sale.service';
 })
 export class SaleComponent implements OnInit {
   discountValue: number = 0;
+  descuentoDolares: number = 0;
   saleForm: FormGroup = new FormGroup({});
   show: boolean = true;
   showProd: boolean = false;
@@ -110,12 +111,7 @@ export class SaleComponent implements OnInit {
     }
 
     if (!found) {
-       let idProduct =  this.productsSelected.findIndex((product: any)=>{
-      product.id = this.selectedProduct.id
-     })
-     console.log(idProduct, 'este e el id de producto');
-
-    this.productsSelected.push(this.selectedProduct.id);
+      this.productsSelected.push(this.selectedProduct.id);
       this.productsQuantity.push(this.selectedProduct.quantity);
       this.product.push(this.selectedProduct);
     }
@@ -259,6 +255,7 @@ export class SaleComponent implements OnInit {
     let quantity: number = 0;
     let price: number = 0;
 
+
     const prod = document.querySelectorAll('.sale-content');
 
     prod.forEach((element) => {
@@ -286,25 +283,26 @@ export class SaleComponent implements OnInit {
   discount() {
     let change: number = 0;
     let discountValue = Number(this.saleForm.get('discount')?.value);
-    console.log(discountValue);
+
     if (discountValue > 0) {
       const totalValue = this.sale();
       const valueDiscount = totalValue * (discountValue / 100);
+      this.descuentoDolares = valueDiscount;  // Almacena la cantidad de dólares descontados
       const totalPayment = totalValue - valueDiscount;
       this.saleForm.get('total')?.setValue('$' + totalPayment.toFixed(2));
-      console.log(valueDiscount.toFixed(2));
-      const changeisTrue = this.saleForm.get('paymentMethod')?.value;
 
+      const changeisTrue = this.saleForm.get('paymentMethod')?.value;
       if (changeisTrue > 0) {
         change = changeisTrue - totalPayment;
         this.saleForm.get('change')?.setValue('$' + change.toFixed(2));
       }
     } else {
+      this.descuentoDolares = 0;  // Si no hay descuento, establece la cantidad a cero
       this.sale();
-      return change;
     }
     return change;
   }
+
 
   changePayment() {
     let changeVal:number = 0;
@@ -345,6 +343,7 @@ export class SaleComponent implements OnInit {
     }
 
     const name = this.saleForm.get('name')?.value;
+    const waiter = this.saleForm.get('mesero')?.value;
     const cellphone = Number(this.saleForm.get('cellphone')?.value);
     const discount = Number(this.saleForm.get('discount')?.value);
     let subTotal = (this.saleForm.get('subtotal')?.value);
@@ -356,6 +355,7 @@ export class SaleComponent implements OnInit {
 
     const dto: SaleInsert = {
       client: name,
+      waiter: waiter,
       total: total,
       subTotal,
       discount: discount,
@@ -405,6 +405,7 @@ export class SaleComponent implements OnInit {
     }
 
     const name = this.saleForm.get('name')?.value;
+    const waiter = this.saleForm.get('mesero')?.value;
     const cellphone = Number(this.saleForm.get('cellphone')?.value);
     const discount = Number(this.saleForm.get('discount')?.value);
     let subTotal = (this.saleForm.get('subtotal')?.value);
@@ -416,6 +417,7 @@ export class SaleComponent implements OnInit {
 
     const dto: SaleInsert = {
       client: name,
+      waiter: waiter,
       total: total,
       subTotal,
       discount: discount,
@@ -565,7 +567,6 @@ async imprimirTicket(ventaInfo: any) {
     </div>
     <div class="client-container">
       <p>Cliente: ${ventaInfo.client}</p>
-      <p>Teléfono: ${ventaInfo.cellphone ? ventaInfo.cellphone : '0000-0000'}</p>
     </div>
     <div class="sale-title">
       <h4>Detalle de venta</h4>
@@ -602,7 +603,7 @@ async imprimirTicket(ventaInfo: any) {
         <tr>
           <td></td>
           <td>Descuento:</td>
-          <td>$${((ventaInfo.discount * ventaInfo.total)/100).toFixed(2)}</td>
+          <td>$${this.descuentoDolares.toFixed(2)}</td>
         </tr>
         <tr>
           <td></td>

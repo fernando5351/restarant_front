@@ -4,6 +4,7 @@ import { Products } from "./product.model";
 export interface SaleModel {
   id: number;
   client: string;
+  waiter: string;
   total: number;
   subTotal: number;
   idMesa?: number;
