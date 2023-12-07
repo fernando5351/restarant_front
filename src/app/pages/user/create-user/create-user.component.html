@@ -32,6 +32,7 @@
         <label for="roleId">Rol del usuario</label>
       </div>
       <select id="idRole" formControlName="idRole" >
+        <option selected>Seleccionar</option>
         <option class="option" *ngFor="let role of roles.data" [value]="role.id">{{ role.name }} </option>
       </select>
     </div>

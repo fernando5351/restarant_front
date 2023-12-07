@@ -21,7 +21,7 @@ export class UpdateComponent {
       name: '',
       description: '',
       price: 0,
-      quantity: 1,
+      //quantity: 1,
       status: '',
       categoryId: 0,
       imgUrl: null
@@ -50,7 +50,7 @@ export class UpdateComponent {
 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
+      //quantity: ['', [Validators.required]],
       status: ['Estado', [Validators.required]],
       price: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -121,7 +121,7 @@ export class UpdateComponent {
     const dto: CreateProduct = {
       name: this.form.get('name')?.value,
       status: this.form.get('status')?.value,
-      quantity: this.form.get('quantity')?.value,
+      //quantity: this.form.get('quantity')?.value,
       price: this.form.get('price')?.value,
       description: this.form.get('description')?.value,
       categoryId: this.categoryId,
@@ -154,7 +154,7 @@ export class UpdateComponent {
     if (dto.quantity !== undefined && dto.name !== undefined) {
       formData.append('name', dto.name);
       formData.append('status', dto.status);
-      formData.append('quantity', dto.quantity.toString());
+      //formData.append('quantity', dto.quantity.toString());
       formData.append('price', dto.price.toString());
       formData.append('categoryId', dto.categoryId.toString());
       formData.append('description', dto.description);

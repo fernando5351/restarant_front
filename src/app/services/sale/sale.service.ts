@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AlertService } from 'src/app/services/alert.service'
-import { Observable, finalize } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { GetSales, GetSearch, SaleInsert, SaleInsertResponse, SaleModel, SaleResponse } from 'src/app/models/sale.model';
-import { Combo, GetCombos } from 'src/app/models/combo.model';
-import { GetProducts, Products } from 'src/app/models/product.model';
+import { finalize } from 'rxjs';
+import { GetSales, GetSearch, SaleGet, SaleInsert, SaleInsertResponse, SaleModel } from 'src/app/models/sale.model';
+import { SaleResponse } from 'src/app/models/saleUpdate.Model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +35,15 @@ export class SaleService {
     );
   }
 
+  GetSaleById(id: number){
+    this.loading.showLoading();
+    return this.httpClient.get<SaleResponse>(`${this.url}/sale/${id}`).pipe(
+      finalize(()=> {
+        this.loading.hideLoading();
+      })
+    );
+  }
+
 
   create(data: SaleInsert){
     this.loading.showLoading();
@@ -47,7 +54,14 @@ export class SaleService {
     );
   }
 
-  // updateSale(dto: SaleModel id: number ){}
+  updateSale(dto: SaleInsert, id: number ){
+    this.loading.showLoading();
+    return this.httpClient.patch<SaleInsertResponse>(`${this.url}/sale/${id}`, dto).pipe(
+      finalize(()=> {
+        this.loading.hideLoading();
+      })
+    );
+  }
 
 
 

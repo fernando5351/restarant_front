@@ -40,7 +40,17 @@ export class HomeComponent implements OnInit, OnChanges{
       totalSales: 0,
       totalDiscounts: 0,
       totalProductsSale: 0,
-      productsSoldByNameAndCategory: [{ product: '', quantity: 0, categoryName: '' }],
+      productsSoldByNameAndCategory: [{ product: {
+        id: 0,
+        name: '',
+        price: 0,
+        status: '',
+        description: '',
+        imgUrl: null,
+        quantity: 0,
+        categoryId: 0
+      }
+        , quantity: 0, categoryName: '' }],
       salesByDay: [{ date: '', totalSales: 0, totalDiscounts:0}]
     },
   };
@@ -65,7 +75,7 @@ export class HomeComponent implements OnInit, OnChanges{
   chartOption!: ChartOption;
 
   ngOnInit(): void {
-    console.log('Fecha seleccionada:', this.selectedDate);
+    // console.log('Fecha seleccionada:', this.selectedDate);
     const date = new Date();
     const nowDay = date.getDate();
     const month = date.getMonth() + 1;
@@ -84,7 +94,7 @@ export class HomeComponent implements OnInit, OnChanges{
     if (changes['salesLabel'] && changes['salesLabel'].currentValue) {
       // Actualiza el gráfico cuando salesLabel cambia
       this.actualizarGraficos();
-      console.log('changes efectued');
+      // console.log('changes efectued');
 
     }
   }
@@ -156,7 +166,7 @@ export class HomeComponent implements OnInit, OnChanges{
     this.reportService.getReports().subscribe({
       next: (data) => {
         this.sales = data;
-        console.log(this.sales.data);
+        // console.log(this.sales.data);
       },
       error: (error) => {
         console.error('Error al obtener las ventas', error);
@@ -194,33 +204,34 @@ export class HomeComponent implements OnInit, OnChanges{
 
     this.reportService.getSalesByDate(startDate, endDate).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
 
         this.salesLabel = [];
         this.seriesLabel = [];
         this.salesByDateLabel = [];
         this.seriesByDate = [];
 
-        console.log('Ventas filtradas por fecha:', response);
+        // console.log('Ventas filtradas por fecha:', response);
         this.sales = response;
         for (let i = 0; i < response.data.productsSoldByNameAndCategory.length; i++) {
           const element = response.data.productsSoldByNameAndCategory[i];
+          console.log(element);
 
-          this.salesLabel.push(element.product);
+          this.salesLabel.push(element.product.name);
           this.seriesLabel.push(element.quantity);
         }
-        console.log(this.salesLabel);
+        // console.log(this.salesLabel);
 
         for (let i = 0; i < response.data.salesByDay.length; i++) {
           const saleDay = response.data.salesByDay[i];
-          console.log(saleDay);
+          // console.log(saleDay);
 
           this.salesByDateLabel.push(saleDay.date);
           const totalSalesNumber = parseFloat(saleDay.totalSales.toFixed(2));
           this.seriesByDate.push(totalSalesNumber);
         }
-        console.log(this.salesByDateLabel);
-        console.log(this.seriesByDate);
+        // console.log(this.salesByDateLabel);
+        // console.log(this.seriesByDate);
         this.actualizarGraficos();
 
         // // Mostrar SweetAlert si no hay ventas
