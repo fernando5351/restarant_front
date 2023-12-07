@@ -21,6 +21,20 @@ export interface Combo {
   }>;
 }
 
+export interface OneCombo {
+  id: number;
+  name: string;
+  price: number;
+  status: string;
+  imgUrl?: File | null;
+  SaleProduct?: {
+    saleId: number;
+    productId: number;
+    comboId: number;
+    quantity: number;
+  };
+}
+
 export interface CreateCombo {
   name: string;
   price: number;

@@ -45,8 +45,8 @@ export class CreateUserComponent implements OnInit {
     });
 
     // Obtén la lista de roles
-    this.roleService.getRoles().subscribe((data)=>{
-      this.roles = data
+    this.roleService.getRoles().subscribe((response)=>{
+      this.roles = response;
     })
   }
 
@@ -66,6 +66,8 @@ export class CreateUserComponent implements OnInit {
         status: '',  // Reemplaza con el valor correcto
       },
     };
+
+    console.log(dto);
 
 
     const formData = new FormData();

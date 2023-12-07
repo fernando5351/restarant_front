@@ -5,7 +5,7 @@ export interface Product {
   status: string;
   description: string;
   file: unknown;
-  quantity: number;
+  quantity?: number;
   categoryId: number;
   SaleProduct?: {
     saleId: number;
@@ -25,6 +25,9 @@ export interface GetProduct {
 
 export interface Products extends Omit<Product,  'file'> {
   imgUrl: File | null
+}
+export interface GetAProduct extends Omit<Product,  'file'> {
+  imgUrl: string | null
 }
 
 export interface GetProducts extends Omit<GetProduct,  'data'> {

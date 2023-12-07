@@ -2,7 +2,7 @@
   <ul *ngIf="isAuthenticated">
     <li><a href="/home">Inicio</a></li>
 
-    <ng-container >
+    <ng-container *ngIf="role === 'Gerente';else userOptions">
       <li><a href="/user">Usuarios</a></li>
     </ng-container>
 
@@ -11,11 +11,13 @@
     <li><a href="/categories">Categoría</a></li>
     <li><a href="/combos">Combos</a></li>
     <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
+    <li><a [routerLink]="['/venta/status/espera']">Venta En Espera</a></li>
     <li><a style="cursor: pointer;" (click)="logOut()">Cerrar Sesión</a></li>
   </ul>
 
   <ul *ngIf="!isAuthenticated">
     <li><a [routerLink]="['/venta']">Realizar Venta</a></li>
+    <li><a [routerLink]="['/venta/status/espera']">Venta En Espera</a></li>
     <li><a (click)="logOut()">Iniciar Sesión</a></li>
   </ul>
 </nav>

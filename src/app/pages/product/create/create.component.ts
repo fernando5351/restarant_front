@@ -29,7 +29,7 @@ export class CreateProductComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
+      //quantity: ['', [Validators.required]],
       status: ['', [Validators.required]],
       price: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -88,7 +88,7 @@ export class CreateProductComponent implements OnInit {
     const dto: CreateProduct = {
       name: this.form.get('name')?.value,
       status: this.form.get('status')?.value,
-      quantity: this.form.get('quantity')?.value,
+      //quantity: this.form.get('quantity')?.value,
       price: this.form.get('price')?.value,
       description: this.form.get('description')?.value,
       categoryId: this.categoryId,
@@ -109,7 +109,7 @@ export class CreateProductComponent implements OnInit {
     const formData = new FormData();
     formData.append('name', dto.name);
     formData.append('status', dto.status);
-    formData.append('quantity', dto.quantity.toString());
+    //formData.append('quantity', dto.quantity.toString());
     formData.append('price', dto.price.toString());
     formData.append('description', dto.description);
     formData.append('categoryId', dto.categoryId.toString());

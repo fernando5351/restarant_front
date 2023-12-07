@@ -1,8 +1,10 @@
-<!-- <div class="container">
+<div class="container">
   <div class="content">
     <div class="left-aside">
       <form action="" class="sale-product">
-        <h1>Vender Producto</h1>
+        <div class="title-container">
+          <h1>Vender Producto</h1>
+        </div>
         <div class="sale">
           <div class="input-group">
             <label for="" class="label-quantity">Cantidad</label>
@@ -26,7 +28,7 @@
               <div class="sale-content" style="background: #ffffff5d;" *ngFor="let combo of combo" (click)="onComboClick(combo)" style="cursor: pointer;">
                <input type="hidden" [value]="combo.id">
                <div class="img-content">
-                 <img [src]="combo.imgUrl ?  combo.imgUrl : '../../../../assets/icons/formIcons/image.svg'" [alt]="combo.name">
+                 <img [src]="combo.imgUrl ?  combo.imgUrl : '../../../../../assets/icons/formIcons/image.svg'" [alt]="combo.name">
                </div>
                <div class="product-info" style="margin-left: 40px;">
                  <p class="name">{{combo.name}}</p>
@@ -55,7 +57,7 @@
         <div id="selectedProduct" class="sale-content" *ngFor="let selectedProduct of product">
           <input type="hidden" [value]="selectedProduct.id">
           <div class="img-content">
-            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../assets/icons/formIcons/image.svg'" alt="">
+            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../../assets/icons/formIcons/image.svg'" alt="">
           </div>
           <div class="product-quantity">
             <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
@@ -66,17 +68,17 @@
           </div>
           <div class="sale-action">
             <button (click)="delete(selectedProduct)">
-              <img class="delete-btn" src="../../../assets/icons/delete.svg" alt="">
+              <img class="delete-btn" src="../../../../assets/icons/delete.svg" alt="">
             </button>
           </div>
         </div>
         <div id="selectedProduct" class="sale-content" *ngFor="let selectedProduct of comboSelected">
           <input type="hidden" [value]="selectedProduct.id">
           <div class="img-content">
-            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../assets/icons/formIcons/image.svg'" alt="">
+            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../../assets/icons/formIcons/image.svg'" alt="">
           </div>
           <div class="product-quantity">
-            <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
+            <p class="price" id="quantity">{{selectedProduct.SaleProduct.quantity}}</p>
           </div>
           <div class="product-info">
             <p class="name">{{selectedProduct.name}}</p>
@@ -84,7 +86,7 @@
           </div>
           <div class="sale-action">
             <button (click)="deleteCombo(selectedProduct)">
-              <img class="delete-btn" src="../../../assets/icons/delete.svg" alt="">
+              <img class="delete-btn" src="../../../../assets/icons/delete.svg" alt="">
             </button>
           </div>
         </div>
@@ -99,10 +101,10 @@
           <input class="discount-input" type="text" placeholder="Nombre del cliente" formControlName="name" value="Isaac Fernando">
         </div>
 
-        <div class="detail-sale-content">
+        <!-- <div class="detail-sale-content">
           <label for="cellphone">Celular:</label>
           <input class="discount-input" type="number" placeholder="Celular del cliente" formControlName="cellphone">
-        </div>
+        </div> -->
 
         <div class="detail-sale-content">
           <label for="discount">Descuento</label>
@@ -140,4 +142,4 @@
       </form>
     </div>
   </div>
-</div> -->
+</div>

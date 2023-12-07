@@ -15,6 +15,8 @@
   //   createdAt: string;
   // }
 
+import { Products } from "./product.model";
+
   // export interface GetSale{
   //   statusCode: 0,
   //   message: '',
@@ -58,7 +60,7 @@
     totalProductsSale: number;
     productsSoldByNameAndCategory: [
       {
-          product: string;
+          product: Products;
           quantity: number;
           categoryName: string;
       }
