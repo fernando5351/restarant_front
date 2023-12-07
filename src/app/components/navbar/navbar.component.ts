@@ -11,7 +11,7 @@ import { TokenService } from 'src/app/services/token/token.service';
 })
 export class NavbarComponent {
   isAuthenticated: boolean = false;
-  role: string = 'admin';
+
 
   constructor(
     private router: Router,
@@ -23,10 +23,12 @@ export class NavbarComponent {
     this.authService.isAuthenticated$().subscribe((isAuthenticated) => {
       this.isAuthenticated = isAuthenticated;
     });
-    const user: User = this.tokenService.getUser();
-    if (user) {
-      this.role = user.role.name;
-    }
+  //   const user: User = this.tokenService.getUser();
+  //   if (user) {
+  //     this.role = user.role.name;
+  //   }
+  // }
+
   }
 
   logOut(){

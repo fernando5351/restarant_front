@@ -85,16 +85,33 @@ export class PatchComboComponent implements OnInit {
 
 
 
-        loadComboData() {
-          this.combosService.getComboById(this.comboId).subscribe((combo) => {
-            this.comboForm.patchValue({
-              comboName: combo.data.name,
-              comboPrice: combo.data.price,
-              status: combo.data.status,
-              selectedProduct: combo.data.Product
-            });
-          });
+  loadComboData() {
+    this.combosService.getComboById(this.comboId).subscribe({
+      next: (combo) => {
+        this.comboForm.patchValue({
+          comboName: combo.data.name,
+          comboPrice: combo.data.price,
+          status: combo.data.status,
+          selectedProduct: combo.data.Product
+        });
+      },
+      error: (err) => {
+        if (err.status == 403) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Tu usuario no esta autorizado para actualizar un combo',
+            timer: 4000
+          }).then(()=>{
+            this.router.navigate(['/home'])
+          })
         }
+
+        // You can add more error handling logic if needed
+      }
+    });
+  }
+
 
 
   initializeForm() {

@@ -61,6 +61,14 @@ export class PatchCategoryComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
+        if (error.status == 403) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Tu usario no esta autorizado para esta accion',
+            timer: 4000
+          })
+        }
       }
     });
   }
@@ -116,8 +124,13 @@ export class PatchCategoryComponent implements OnInit {
         this.router.navigate([`/categories`])
       },
       error: (error) => {
-        if (error) {
-          console.log(error);
+        if (error.status == 400) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Verifica que estas mandando los datos correctamente',
+            timer: 4000
+          })
         }
         console.log(error);
       }

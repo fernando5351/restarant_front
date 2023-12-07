@@ -64,6 +64,16 @@ export class ButtonsComponent {
             }
           },
           error: (error) => {
+            if (error.status == 403) {
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Tu usario no esta autorizado para borrar productos',
+                timer: 4000
+              }).then(()=>{
+                this.router.navigate(['/home'])
+              })
+            }
             console.log(error);
           }
         })

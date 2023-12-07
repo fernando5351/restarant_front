@@ -2,7 +2,7 @@
   <ul *ngIf="isAuthenticated">
     <li><a href="/home">Inicio</a></li>
 
-    <ng-container *ngIf="role === 'Gerente';else userOptions">
+    <ng-container >
       <li><a href="/user">Usuarios</a></li>
     </ng-container>
 

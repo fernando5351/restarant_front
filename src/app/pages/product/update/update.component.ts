@@ -76,6 +76,16 @@ export class UpdateComponent {
         this.selectedFile = this.product.imgUrl;
       },
       error: (err) => {
+        if (err.status == 403) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Tu usuario no esta autorizado para actualizar datos del producto',
+            timer: 4000
+          }).then(()=>{
+            this.router.navigate(['/home'])
+          });
+        }
         console.error(err);
       },
     });
@@ -175,13 +185,21 @@ export class UpdateComponent {
         this.router.navigate([`/products-category/${this.categoryId}`]);
       },
       error: (error) => {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: error,
-          showConfirmButton: false,
-          timer: 2600
-        })
+        // Swal.fire({
+        //   position: 'top-end',
+        //   icon: 'error',
+        //   title: error,
+        //   showConfirmButton: false,
+        //   timer: 2600
+        // })
+        if (error.status == 403) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Tu usuario no esta autorizado para actualizar datos del producto',
+            timer: 4000
+          })
+        }
       }
     });
   }
