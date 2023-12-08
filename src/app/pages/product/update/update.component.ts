@@ -201,7 +201,7 @@ export class UpdateComponent {
 
     this.productService.patchProduct(formData, this.product.id).subscribe({
       next: (response) => {
-         console.log(response);
+        //  console.log(response);
         this.router.navigate([`/products-category/${this.categoryId}`]);
       },
       error: (error) => {
