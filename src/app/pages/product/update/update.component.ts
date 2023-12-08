@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class UpdateComponent {
   form: FormGroup = new FormGroup({});
+  newImg: boolean = false;
   imagePreview: string | File | null = null;
   selectedFile: File | null = null;
   categoryId: number = 0;
@@ -53,8 +54,8 @@ export class UpdateComponent {
       //quantity: ['', [Validators.required]],
       status: ['Estado', [Validators.required]],
       price: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      file: [null, [Validators.required]],
+      description: ['', []],
+      file: [null, []],
     });
   }
 
@@ -67,10 +68,10 @@ export class UpdateComponent {
         this.form = this.formBuilder.group({
           status: [this.product.status, [Validators.required]],
           name: [this.product.name, [Validators.required]],
-          quantity: [this.product.quantity, [Validators.required]],
+          //quantity: [this.product.quantity, [Validators.required]],
           price: [this.product.price, [Validators.required]],
-          description: [this.product.description, [Validators.required]],
-          file: [null, [Validators.required]],
+          description: [this.product.description, []],
+          file: [null, []],
         })
         this.imagePreview = this.product.imgUrl;
         this.selectedFile = this.product.imgUrl;
@@ -99,6 +100,7 @@ export class UpdateComponent {
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      this.newImg = true;
 
       if (this.isImageFile(file)) {
         this.selectedFile = file;
@@ -138,11 +140,24 @@ export class UpdateComponent {
       file: this.selectedFile
     };
 
-    if (!this.product.imgUrl && this.form.invalid || this.selectedFile === null) {
+    if (this.newImg) {
+      if (this.selectedFile === null) {
         Swal.fire({
           position: 'top-end',
           icon: 'error',
           title: 'El formulario no es válido o no se seleccionó ningún archivo',
+          showConfirmButton: false,
+          timer: 1000
+        });
+        return;
+      }
+    }
+
+    if (this.form.invalid) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'El formulario no es válido, verifica que todo este correcto',
           showConfirmButton: false,
           timer: 1000
         })
@@ -168,7 +183,11 @@ export class UpdateComponent {
       formData.append('price', dto.price.toString());
       formData.append('categoryId', dto.categoryId.toString());
       formData.append('description', dto.description);
-      formData.append('file', this.selectedFile);
+      if (this.newImg) {
+        if (this.selectedFile) {
+          formData.append('file', this.selectedFile);
+        }
+      }
     } else {
       Swal.fire({
         position: 'top-end',
@@ -177,6 +196,7 @@ export class UpdateComponent {
         showConfirmButton: false,
         timer: 1000
       })
+      return;
     }
 
     this.productService.patchProduct(formData, this.product.id).subscribe({
