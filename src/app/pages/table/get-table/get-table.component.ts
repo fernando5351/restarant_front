@@ -50,7 +50,7 @@ export class GetTableComponent implements OnInit  {
     this.tableService.getTable().subscribe(
       (data) => {
         this.tables = data;
-        console.log(this.tables.data);
+        // console.log(this.tables.data);
       },
       (error) => {
         console.error('Error al obtener las mesas:', error);
@@ -73,7 +73,7 @@ export class GetTableComponent implements OnInit  {
     } else  {
       this.getTables()
     }
-    console.log(number);
+    // console.log(number);
   }
 
 

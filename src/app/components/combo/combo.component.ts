@@ -38,7 +38,7 @@ export class ComboComponent {
 
  update(){
   this.comboId = this.combo.id;
-  console.log('el id recibido es: ' + this.comboId);
+  // console.log('el id recibido es: ' + this.comboId);
   const update = `${this.url}/${this.comboId}`;
   this.router.navigate([update])
 

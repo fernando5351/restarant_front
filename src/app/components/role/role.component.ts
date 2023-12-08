@@ -56,10 +56,10 @@ export class RoleComponent {
   update(id: number) {
     this.roleService.getRoleById(id).subscribe((rol) => {
       this.selectedRole = rol;
-      console.log(rol);
+      // console.log(rol);
 
       const roleEditable = { ...this.selectedRole };
-      console.log(roleEditable);
+      // console.log(roleEditable);
 
       Swal.fire({
         title: 'Editar Rol',
@@ -98,7 +98,7 @@ export class RoleComponent {
           // Realizar una solicitud HTTP PATCH para actualizar el rol en el servidor
           this.roleService.pathcRole(result.value, id).subscribe(
             (response) => {
-              console.log(roleEditable.data);
+              // console.log(roleEditable.data);
 
               if (response = 200) {
                 Swal.fire('Actualizado', 'Los cambios han sido guardados.', 'success').then(() => {

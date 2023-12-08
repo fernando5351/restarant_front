@@ -39,7 +39,7 @@ export class GetComponent implements OnInit {
   getCategories(){
     this.categoryService.getCategories().subscribe((data)=>{
       this.categories = data
-      console.log(this.categories.data)
+      // console.log(this.categories.data)
     })
   }
 

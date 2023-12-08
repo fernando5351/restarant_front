@@ -43,7 +43,7 @@ export class RecoveryPasswordComponent {
 
       this.recovery.recoveryPassword(password, this.token).subscribe({
         next: (response) => {
-            console.log(response);
+            // console.log(response);
             this.router.navigate(['/login']);
         },
         error: (error) => {

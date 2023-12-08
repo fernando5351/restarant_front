@@ -59,7 +59,7 @@ export class PatchComboComponent implements OnInit {
   getCategories(){
     this.combosService.getCombos().subscribe((data)=>{
       this.getCombos = data
-      console.log(this.getCombos.data);
+      // console.log(this.getCombos.data);
     })
   }
 
@@ -147,8 +147,8 @@ export class PatchComboComponent implements OnInit {
       this.comboForm.patchValue({
         selectedProduct: currentProducts
       });
-      console.log('Productos seleccionados:', currentProducts);
-      console.log('Producto agregado al combo:', product);
+      // console.log('Productos seleccionados:', currentProducts);
+      // console.log('Producto agregado al combo:', product);
     }
   }
 
@@ -163,8 +163,8 @@ export class PatchComboComponent implements OnInit {
       selectedProduct: updatedProducts
     });
 
-    console.log('Producto eliminado del combo:', product);
-    console.log('Productos seleccionados:', updatedProducts);
+    // console.log('Producto eliminado del combo:', product);
+    // console.log('Productos seleccionados:', updatedProducts);
   }
 
 

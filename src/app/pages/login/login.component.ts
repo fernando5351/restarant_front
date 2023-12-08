@@ -42,7 +42,7 @@ export class LoginComponent {
           if (response.statusCode === 200) {
             this.router.navigate(['/home']);
           } else {
-            console.log(response);
+            // console.log(response);
           }
         },
         error: (error) => {
