@@ -54,8 +54,8 @@ export class UpdateComponent {
       //quantity: ['', [Validators.required]],
       status: ['Estado', [Validators.required]],
       price: ['', [Validators.required]],
-      description: ['', []],
-      file: [null, []],
+      description: [''],
+      file: [null]
     });
   }
 
@@ -70,8 +70,8 @@ export class UpdateComponent {
           name: [this.product.name, [Validators.required]],
           //quantity: [this.product.quantity, [Validators.required]],
           price: [this.product.price, [Validators.required]],
-          description: [this.product.description, []],
-          file: [null, []],
+          description: [this.product.description],
+          file: [null],
         })
         this.imagePreview = this.product.imgUrl;
         this.selectedFile = this.product.imgUrl;
