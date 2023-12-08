@@ -160,6 +160,10 @@ export class PatchComponent implements OnInit {
 
             this.productsSelected.push(id);
             this.productsQuantity.push(quantity);
+            console.log(this.productsQuantity);
+            console.log('soy quantity');
+
+
             let productObject = {
               id: product.id,
               name: product.name,
@@ -183,38 +187,40 @@ export class PatchComponent implements OnInit {
             for (let i = 0; i < this.saleResponse.data.SaleCombo.length; i++) {
               const id = this.saleResponse.data.SaleCombo[i].id;
               this.combos.push(id);
+            }
+            for (let combo of this.saleResponse.data.SaleCombo) {
+              console.log('esty en for de combo');
+              console.log(combo);
 
-              for (let combo of this.saleResponse.data.SaleCombo) {
-                console.log('esty en for de combo');
-                console.log(combo);
-
-                  let comboSale = combo.SaleProduct;
-                  console.log(comboSale);
-                  console.log('estoy en for combo.product');
+                let comboSale = combo.SaleProduct;
+                console.log(comboSale);
+                console.log('estoy en for combo.product');
 
 
-                  let quantity = combo.SaleProduct?.quantity;
-                  quantity = Number(quantity);
+                let quantity = combo.SaleProduct?.quantity;
+                quantity = Number(quantity);
 
-                  this.combosQuantiy.push(quantity);
-                  // console.log(this.combosQuantiy);
+                this.combosQuantiy.push(quantity);
+                // console.log(this.combosQuantiy);
 
-                  this.selectedCombo = {
-                    id: combo.id,
-                    name: combo.name,
-                    price: combo.price,
-                    imgUrl: combo.imgUrl,
-                    status: combo.status,
-                    SaleProduct: {
-                      saleId: combo.SaleProduct.saleId,
-                      comboId: combo.SaleProduct.comboId,
-                      productId: combo.SaleProduct.productId,
-                      quantity: combo.SaleProduct?.quantity,
-                    }
+                let selectedCombo = {
+                  id: combo.id,
+                  name: combo.name,
+                  price: combo.price,
+                  imgUrl: combo.imgUrl,
+                  status: combo.status,
+                  quantity: combo.SaleProduct?.quantity,
+                  SaleProduct: {
+                    saleId: combo.SaleProduct.saleId,
+                    comboId: combo.SaleProduct.comboId,
+                    productId: combo.SaleProduct.productId,
+                    quantity: combo.SaleProduct?.quantity,
                   }
-                  console.log(this.selectedCombo);
-                  this.comboSelected.push(this.selectedCombo)
-              }
+                }
+                console.log(selectedCombo);
+                console.log(selectedCombo);
+
+                this.comboSelected.push(selectedCombo)
             }
           }
           console.log(this.comboSelected);
@@ -239,7 +245,7 @@ export class PatchComponent implements OnInit {
     this.isSelectedProduct = true;
     // console.log(this.productsSelected);
 
-    // console.log(prod);
+    console.log(prod);
     this.selectedProduct = {
       id: prod.id,
       name: prod.name,
@@ -250,7 +256,6 @@ export class PatchComponent implements OnInit {
     };
 
     // console.log(this.selectedProduct);
-
     let found = false;
 
     for (let i = 0; i < this.productsSelected.length; i++) {
@@ -275,7 +280,6 @@ export class PatchComponent implements OnInit {
 
       // console.log(this.productsSelected);
       // console.log(this.productsQuantity);
-
     setTimeout(() => {
       this.sale();
     }, 100);
@@ -283,6 +287,8 @@ export class PatchComponent implements OnInit {
 
   onComboClick(prod: any) {
     this.isSelectedProduct = true;
+    console.log(prod);
+
     this.selectedProduct = {
       id: prod.id,
       name: prod.name,
@@ -302,7 +308,7 @@ export class PatchComponent implements OnInit {
       if (id === prod.id) {
         this.combosQuantiy[i] += this.selectedProduct.quantity;
         found = true;
-        this.comboSelected[i].SaleProduct.quantity = this.combosQuantiy[i];
+        this.comboSelected[i].quantity = this.combosQuantiy[i];
         break;
       }
     }
@@ -315,7 +321,6 @@ export class PatchComponent implements OnInit {
 
     // console.log(this.combos);
     // console.log(this.combosQuantiy);
-
     setTimeout(() => {
       this.sale();
     }, 100);
@@ -357,6 +362,7 @@ export class PatchComponent implements OnInit {
     if (name.length >= 1) {
       this.saleService.search(name, true).subscribe({
         next: Response => {
+          console.log(Response);
           let prod = Response.data;
           this.products = prod[1];
           this.combo = prod[0];
