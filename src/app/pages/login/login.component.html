@@ -17,7 +17,7 @@
 
     </div>
     <div class="recovery">
-      <a href="/recovery">¿Olvido su contraseña?</a>
+      <a [routerLink]="['/recovery']">¿Olvido su contraseña?</a>
     </div>
     <div class="submit">
       <button type="submit" (click)="sendRequest($event)">Iniciar</button>
