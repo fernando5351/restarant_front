@@ -215,7 +215,7 @@ export class HomeComponent implements OnInit, OnChanges{
         this.sales = response;
         for (let i = 0; i < response.data.productsSoldByNameAndCategory.length; i++) {
           const element = response.data.productsSoldByNameAndCategory[i];
-          console.log(element);
+          // console.log(element);
 
           this.salesLabel.push(element.product.name);
           this.seriesLabel.push(element.quantity);

@@ -36,7 +36,7 @@ export class GetRoleComponent implements OnInit {
     this.roleService.getRoles().subscribe(
       (data)=>{
         this.roles = data;
-        console.log(this.roles.data);
+        // console.log(this.roles.data);
       },
       (error)=>{
         console.error('error al obtener los roles', error);

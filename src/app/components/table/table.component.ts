@@ -64,11 +64,11 @@ export class TableComponent {
     // Obtener los detalles de la mesa por su ID (puedes configurar tu servicio para hacer esto)
     this.tableService.getTableById(id).subscribe((mesa) => {
       this.selectedTable = mesa;
-      console.log(mesa);
+      // console.log(mesa);
 
       // Crear una copia de selectedTable para que los cambios en el formulario no afecten directamente a la mesa original
       const mesaEditable = { ...this.selectedTable };
-      console.log(mesaEditable);
+      // console.log(mesaEditable);
 
       // Establecer los valores iniciales de los campos del formulario
       Swal.fire({
@@ -104,7 +104,7 @@ export class TableComponent {
         if (result.isConfirmed) {
           // Realizar una solicitud HTTP PATCH para actualizar la mesa en el servidor
           this.tableService.patchTable(mesaEditable.data,id).subscribe((response) => {
-            console.log(response);
+            // console.log(response);
             if (response = 200) {
               Swal.fire('Actualizado', 'Los cambios han sido guardados.', 'success').then(() => {
                     this.refrescarPagina()

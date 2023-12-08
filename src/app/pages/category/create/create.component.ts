@@ -67,7 +67,7 @@ export class CreateCategoryComponent implements OnInit {
   sendRequest(event: Event) {
     event.preventDefault();
     if (this.form.invalid || this.selectedFile === null) {
-      console.log('El formulario no es válido o no se seleccionó ningún archivo');
+      // console.log('El formulario no es válido o no se seleccionó ningún archivo');
       return;
     }
 
@@ -84,11 +84,11 @@ export class CreateCategoryComponent implements OnInit {
 
     this.categoryService.createCategory(formData).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.router.navigate(['/categories']);
       },
       error: (error) => {
-        console.log(error);
+        // console.log(error);
       }
     });
   }

@@ -64,11 +64,11 @@ export class GetUserComponent {
     this.roleService.getRoles().subscribe(
       (data) => {
         this.roles = data;
-        console.log(this.roles.data);
+        // console.log(this.roles.data);
 
       },
       (error) => {
-        console.log('Error fetching roles', error);
+        // console.log('Error fetching roles', error);
       }
     );
   }
@@ -88,7 +88,7 @@ export class GetUserComponent {
     ).subscribe(
       (data) => {
         this.users = data;
-        console.log(this.users.data);
+        // console.log(this.users.data);
       },
       (error) => {
         if (error.status == 403) {
@@ -101,7 +101,7 @@ export class GetUserComponent {
             this.router.navigate(['/home'])
           })
         }
-        console.log('Error fetching users', error);
+        // console.log('Error fetching users', error);
       }
     );
   }

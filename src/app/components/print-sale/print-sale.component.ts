@@ -32,16 +32,16 @@ export class PrintSaleComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.printSaleService.miVariable$.subscribe(data => {
-      console.log(`El valor de la variable cambio a: ${data}`);
+      // console.log(`El valor de la variable cambio a: ${data}`);
     });
   }
 
   imprimirTicket() {
     this.printSaleService.printSale$.subscribe((data) => {
       // Procesar los datos recibidos y formular el ticket en tu plantilla HTML
-      console.log('Datos para imprimir el ticket:', data);
+      // console.log('Datos para imprimir el ticket:', data);
       this.saleInfo = data;
-      console.log(this.saleInfo);
+      // console.log(this.saleInfo);
     });
   }
 

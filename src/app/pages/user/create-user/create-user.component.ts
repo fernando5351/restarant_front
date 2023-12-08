@@ -67,7 +67,7 @@ export class CreateUserComponent implements OnInit {
       },
     };
 
-    console.log(dto);
+    // console.log(dto);
 
 
     const formData = new FormData();
@@ -79,7 +79,7 @@ export class CreateUserComponent implements OnInit {
     formData.append('idRole',dto.idRole.toString());
     this.userService.createUser(formData).subscribe({
       next:(response) =>{
-        console.log(response);
+        // console.log(response);
         if (response.statusCode = 201) {
           Swal.fire({
             position: 'top-end',
@@ -91,7 +91,7 @@ export class CreateUserComponent implements OnInit {
         this.router.navigate(['/user'])
       },
       error:(error)=>{
-        console.log('error', error);
+        // console.log('error', error);
         if (error.status == 400) {
           Swal.fire({
             position:'top-end',

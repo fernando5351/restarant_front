@@ -65,7 +65,7 @@ export class CreateComboComponent implements OnInit {
 
   search(event: Event ) {
     const name = (event.target as HTMLInputElement).value;
-    console.log(name,' este es el name');
+    // console.log(name,' este es el name');
     if (name.length >=1) {
        this.productService.search(name).subscribe((response) => {
         const productosFiltrados = response.data
@@ -89,9 +89,9 @@ export class CreateComboComponent implements OnInit {
       currentProducts.push(product);
       selectedProduct?.setValue(currentProducts);
       this.productsId.push(product.id);
-      console.log(this.productsId + ' Array de productos');
-      console.log('Productos seleccionados:', this.comboForm.get('selectedProduct')?.value);
-      console.log('Producto agregado al combo:', product);
+      // console.log(this.productsId + ' Array de productos');
+      // console.log('Productos seleccionados:', this.comboForm.get('selectedProduct')?.value);
+      // console.log('Producto agregado al combo:', product);
     }
   }
 
@@ -105,12 +105,12 @@ export class CreateComboComponent implements OnInit {
     selectedProduct?.setValue(updatedProducts);
     this.productsId = updatedProducts.map((p) => p.id);
 
-    console.log('Producto eliminado del combo:', product);
+    // console.log('Producto eliminado del combo:', product);
     console.log('Productos seleccionados:', this.comboForm.get('selectedProduct')?.value);
   }
 
   sendRequest(event: Event) {
-    console.log('Datos del formulario:', this.comboForm.value);
+    // console.log('Datos del formulario:', this.comboForm.value);
     const comboData: CreateCombo = {
       name: this.comboForm.get('comboName')?.value,
       price: this.comboForm.get('comboPrice')?.value,

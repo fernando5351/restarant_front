@@ -79,7 +79,7 @@ export class GetByIdComponent {
   getProducts(id: number){
     this.categoryService.getCategoryById(id).subscribe((data) => {
       this.category = data;
-      console.log(this.category);
+      // console.log(this.category);
 
     })
   }

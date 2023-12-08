@@ -125,7 +125,7 @@ export class CreateProductComponent implements OnInit {
 
     this.productService.createProduct(formData).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.router.navigate([`/products-category/${this.categoryId}`]);
       },
       error: (error) => {

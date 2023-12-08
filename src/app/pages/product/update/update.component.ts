@@ -60,7 +60,7 @@ export class UpdateComponent {
   }
 
   getProduct(id: number){
-    console.log(id);
+    // console.log(id);
     this.productService.getProduct(id).subscribe({
       next: (data)=>{
         this.GetProduct = data;
@@ -201,7 +201,7 @@ export class UpdateComponent {
 
     this.productService.patchProduct(formData, this.product.id).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.router.navigate([`/products-category/${this.categoryId}`]);
       },
       error: (error) => {

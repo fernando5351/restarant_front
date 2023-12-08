@@ -343,6 +343,7 @@ export class SaleComponent implements OnInit {
         this.imprimirTicket(response.data);
         this.saleForm = this.formBuilder.group({
           name: ['', [Validators.required]],
+          waiter:['',[Validators.required]],
           cellphone: [''],
           discount: [''],
           subtotal: ['', [Validators.required]],
@@ -382,6 +383,7 @@ export class SaleComponent implements OnInit {
     const dto: SaleInsert = {
       client: name,
       waiter: waiter,
+
       total: total,
       subTotal,
       discount: discount,
@@ -405,7 +407,7 @@ export class SaleComponent implements OnInit {
         this.saleForm = this.formBuilder.group({
           name: ['', [Validators.required]],
           cellphone: [''],
-          mesero: [''],
+          mesero: ['',[Validators.required]],
           discount: [''],
           subtotal: ['', [Validators.required]],
           paymentMethod: [''],

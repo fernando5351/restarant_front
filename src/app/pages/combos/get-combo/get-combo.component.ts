@@ -70,7 +70,7 @@ export class GetComboComponent implements OnInit {
     this.comboService.getCombos().subscribe((data) => {
       this.originalCombos = data;
       this.combos = { ...data };
-      console.log(this.combos.data);
+      // console.log(this.combos.data);
     });
   }
 }

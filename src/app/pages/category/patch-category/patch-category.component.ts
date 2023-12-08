@@ -50,7 +50,7 @@ export class PatchCategoryComponent implements OnInit {
     this.categoryService.getCategoryById(id).subscribe({
       next: (response) => {
         this.categoryDetail =  response.data;
-        console.log(this.categoryDetail);
+        // console.log(this.categoryDetail);
 
         this.form = this.formBuilder.group({
           name: [this.categoryDetail.name, [Validators.required]],
@@ -60,7 +60,7 @@ export class PatchCategoryComponent implements OnInit {
         this.imagePreview = this.categoryDetail.imgUrl;
       },
       error: (error) => {
-        console.log(error);
+        // console.log(error);
         if (error.status == 403) {
           Swal.fire({
             position: 'center',
@@ -79,7 +79,7 @@ export class PatchCategoryComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    console.log(event.target.files.length);
+    // console.log(event.target.files.length);
 
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -120,7 +120,7 @@ export class PatchCategoryComponent implements OnInit {
     }
     this.categoryService.patchCategory(formData, this.category.id).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
         this.router.navigate([`/categories`])
       },
       error: (error) => {
@@ -132,7 +132,7 @@ export class PatchCategoryComponent implements OnInit {
             timer: 4000
           })
         }
-        console.log(error);
+        // console.log(error);
       }
     });
   }

@@ -41,15 +41,15 @@ export class GetProductComponent implements OnInit {
 
   getProducts(){
     this.productService.getProducts().subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.products = data;
-      console.log(this.products);
-      console.log('Get Products : ', this.products.data);
+      // console.log(this.products);
+      // console.log('Get Products : ', this.products.data);
     })
   }
 
   getRequestSearch(search: string) {
-    console.log('texto a buscar: ' + search);
+    // console.log('texto a buscar: ' + search);
   }
 
 }

@@ -56,7 +56,7 @@ export class CreateTableComponent {
 
       this.tableService.createTable(formData).subscribe({
         next:(response)=>{
-          console.log(response);
+          // console.log(response);
           if (response.statusCode == 201) {
             Swal.fire({
               position: 'center',
@@ -68,7 +68,7 @@ export class CreateTableComponent {
           this.router.navigate(['/table'])
         },
         error:(error)=>{
-          console.log("Error",error)
+          // console.log("Error",error)
           if (error.status == 400) {
             Swal.fire({
               position: 'top-end',
