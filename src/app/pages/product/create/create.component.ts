@@ -16,6 +16,7 @@ export class CreateProductComponent implements OnInit {
   imagePreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
   categoryId: number = 0;
+  newImage: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +34,7 @@ export class CreateProductComponent implements OnInit {
       status: ['', [Validators.required]],
       price: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      file: [null, [Validators.required]],
+      file: [null, []],
     });
   }
 
@@ -73,16 +74,19 @@ export class CreateProductComponent implements OnInit {
 
   sendRequest(event: Event) {
     event.preventDefault();
+    this.newImage =  true;
 
-    if (this.form.invalid || this.selectedFile === null) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'El formulario no es válido o no se seleccionó ningún archivo',
-        showConfirmButton: false,
-        timer: 1000
-      })
-      return;
+    if (this.newImage) {
+      if (this.form.invalid || this.selectedFile === null) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'El formulario no es válido o no se seleccionó ningún archivo',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        return;
+      }
     }
 
     const dto: CreateProduct = {
@@ -113,7 +117,11 @@ export class CreateProductComponent implements OnInit {
     formData.append('price', dto.price.toString());
     formData.append('description', dto.description);
     formData.append('categoryId', dto.categoryId.toString());
-    formData.append('file', this.selectedFile);
+    if (this.newImage) {
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
+      }
+    }
 
     this.productService.createProduct(formData).subscribe({
       next: (response) => {
