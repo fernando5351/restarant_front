@@ -33,7 +33,7 @@ export class CreateProductComponent implements OnInit {
       //quantity: ['', [Validators.required]],
       status: ['', [Validators.required]],
       price: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: ['', []],
       file: [null, []],
     });
   }
@@ -46,6 +46,7 @@ export class CreateProductComponent implements OnInit {
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      this.newImage = true;
 
       if (this.isImageFile(file)) {
         this.selectedFile = file;
@@ -74,7 +75,6 @@ export class CreateProductComponent implements OnInit {
 
   sendRequest(event: Event) {
     event.preventDefault();
-    this.newImage =  true;
 
     if (this.newImage) {
       if (this.form.invalid || this.selectedFile === null) {
@@ -129,6 +129,8 @@ export class CreateProductComponent implements OnInit {
         this.router.navigate([`/products-category/${this.categoryId}`]);
       },
       error: (error) => {
+        console.log(error);
+
         Swal.fire({
           position: 'top-end',
           icon: 'error',

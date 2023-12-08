@@ -13,7 +13,7 @@
       <div class="label-container">
         <label  for="name">Nombre</label>
       </div>
-      <input type="text" formControlName="name" placeholder="Hamburguesa">
+      <input type="text" formControlName="name" placeholder="Hamburguesa" required>
       <!-- <div class="label-container">
         <label  for="name">Cantidad</label>
       </div>
@@ -21,7 +21,7 @@
       <div class="label-container">
         <label  for="name">Estado</label>
       </div>
-      <select id="status" formControlName="status">
+      <select id="status" formControlName="status" required>
         <option>Estado</option>
         <option value="true">Activo</option>
         <option value="false">Inactivo</option>
@@ -29,8 +29,7 @@
       <div class="label-container">
         <label  for="name">Precio</label>
       </div>
-      <input type="number" formControlName="price" placeholder="5.99">
-      <span>$</span>
+      <input type="number" formControlName="price" placeholder="0.00" required>
     </div>
     <div class="product-description">
       <input type="text" formControlName="description" placeholder="Descripcion">
