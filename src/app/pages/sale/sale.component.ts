@@ -126,43 +126,113 @@ export class SaleComponent implements OnInit {
 
   onComboClick(prod: any) {
     this.isSelectedProduct = true;
+
+    const selectedQuantity = this.comboQuantity || 1;
+
     this.selectedProduct = {
       id: prod.id,
       name: prod.name,
       description: prod.description,
       price: prod.price,
-      quantity: this.productQuantity,
+      quantity: selectedQuantity,  // Asegúrate de establecer un valor predeterminado
       status: prod.status,
     };
 
     let found = false;
 
-    console.log(this.comboSelected);
+    for (let i = 0; i < this.comboSelected.length; i++) {
+      const selectedCombo = this.comboSelected[i];
 
-    for (let i = 0; i < this.combos.length; i++) {
-      const id = this.combos[i];
-
-      if (id === prod.id) {
-        this.combosQuantiy[i] += this.selectedProduct.quantity;
+      if (selectedCombo.id === prod.id) {
+        // Verifica si el combo ya tiene una cantidad asignada
+        if (selectedCombo.quantity !== null) {
+          this.combosQuantiy[i] += selectedQuantity;
+          selectedCombo.quantity = this.combosQuantiy[i];
+        } else {
+          // Si no tiene cantidad asignada, establece la cantidad
+          selectedCombo.quantity = selectedQuantity;
+        }
         found = true;
-        this.comboSelected[i].quantity = this.combosQuantiy[i];
         break;
       }
     }
 
     if (!found) {
-      this.comboSelected.push(this.selectedProduct)
-      this.combos.push(this.selectedProduct.id);
-      this.combosQuantiy.push(this.selectedProduct.quantity);
+      this.comboSelected.push({
+        id: prod.id,
+        name: prod.name,
+        description: prod.description,
+        price: prod.price,
+        quantity: selectedQuantity,
+        status: prod.status,
+      });
+      this.combos.push(prod.id);
+      this.combosQuantiy.push(selectedQuantity);
     }
 
-    console.log(this.combos);
+    console.log(this.comboSelected);
     console.log(this.combosQuantiy);
 
     setTimeout(() => {
       this.sale();
     }, 100);
   }
+
+  deleteCombo(prod: any) {
+    const index = this.comboSelected.findIndex((product:any) => prod.id === prod.id);
+
+    if (index !== -1) {
+      const deletedCombo = this.comboSelected.splice(index, 1)[0];
+      const comboIndex = this.combos.findIndex((item) => item === deletedCombo.id);
+      this.combos.splice(comboIndex, 1);
+      this.combosQuantiy.splice(comboIndex, 1);
+    }
+
+    setTimeout(() => {
+      this.sale();
+    }, 100);
+  }
+
+
+  // onComboClick(prod: any) {
+  //   this.isSelectedProduct = true;
+  //   this.selectedProduct = {
+  //     id: prod.id,
+  //     name: prod.name,
+  //     description: prod.description,
+  //     price: prod.price,
+  //     quantity: this.comboQuantity,
+  //     status: prod.status,
+  //   };
+
+  //   let found = false;
+
+  //   console.log(this.comboSelected);
+
+  //   for (let i = 0; i < this.combos.length; i++) {
+  //     const id = this.combos[i];
+
+  //     if (id === prod.id) {
+  //       this.combosQuantiy[i] += this.selectedProduct.quantity;
+  //       found = true;
+  //       this.comboSelected[i].quantity = this.combosQuantiy[i];
+  //       break;
+  //     }
+  //   }
+
+  //   if (!found) {
+  //     this.comboSelected.push(this.selectedProduct)
+  //     this.combos.push(this.selectedProduct.id);
+  //     this.combosQuantiy.push(this.selectedProduct.quantity);
+  //   }
+
+  //   console.log(this.combos);
+  //   console.log(this.combosQuantiy);
+
+  //   setTimeout(() => {
+  //     this.sale();
+  //   }, 100);
+  // }
 
   delete(prod: any) {
     const newArray = this.product.filter((product: any) => product !== prod);
@@ -179,20 +249,20 @@ export class SaleComponent implements OnInit {
     }, 100);
   }
 
-  deleteCombo(prod: any) {
-    const newArray = this.comboSelected.filter((product: any) => product !== prod);
-    this.comboSelected = newArray;
+  // deleteCombo(prod: any) {
+  //   const newArray = this.comboSelected.filter((product: any) => product !== prod);
+  //   this.comboSelected = newArray;
 
-    let index = this.combo.findIndex((item) => item === prod.id);
-    this.combo.splice(index, 1);
+  //   let index = this.combo.findIndex((item) => item === prod.id);
+  //   this.combo.splice(index, 1);
 
-    let indexQuantity = this.combosQuantiy.findIndex((item) => item === prod.quantity);
-    this.combosQuantiy.splice(indexQuantity, 1);
+  //   let indexQuantity = this.combosQuantiy.findIndex((item) => item === prod.quantity);
+  //   this.combosQuantiy.splice(indexQuantity, 1);
 
-    setTimeout(() => {
-      this.sale();
-    }, 100);
-  }
+  //   setTimeout(() => {
+  //     this.sale();
+  //   }, 100);
+  // }
 
   saleProduct(event: Event) {
     const name = (event.target as HTMLInputElement).value;

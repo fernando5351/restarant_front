@@ -176,7 +176,7 @@ export class UpdateComponent {
     }
 
     const formData = new FormData();
-    if (dto.quantity !== undefined && dto.name !== undefined) {
+    if (dto.name !== undefined) {
       formData.append('name', dto.name);
       formData.append('status', dto.status);
       //formData.append('quantity', dto.quantity.toString());
@@ -187,7 +187,7 @@ export class UpdateComponent {
         if (this.selectedFile) {
           formData.append('file', this.selectedFile);
         }
-      }
+     }
     } else {
       Swal.fire({
         position: 'top-end',
@@ -201,17 +201,17 @@ export class UpdateComponent {
 
     this.productService.patchProduct(formData, this.product.id).subscribe({
       next: (response) => {
-        // console.log(response);
+         console.log(response);
         this.router.navigate([`/products-category/${this.categoryId}`]);
       },
       error: (error) => {
-        // Swal.fire({
-        //   position: 'top-end',
-        //   icon: 'error',
-        //   title: error,
-        //   showConfirmButton: false,
-        //   timer: 2600
-        // })
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: error,
+          showConfirmButton: false,
+          timer: 2600
+        })
         if (error.status == 403) {
           Swal.fire({
             position: 'top-end',

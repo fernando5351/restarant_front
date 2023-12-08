@@ -39,10 +39,10 @@ export class LoginComponent {
 
       this.authService.loginAndGet(email, password).subscribe({
         next: (response) => {
-          if (response.statusCode === 200) {
+          if (response.statusCode == 200) {
             this.router.navigate(['/home']);
           } else {
-            // console.log(response);
+             console.log(response);
           }
         },
         error: (error) => {

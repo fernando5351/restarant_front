@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit, OnChanges{
   };
 
   maxDate: Date = new Date();
-  minDate = '2023-12-07';
+  minDate = '2023-12-08';
   selectedDatePicker!: string;
 
   selectedStartDate!: string | null;
