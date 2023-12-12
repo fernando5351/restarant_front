@@ -12,6 +12,7 @@ export interface SaleData {
   total: number;
   idMesa: number | null;
   discount: number;
+  code?: number;
   subTotal: number;
   cellphone: string | null;
   waiter: string;
