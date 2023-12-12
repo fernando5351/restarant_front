@@ -53,14 +53,16 @@ export class ButtonsComponent {
           next: (response) => {
             this.data = response;
             console.log(this.data);
-            if (this.data.statusCode === 202) {
+            if (this.data.statusCode == 200) {
               Swal.fire({
                 title: 'Eliminado!',
                 text: 'Tu registro fue eliminado.',
                 icon: 'success',
                 timer: 2500
-              });
-              window.location.reload();
+              }).then(()=>{
+                this.router.navigate(['/home'])
+              })
+
             }
           },
           error: (error) => {

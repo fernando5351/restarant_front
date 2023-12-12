@@ -134,7 +134,7 @@ export class UserComponent {
             (response) => {
               if (response = 200) {
                 Swal.fire('Actualizado', 'Los cambios han sido guardados.', 'success').then(() => {
-                  this.refrescarPagina();
+                  this.router.navigate(['/home']);
                 });
               } else {
                 Swal.fire('Error', 'No se pudo actualizar el usuario.', 'error');

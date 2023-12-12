@@ -1,5 +1,5 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -119,6 +119,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
+    },
+    {
+      provide: LocationStrategy, useClass: HashLocationStrategy
     },
     {
       provide: 'Swal',

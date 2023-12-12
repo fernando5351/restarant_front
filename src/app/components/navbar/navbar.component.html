@@ -2,12 +2,13 @@
   <ul *ngIf="isAuthenticated">
     <li><a [routerLink]="['/home']">Inicio</a></li>
 
-    <ng-container *ngIf="role === 'Gerente';else userOptions">
+    <!-- <ng-container">
       <li><a [routerLink]="['/user']">Usuarios</a></li>
-    </ng-container>
+    </ng-container> -->
 
     <ng-template #userOptions>
     </ng-template>
+    <li><a [routerLink]="['/user']">Usuarios</a></li>
     <li><a [routerLink]="['/categories']">Categoría</a></li>
     <li><a [routerLink]="['/combos']">Combos</a></li>
     <li><a [routerLink]="['/venta']">Realizar Venta</a></li>

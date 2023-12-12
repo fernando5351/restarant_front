@@ -110,6 +110,7 @@ export class PatchComponent implements OnInit {
     private el: ElementRef,
     private renderer: Renderer2,
     private activeRouter: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -646,7 +647,7 @@ export class PatchComponent implements OnInit {
           change: [''],
           total: ['', [Validators.required]],
         });
-        window.location.reload();
+        this.router.navigate(['/status/espera'])
       },
       error: (error) => {
         console.log(error);
