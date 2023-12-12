@@ -543,10 +543,20 @@ async imprimirTicket(ventaInfo: any) {
       margin-top: -60px;
     }
 
-    .info-container {
+    .code-container {
       width: var(--width);
       height: max-content;
       margin-top: 27px;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-container {
+      width: var(--width);
+      height: max-content;
+      margin-top: 1px;
       margin-bottom: 10px;
     }
 
@@ -595,6 +605,9 @@ async imprimirTicket(ventaInfo: any) {
   <div class="ticket">
     <div class="img-sale-container">
       <img src="/assets/bamboo.svg" style="width: 320px; height:320px">
+    </div>
+    <div class="code-container">
+      <h3>${ventaInfo.code}</h3>
     </div>
     <div class="info-container">
       <p>Telefono: 6860-9643</p>
