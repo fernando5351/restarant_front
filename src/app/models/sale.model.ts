@@ -6,6 +6,7 @@ export interface SaleModel {
   id: number;
   client: string;
   waiter: string;
+  code: number;
   total: number;
   subTotal: number;
   idMesa?: number;

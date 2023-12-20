@@ -28,6 +28,7 @@
       <tr>
         <th>Fecha</th>
         <th>Mesero</th>
+        <th>Codigo factura</th>
         <th>Cliente</th>
         <th>Estado de venta</th>
         <th>Productos</th>
@@ -40,6 +41,7 @@
       <tr *ngFor="let sale of getSalesResponse.data">
         <td>{{ sale.createdAt }}</td>
         <td>{{ sale.waiter }}</td>
+        <td>{{sale.code}}</td>
         <td>{{ sale.client }}</td>
         <td>{{ sale.status }}</td>
         <td>

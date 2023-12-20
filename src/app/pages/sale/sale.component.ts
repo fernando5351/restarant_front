@@ -377,6 +377,7 @@ export class SaleComponent implements OnInit {
     }
 
     const name = this.saleForm.get('name')?.value;
+    const code = this.saleForm.get('code')?.value
     const waiter = this.saleForm.get('mesero')?.value;
     const cellphone = Number(this.saleForm.get('cellphone')?.value);
     const discount = Number(this.saleForm.get('discount')?.value);
@@ -389,6 +390,7 @@ export class SaleComponent implements OnInit {
 
     const dto: SaleInsert = {
       client: name,
+      code: code,
       waiter: waiter,
       total: total,
       subTotal,
@@ -440,6 +442,7 @@ export class SaleComponent implements OnInit {
     }
 
     const name = this.saleForm.get('name')?.value;
+    const code = this.saleForm.get('code')?.value;
     const waiter = this.saleForm.get('mesero')?.value;
     const cellphone = Number(this.saleForm.get('cellphone')?.value);
     const discount = Number(this.saleForm.get('discount')?.value);
@@ -453,7 +456,7 @@ export class SaleComponent implements OnInit {
     const dto: SaleInsert = {
       client: name,
       waiter: waiter,
-
+      code: code,
       total: total,
       subTotal,
       discount: discount,

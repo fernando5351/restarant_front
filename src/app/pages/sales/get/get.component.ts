@@ -17,6 +17,7 @@ export class GetSaleComponent implements OnInit{
       id: 0,
       waiter: '',
       client: '',
+      code: 0,
       total: 0,
       subTotal: 0,
       idMesa: 0,

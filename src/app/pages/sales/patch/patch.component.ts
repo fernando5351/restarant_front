@@ -542,6 +542,7 @@ export class PatchComponent implements OnInit {
 
     const name = this.saleForm.get('name')?.value;
     const waiter = this.saleForm.get('mesero')?.value;
+    const code = this.saleForm.get('code')?.value;
     const cellphone = Number(this.saleForm.get('cellphone')?.value);
     const discount = Number(this.saleForm.get('discount')?.value);
     let subTotal = (this.saleForm.get('subtotal')?.value);
@@ -553,6 +554,7 @@ export class PatchComponent implements OnInit {
 
     const dto: SaleInsert = {
       client: name,
+      code: code,
       waiter: waiter,
       total: total,
       subTotal,
@@ -605,6 +607,7 @@ export class PatchComponent implements OnInit {
 
     const name = this.saleForm.get('name')?.value;
     const waiter = this.saleForm.get('mesero')?.value;
+    const code = this.saleForm.get('code')?.value;
     const cellphone = Number(this.saleForm.get('cellphone')?.value);
     const discount = Number(this.saleForm.get('discount')?.value);
     let subTotal = (this.saleForm.get('subtotal')?.value);
@@ -616,6 +619,7 @@ export class PatchComponent implements OnInit {
 
     const dto: SaleInsert = {
       client: name,
+      code: code,
       waiter: waiter,
       total: total,
       subTotal,
