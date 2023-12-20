@@ -80,7 +80,19 @@ export class SaleService {
         this.loading.hideLoading();
       })
     );
+  }
+
+  deleteSale(id:number){
+    this.loading.showLoading();
+    return this.httpClient.delete(`${this.url}/sale/${id}`).pipe(
+      finalize(()=>{
+        this.loading.hideLoading()
+      })
+    )
+  }
 }
 
-}
+
+
+
 

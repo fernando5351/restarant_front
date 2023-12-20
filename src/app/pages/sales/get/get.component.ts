@@ -3,6 +3,7 @@ import { GetSales, GetSale } from 'src/app/models/sale.model';
 import { SaleService } from 'src/app/services/sale/sale.service';
 import { formatDate } from '@angular/common';
 import Swal from 'sweetalert2';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-get',
@@ -138,5 +139,58 @@ export class GetSaleComponent implements OnInit{
     }
   }
 
-}
+  deleteSaleConfirmation(id: number): void {
+    Swal.fire({
+      title: '¿Estás seguro de eliminar esta venta?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteSale(id);
+      }
+    });
+  }
 
+  deleteSale(id: number): void {
+    this.saleService.deleteSale(id).pipe(
+      finalize(() => {
+        // Actualizar las ventas después de la eliminación
+        this.getSales();
+      })
+    ).subscribe(
+      () => {
+        // Mostrar una alerta de éxito si es necesario
+        Swal.fire({
+          icon: 'success',
+          title: 'Venta eliminada con éxito :)',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      },
+      (error) => {
+        console.error('Error al eliminar la venta:', error);
+
+        if (error.status === 403) {
+          // El usuario no tiene permisos para borrar las ventas
+          Swal.fire({
+            icon: 'error',
+            title: 'Acceso denegado :[',
+            text: 'El usuario no puede borrar las ventas',
+            showConfirmButton: false,
+            timer: 2000
+          });
+        } else {
+          // Mostrar una alerta de error genérica
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al eliminar la venta',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      }
+    );
+  }
+}

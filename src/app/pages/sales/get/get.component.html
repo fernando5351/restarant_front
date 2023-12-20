@@ -55,7 +55,9 @@
           </div>
         </td>
         <td>$ {{ sale.total }}</td>
-        <td>  <app-sale-component *ngIf="!sale.status" [sale]="sale"></app-sale-component>
+        <td>
+          <app-sale-component *ngIf="!sale.status" [sale]="sale"></app-sale-component>
+          <button (click)="deleteSaleConfirmation(sale.id)">Eliminar</button>
         </td>
       </tr>
     </tbody>
