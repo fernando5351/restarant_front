@@ -70,7 +70,7 @@ export class ButtonsComponent {
               Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: 'Tu usario no esta autorizado para borrar productos',
+                title: 'Tu usario no esta autorizado para borrar',
                 timer: 4000
               }).then(()=>{
                 this.router.navigate(['/home'])

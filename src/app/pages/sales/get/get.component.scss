@@ -1,41 +1,58 @@
+/* sales-table.styles.scss */
+
 .sales-container {
+  margin: 20px auto; /* Ajusta el margen y centra la tabla */
+  width: 100%; /* Utiliza el ancho completo del contenedor padre */
+  overflow-x: auto; /* Agrega barra de desplazamiento horizontal cuando sea necesario */
+}
+
+.title-container {
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 20px;
+  justify-content: center;
 }
 
-.sale-box {
-  width: 200px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.title-container > h1 {
+  font-family: 'Kalam', sans-serif;
+  color: #fff;
 }
 
-.sale-box h3 {
-  margin-top: 0;
-  font-size: 18px;
+.sales-table {
+  width: 1200px; /* Establece un ancho fijo para la tabla */
+  margin: 0 auto; /* Centra la tabla dentro del contenedor */
+  border-collapse: collapse;
+  margin-top: 20px; /* Añade margen superior para separar del título */
 }
 
-.sale-box p {
-  margin: 10px 0;
-  font-size: 14px;
-  color: #555;
+.sales-table th, .sales-table td {
+  border: 2px solid #fff; /* Reduzco el grosor del borde */
+  padding: 12px; /* Incremento el espacio interno de las celdas para que sean más grandes */
+  font-family: 'Kalam', sans-serif;
+  font-size: 18px; /* Ajusta el tamaño de la fuente según tu preferencia */
+  font-weight: bold; /* Agrega negrita para resaltar más */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
-.sale-box .status {
-  font-weight: bold;
-  color: #ff5733;
-  background: none;
-  outline: none;
-  padding: 3px;
-  border-radius: 5px;
-  cursor: pointer;
+.sales-table th {
+  background: #d9d9d975;
+  color: #000;
+  text-align: center;
 }
 
-.sale-box .status:hover {
-  transform: translateY(-10);
+.sales-table td {
+  background: #d9d9d975;
+  color: #fff;
+  text-align: center;
+}
+
+.sales-table tbody {
+  max-height: 300px; /* Ajusta la altura máxima según sea necesario */
+  overflow-y: auto;
+}
+
+.sales-table tbody td {
+  width: 14.28%; /* Ajusta el ancho de las celdas según sea necesario */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

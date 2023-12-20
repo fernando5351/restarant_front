@@ -1,6 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { GetSales, GetSale } from 'src/app/models/sale.model';
 import { SaleService } from 'src/app/services/sale/sale.service';
+import { formatDate } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-get',
@@ -8,7 +10,6 @@ import { SaleService } from 'src/app/services/sale/sale.service';
   styleUrls: ['./get.component.scss']
 })
 export class GetSaleComponent implements OnInit{
-
   getSalesResponse: GetSales = {
     statusCode: 0,
     message: '',
@@ -69,6 +70,9 @@ export class GetSaleComponent implements OnInit{
     }],
   }
 
+  selectedStatus: boolean | null = null;
+
+
   constructor(
     private saleService: SaleService
   ) {}
@@ -77,10 +81,61 @@ export class GetSaleComponent implements OnInit{
     this.getSales();
   }
 
-  getSales(){
-    this.saleService.GetSale().subscribe((data) =>{
+
+  getSales() {
+    this.saleService.GetSale().subscribe((data) => {
       this.getSalesResponse = data;
-    })
+      this.filterSales();
+    });
+  }
+
+  onStatusChange(): void {
+    this.filterSales();
+  }
+
+  filterSales(): void {
+    if (this.selectedStatus !== null) {
+      this.saleService.getSalesByStatus(this.selectedStatus).subscribe((data) => {
+        this.getSalesResponse = data;
+      });
+    }
+  }
+
+
+  onDateChange(): void {
+    this.filterSalesByDate();
+  }
+
+  startDate: string | null = this.getCurrentDate();
+  endDate: string | null = null;
+
+  getCurrentDate(): string {
+    const today = new Date();
+    return formatDate(today, 'yyyy-MM-dd', 'en-US');
+  }
+
+  filterSalesByDate(): void {
+    if (this.startDate !== null && this.endDate !== null) {
+      this.saleService.getSalesByDate(this.startDate, this.endDate).subscribe(
+        (data) => {
+          this.getSalesResponse = data;
+        },
+        (error) => {
+          if (error.status === 404) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'No hay ventas en las fechas brindadas',
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          } else {
+
+            console.error('Error:', error);
+          }
+        }
+      );
+    }
   }
 
 }
+

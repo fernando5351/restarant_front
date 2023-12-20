@@ -1,6 +1,61 @@
+
+<div>
+  <label for="statusFilter">Filtrar por estado:</label>
+  <select id="statusFilter" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+    <option value="true">Canceladas</option>
+    <option value="false">Pendientes</option>
+  </select>
+</div>
+
+<div>
+  <label for="startDate">Fecha de inicio:</label>
+  <input type="date" id="startDate" [(ngModel)]="startDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
+</div>
+
+<div>
+  <label for="endDate">Fecha de fin:</label>
+  <input type="date" id="endDate" [(ngModel)]="endDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
+</div>
+
+
+
 <div class="sales-container">
-  <app-sale-component
-  *ngFor="let sale of getSalesResponse.data"
-  [sale]="sale"
-  ></app-sale-component>
+  <div class="title-container">
+    <h1>Facturas</h1>
+  </div>
+  <table class="sales-table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Mesero</th>
+        <th>Cliente</th>
+        <th>Estado de venta</th>
+        <th>Productos</th>
+        <th>Combos</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sale of getSalesResponse.data">
+        <td>{{ sale.createdAt }}</td>
+        <td>{{ sale.waiter }}</td>
+        <td>{{ sale.client }}</td>
+        <td>{{ sale.status }}</td>
+        <td>
+          <div *ngFor="let product of sale.SaleProducts">
+            {{ product.name }} - Cantidad: {{ product.SaleProduct?.quantity }} - Precio: {{ product.price }}
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let combo of sale.SaleCombo ">
+            {{ combo.name }} - Precio: {{ combo.price }}
+          </div>
+        </td>
+        <td>$ {{ sale.total }}</td>
+        <td>  <app-sale-component *ngIf="!sale.status" [sale]="sale"></app-sale-component>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

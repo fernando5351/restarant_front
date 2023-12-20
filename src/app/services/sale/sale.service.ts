@@ -63,6 +63,24 @@ export class SaleService {
     );
   }
 
+  getSalesByStatus(status: boolean) {
+    this.loading.showLoading();
+    return this.httpClient.get<GetSales>(`${this.url}/sale`, { params: { status: status.toString() } }).pipe(
+      finalize(() => {
+        this.loading.hideLoading();
+      })
+    );
+  }
 
+  // Asegúrate de tener un método en tu servicio que maneje las fechas
+  getSalesByDate(startDate: string, endDate: string) {
+    this.loading.showLoading();
+    return this.httpClient.get<GetSales>(`${this.url}/sale/date`, { params: { start: startDate, end: endDate } }).pipe(
+      finalize(() => {
+        this.loading.hideLoading();
+      })
+    );
+}
 
 }
+
