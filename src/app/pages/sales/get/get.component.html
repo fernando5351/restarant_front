@@ -43,7 +43,7 @@
         <td>{{ sale.waiter }}</td>
         <td>{{sale.code}}</td>
         <td>{{ sale.client }}</td>
-        <td>{{ sale.status }}</td>
+        <td>{{ sale.status ? 'Cancelada' : 'Pendiente' }}</td>
         <td>
           <div *ngFor="let product of sale.SaleProducts">
             {{ product.name }} - Cantidad: {{ product.SaleProduct?.quantity }} - Precio: {{ product.price }}

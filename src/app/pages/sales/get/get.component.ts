@@ -97,8 +97,21 @@ export class GetSaleComponent implements OnInit{
 
   filterSales(): void {
     if (this.selectedStatus !== null) {
-      this.saleService.getSalesByStatus(this.selectedStatus).subscribe((data) => {
+      this.saleService.getSalesByStatus(this.selectedStatus).subscribe(
+        (data) => {
         this.getSalesResponse = data;
+      },(error)=>{
+        if (error.status === 404) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Estado de venta no encontrado',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        }else{
+          console.error(error);
+
+        }
       });
     }
   }
