@@ -56,3 +56,46 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
+.filter-container {
+  display: flex;
+  justify-content: flex-end; /* Mueve los elementos al extremo derecho */
+  margin: 10px; /* Ajusta el margen según sea necesario */
+}
+
+.filter-label {
+  font-family: 'Kalam', sans-serif;
+  color: #fff;
+  font-size: 20px; /* Tamaño de la fuente de los labels */
+}
+
+.filter-select,
+.filter-input{
+  width: 30%; /* Ancho del 80% para que no ocupe el ancho completo del contenedor */
+  height: 50px;
+  background: #d9d9d975;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  padding-inline-start: 17px;
+  font-family: 'Kalam', sans-serif;
+  color: #fff;
+  font-size: 20px; /* Ajusta el tamaño de la fuente según tu preferencia */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.btn-container button {
+  width: 80px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background: #8a33009c;
+  color: #fff;
+  font-family: 'Kalam', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  cursor: pointer;
+}

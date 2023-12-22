@@ -1,20 +1,19 @@
-
-<div>
-  <label for="statusFilter">Filtrar por estado:</label>
-  <select id="statusFilter" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+<div class="filter-container">
+  <label class="filter-label" for="statusFilter">Filtrar por estado:</label>
+  <select id="statusFilter" class="filter-select" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
     <option value="true">Canceladas</option>
     <option value="false">Pendientes</option>
   </select>
 </div>
 
-<div>
-  <label for="startDate">Fecha de inicio:</label>
-  <input type="date" id="startDate" [(ngModel)]="startDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
+<div class="filter-container">
+  <label class="filter-label" for="startDate">Fecha de inicio:</label>
+  <input type="date" id="startDate" class="filter-input" [(ngModel)]="startDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
 </div>
 
-<div>
-  <label for="endDate">Fecha de fin:</label>
-  <input type="date" id="endDate" [(ngModel)]="endDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
+<div class="filter-container">
+  <label class="filter-label" for="endDate">Fecha de fin:</label>
+  <input type="date" id="endDate" class="filter-input" [(ngModel)]="endDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
 </div>
 
 
@@ -57,7 +56,9 @@
         <td>$ {{ sale.total }}</td>
         <td>
           <app-sale-component *ngIf="!sale.status" [sale]="sale"></app-sale-component>
-          <button (click)="deleteSaleConfirmation(sale.id)">Eliminar</button>
+          <div class="btn-container">
+             <button (click)="deleteSaleConfirmation(sale.id)">Eliminar</button>
+          </div>
         </td>
       </tr>
     </tbody>
