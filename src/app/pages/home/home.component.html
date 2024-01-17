@@ -29,12 +29,18 @@
     ></apx-chart>
   </div>
   <div id="pie">
-    <apx-chart
-    [series]="chartOption.series"
-    [chart]="chartOption.chart"
-    [labels]="chartOption.labels"
-    [responsive]="chartOption.responsive"
-    ></apx-chart>
+    <thead>
+      <tr>
+        <th>productos</th>
+        <th>Canidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sale of sales.data.productsSoldByNameAndCategory">
+        <td>{{ sale.product.name }}</td>
+        <td>{{sale.quantity}}</td>
+      </tr>
+    </tbody>
   </div>
 </div>
 <!-- <div class="report-container">

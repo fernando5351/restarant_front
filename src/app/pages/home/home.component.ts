@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit, OnChanges{
       salesByDay: [{ date: '', totalSales: 0, totalDiscounts:0}]
     },
   };
-
   maxDate: Date = new Date();
   minDate = '2023-12-08';
   selectedDatePicker!: string;
@@ -166,7 +165,7 @@ export class HomeComponent implements OnInit, OnChanges{
     this.reportService.getReports().subscribe({
       next: (data) => {
         this.sales = data;
-        // console.log(this.sales.data);
+         console.log(this.sales.data);
       },
       error: (error) => {
         console.error('Error al obtener las ventas', error);
