@@ -1,9 +1,15 @@
-/* sales-table.styles.scss */
+.options {
+  width: 100%;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .sales-container {
-  margin: 20px auto; /* Ajusta el margen y centra la tabla */
-  width: 100%; /* Utiliza el ancho completo del contenedor padre */
-  overflow-x: auto; /* Agrega barra de desplazamiento horizontal cuando sea necesario */
+  margin: 20px auto;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .title-container {
@@ -24,29 +30,35 @@
   margin-top: 20px; /* Añade margen superior para separar del título */
 }
 
-.sales-table th, .sales-table td {
-  border: 2px solid #fff; /* Reduzco el grosor del borde */
-  padding: 12px; /* Incremento el espacio interno de las celdas para que sean más grandes */
+.sales-table th  {
   font-family: 'Kalam', sans-serif;
-  font-size: 18px; /* Ajusta el tamaño de la fuente según tu preferencia */
-  font-weight: bold; /* Agrega negrita para resaltar más */
-  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-}
-
-.sales-table th {
-  background: #d9d9d975;
+  font-size: 18px;
+  font-weight: bold;
+  white-space: nowrap;
+  padding: 12px;
+  font-family: 'Kalam', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  white-space: nowrap;
+  background: #fff;
   color: #000;
   text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .sales-table td {
-  background: #d9d9d975;
+  border-bottom: 1px solid #fff; /* Reduzco el grosor del borde */
+}
+
+.sales-table td {
   color: #fff;
   text-align: center;
 }
 
-.sales-table tbody {
-  max-height: 300px; /* Ajusta la altura máxima según sea necesario */
+.sales-container {
+  height: 350px;
   overflow-y: auto;
 }
 
@@ -59,9 +71,10 @@
 
 
 .filter-container {
+  width: calc(98%/3);
   display: flex;
-  justify-content: flex-end; /* Mueve los elementos al extremo derecho */
-  margin: 10px; /* Ajusta el margen según sea necesario */
+  align-items: center;
+  gap: 5px;
 }
 
 .filter-label {
@@ -72,7 +85,7 @@
 
 .filter-select,
 .filter-input{
-  width: 30%; /* Ancho del 80% para que no ocupe el ancho completo del contenedor */
+  width: 70%; /* Ancho del 80% para que no ocupe el ancho completo del contenedor */
   height: 50px;
   background: #d9d9d975;
   outline: none;
@@ -84,6 +97,22 @@
   font-size: 20px; /* Ajusta el tamaño de la fuente según tu preferencia */
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
+
+.filter-select {
+  background: #d9d9d975;
+  color: #000; /* Set a contrasting color for the text */
+}
+
+.filter-select:hover {
+  background: #fff; /* Change the background color on hover */
+  color: #000; /* Change the text color on hover */
+}
+
+.filter-select option[selected] {
+  background: #d9d9d975; /* Set a background color for the selected option */
+  color: #000; /* Set a text color for the selected option */
+}
+
 
 .btn-container button {
   width: 80px;
@@ -98,4 +127,48 @@
   letter-spacing: 1px;
   border-radius: 10px;
   cursor: pointer;
+}
+
+img.delete {
+  width: 50px;
+  outline: none;
+  background: #8a33009c;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-bottom: 5px;
+  margin: 2px;
+}
+
+img.inf {
+  width: 45px;
+  outline: none;
+  background: #8a33009c;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-bottom: 5px;
+  margin: 2px;
+}
+
+div.clean-container {
+  width: 100%;
+  height: max-content;
+}
+
+button.clean {
+  width: 15%;
+  height: 20%;
+  border: 1px solid #8a33009c;
+  outline: none;
+  background: #8a33009c;
+  color: #fff;
+  font-family: 'Kalam', sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 100px;
+  margin-top: 15px;
+}
+
+
+button.clean:hover {
+  border: 1px solid #fff;
 }

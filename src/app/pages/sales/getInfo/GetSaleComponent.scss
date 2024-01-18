@@ -7,7 +7,6 @@
 
 .content {
   margin-top: 10px;
-  // background: #fff;
   width: 90%;
   height: 95%;
   display: flex;
@@ -56,7 +55,6 @@
 .label-search {
   text-align: center;
   margin-bottom: 5px;
-  color:#fff
 }
 
 .product-quantity,
@@ -136,10 +134,10 @@
 }
 
 .product-info {
-  width: 70%;
   display:  flex;
   align-items: center;
   flex-direction: row;
+  flex-wrap: nowrap;
   font-family: 'kalam', sans-serif;
   gap: 30px;
 }
@@ -196,7 +194,6 @@ div.product-quantity {
   height: 100%;
   display: flex;
   justify-content: center;
-  border-radius: 10px;
   color: #000;
   background: #fff;
   font-family: 'kalam', sans-serif;
@@ -222,15 +219,4 @@ div.product-quantity {
   padding-inline-start: 3px;
   border: none;
   box-shadow: 0px 5px 5px 2px #00000054;
-}
-
-.title-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.title-container > h1 {
-  font-family: 'Kalam', sans-serif;
-  color: #fff;
 }

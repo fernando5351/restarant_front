@@ -63,7 +63,7 @@ export class SaleService {
     );
   }
 
-  getSalesByStatus(status: boolean) {
+  getSalesByStatus(status: boolean | string) {
     this.loading.showLoading();
     return this.httpClient.get<GetSales>(`${this.url}/sale`, { params: { status: status.toString() } }).pipe(
       finalize(() => {

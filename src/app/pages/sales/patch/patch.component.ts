@@ -577,7 +577,11 @@ export class PatchComponent implements OnInit {
         this.productsQuantity = [];
         this.product = [];
         this.comboSelected = [];
-        this.imprimirTicket(response.data);
+        let finalized = this.imprimirTicket(response.data);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3700);
+        this.router.navigate(['venta/status/espera'])
         this.saleForm = this.formBuilder.group({
           name: ['', [Validators.required]],
           cellphone: [''],
@@ -710,6 +714,16 @@ export class PatchComponent implements OnInit {
         margin-top: -60px;
       }
 
+      .code-container {
+        width: var(--width);
+        height: max-content;
+        margin-top: 27px;
+        margin-bottom: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       .info-container {
         width: var(--width);
         height: max-content;
@@ -762,6 +776,9 @@ export class PatchComponent implements OnInit {
     <div class="ticket">
       <div class="img-sale-container">
         <img src="/assets/bamboo.svg" style="width: 320px; height:320px">
+      </div>
+      <div class="code-container">
+        <h3>${ventaInfo.code}</h3>
       </div>
       <div class="info-container">
         <p>Telefono: 6860-9643</p>
@@ -832,5 +849,6 @@ export class PatchComponent implements OnInit {
       ventanaEmergente?.print();
       ventanaEmergente?.close();
     }, 3500);
+    return true;
   }
 }

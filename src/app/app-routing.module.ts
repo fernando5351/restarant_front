@@ -9,6 +9,7 @@ import { RecoveryPasswordComponent } from './pages/recoveryPassword/recovery-pas
 import { CreateCategoryComponent } from './pages/category/create/create.component';
 import { CreateProductComponent } from './pages/product/create/create.component';
 import { UpdateComponent } from './pages/product/update/update.component';
+import { GetInfoSaleComponent } from './pages/sales/getInfo/GetSaleComponent';
 import { GetComponent } from './pages/category/get/get.component';
 import { GetByIdComponent } from './pages/category/get-by-id/get-by-id.component';
 import  { PatchCategoryComponent } from './pages/category/patch-category/patch-category.component';
@@ -149,6 +150,11 @@ const routes: Routes = [
   {
     path: 'venta/continuar/:id',
     component: PatchComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'venta/:id',
+    component: GetInfoSaleComponent,
     canActivate: [AuthGuard]
   }
 ];

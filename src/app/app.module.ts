@@ -54,10 +54,8 @@ import { SaleComponent } from './pages/sale/sale.component';
 import { PrintSaleComponent } from './components/print-sale/print-sale.component';
 import { PatchComboComponent } from './pages/combos/patch-combo/patch-combo.component';
 import { PatchComponent } from './pages/sales/patch/patch.component';
+import { GetInfoSaleComponent } from './pages/sales/getInfo/GetSaleComponent';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
-
 
 @NgModule({
   declarations: [
@@ -100,6 +98,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PatchComponent,
     GetSaleComponent,
     SaleComponentApi,
+    GetInfoSaleComponent
   ],
   imports: [
     BrowserModule,
