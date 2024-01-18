@@ -3,19 +3,11 @@
     <div class="left-aside">
       <form action="" class="sale-product">
         <div class="title-container">
-          <h1>Vender Producto</h1>
+          <h1>Ventas Producto</h1>
         </div>
         <div class="sale">
-          <div class="input-group">
-            <label for="" class="label-quantity">Cantidad</label>
-            <input type="number" style="width: 30%;" class="product-quantity"  (input)="quantity($event)">
-          </div>
-          <div class="input-group">
-            <label for="" class="label-search">Buscar producto</label>
-            <input class="sale-search" type="search" style="width: 250px;" (input)="saleProduct($event)">
-          </div>
           <div class="prod-modal" *ngIf="showProd">
-              <div class="sale-content" style="background: #ffffff5d;" *ngFor="let prod of products" (click)="onProductClick(prod)" style="cursor: pointer;">
+              <div class="sale-content" style="background: #ffffff5d;" *ngFor="let prod of products"  style="cursor: pointer;">
                 <input type="hidden" [value]="prod.id">
                 <div class="img-content">
                   <img [src]="prod.imgUrl" [alt]="prod.name">
@@ -25,7 +17,7 @@
                   <div id="price" class="price">${{prod.price}}</div>
                 </div>
               </div>
-              <div class="sale-content" style="background: #ffffff5d;" *ngFor="let combo of combo" (click)="onComboClick(combo)" style="cursor: pointer;">
+              <div class="sale-content" style="background: #ffffff5d;" *ngFor="let combo of combo" style="cursor: pointer;">
                <input type="hidden" [value]="combo.id">
                <div class="img-content">
                  <img [src]="combo.imgUrl ?  combo.imgUrl : '../../../../../assets/icons/formIcons/image.svg'" [alt]="combo.name">
@@ -49,12 +41,25 @@
           <p style="margin-inline-start: 30px;" class="name">Producto</p>
           <div style="margin-inline-start: 40px;" class="price">Precio</div>
         </div>
-        <div class="sale-action">
-          Eliminar
-        </div>
       </div>
       <div class="show-sale">
         <div id="selectedProduct" class="sale-content" *ngFor="let selectedProduct of product">
+          <input type="hidden" [value]="selectedProduct.id">
+          <div class="img-content">
+            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../../assets/icons/formIcons/image.svg'" alt="">
+          </div>
+          <div class="product-quantity">
+            <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
+          </div>
+          <div class="product-info" style="width: 145px; overflow-x: auto;">
+            <p class="name" style="white-space: nowrap;">{{selectedProduct.name}}</p>
+          </div>
+          <div class="product-info" style="width: 60px; margin-inline-start: 10px;">
+            <p id="price" class="price">${{selectedProduct.price}}</p>
+          </div>
+
+        </div>
+        <div id="selectedProduct" class="sale-content" *ngFor="let selectedProduct of comboSelected">
           <input type="hidden" [value]="selectedProduct.id">
           <div class="img-content">
             <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../../assets/icons/formIcons/image.svg'" alt="">
@@ -68,29 +73,6 @@
           <div class="product-info" style="width: 60px; margin-inline-start: 10px;">
             <p id="price" class="price">${{selectedProduct.price}}</p>
           </div>
-          <div class="sale-action" style="margin-inline-start: 100px;">
-            <button (click)="delete(selectedProduct)">
-              <img class="delete-btn" src="../../../assets/icons/delete.svg" alt="">
-            </button>
-          </div>
-        </div>
-        <div id="selectedProduct" class="sale-content" *ngFor="let selectedProduct of comboSelected">
-          <input type="hidden" [value]="selectedProduct.id">
-          <div class="img-content">
-            <img [src]="selectedProduct.imgUrl ? selectedProduct.imgUrl : '../../../../../assets/icons/formIcons/image.svg'" alt="">
-          </div>
-          <div class="product-quantity">
-            <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
-          </div>
-          <div class="product-info">
-            <p class="name">{{selectedProduct.name}}</p>
-            <div id="price" class="price">${{selectedProduct.price}}</div>
-          </div>
-          <div class="sale-action">
-            <button (click)="deleteCombo(selectedProduct)">
-              <img class="delete-btn" src="../../../../assets/icons/delete.svg" alt="">
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -100,7 +82,7 @@
 
         <div class="detail-sale-content">
           <label for="name">Cliente:</label>
-          <input class="discount-input" type="text" placeholder="Nombre del cliente" formControlName="name" value="Isaac Fernando">
+          <input class="discount-input" type="text" placeholder="Nombre del cliente" formControlName="name" value="Isaac Fernando" readonly>
         </div>
 
         <!-- <div class="detail-sale-content">
@@ -110,12 +92,12 @@
 
         <div class="detail-sale-content">
           <label for="discount">Descuento</label>
-          <input class="discount-input" (input)="discount()" type="number" placeholder="Descuento" formControlName="discount">
+          <input class="discount-input" type="number" placeholder="Descuento" formControlName="discount" readonly>
         </div>
 
         <div class="detail-sale-content">
           <label for="discount">Mesero</label>
-          <input class="discount-input" type="string" placeholder="Mesero" formControlName="mesero">
+          <input class="discount-input" type="string" placeholder="Mesero" formControlName="mesero" readonly>
         </div>
 
         <div class="detail-sale-content">
@@ -125,7 +107,7 @@
 
         <div class="detail-sale-content">
           <label for="paymentMethod">Pago con:</label>
-          <input class="discount-input" (input)="changePayment()" type="number" placeholder="0.00" formControlName="paymentMethod">
+          <input class="discount-input"  type="number" placeholder="0.00" formControlName="paymentMethod" readonly>
         </div>
 
         <div class="detail-sale-content">
@@ -138,8 +120,7 @@
           <input class="discount-input" type="text" placeholder="$0.00" formControlName="total" readonly>
         </div>
         <div class="detail-sale-content">
-          <button (click)="sendRequest()">Terminar venta</button>
-          <button (click)="saleInStop()">Venta en espera</button>
+          <button (click)="back()">Volver</button>
         </div>
       </form>
     </div>

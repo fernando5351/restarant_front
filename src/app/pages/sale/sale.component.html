@@ -46,7 +46,7 @@
           <p class="price">Cantidad</p>
         </div>
         <div class="product-info">
-          <p style="margin-inline-start: 30px;" class="name">Producto</p>
+          <p style="margin-inline-start: 45px;" class="name">Producto</p>
           <div style="margin-inline-start: 40px;" class="price">Precio</div>
         </div>
         <div class="sale-action">
@@ -62,11 +62,13 @@
           <div class="product-quantity">
             <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
           </div>
-          <div class="product-info">
-            <p class="name">{{selectedProduct.name}}</p>
-            <div id="price" class="price">${{selectedProduct.price}}</div>
+          <div class="product-info" style="width: 150px; overflow-x: auto;">
+            <p class="name" style="white-space: nowrap;">{{selectedProduct.name}}</p>
           </div>
-          <div class="sale-action">
+          <div class="product-info" style="width: 60px; margin-inline-start: 10px;">
+            <p id="price" class="price">${{selectedProduct.price}}</p>
+          </div>
+          <div class="sale-action" style="margin-inline-start: 100px;">
             <button (click)="delete(selectedProduct)">
               <img class="delete-btn" src="../../../assets/icons/delete.svg" alt="">
             </button>
@@ -80,9 +82,11 @@
           <div class="product-quantity">
             <p class="price" id="quantity">{{selectedProduct.quantity}}</p>
           </div>
-          <div class="product-info">
-            <p class="name">{{selectedProduct.name}}</p>
-            <div id="price" class="price">${{selectedProduct.price}}</div>
+          <div class="product-info" style="width: 145px; overflow-x: auto; background: red;">
+            <p class="name" style="white-space: nowrap;">{{selectedProduct.name}}</p>
+          </div>
+          <div class="product-info" style="width: 60px; margin-inline-start: 10px;">
+            <p id="price" class="price">${{selectedProduct.price}}</p>
           </div>
           <div class="sale-action">
             <button (click)="deleteCombo(selectedProduct)">

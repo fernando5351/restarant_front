@@ -3,6 +3,7 @@ import { GetSales, GetSale } from 'src/app/models/sale.model';
 import { SaleService } from 'src/app/services/sale/sale.service';
 import { formatDate } from '@angular/common';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router'
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -72,17 +73,25 @@ export class GetSaleComponent implements OnInit{
     }],
   }
 
-  selectedStatus: boolean | null = null;
+  selectedStatus: boolean | 'Seleccionar' | null = 'Seleccionar';
 
 
   constructor(
-    private saleService: SaleService
+    private saleService: SaleService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getSales();
   }
 
+  click(id: number){
+    this.router.navigate([`venta/continuar/${id}`])
+  }
+
+  seeInfo(id: number){
+    this.router.navigate([`venta/${id}`])
+  }
 
   getSales() {
     this.saleService.GetSale().subscribe((data) => {
@@ -95,6 +104,10 @@ export class GetSaleComponent implements OnInit{
     this.filterSales();
   }
 
+  clean(){
+    window.location.reload();
+  }
+
   filterSales(): void {
     if (this.selectedStatus !== null) {
       this.saleService.getSalesByStatus(this.selectedStatus).subscribe(
@@ -104,7 +117,7 @@ export class GetSaleComponent implements OnInit{
         if (error.status === 404) {
           Swal.fire({
             icon: 'warning',
-            title: 'Estado de venta no encontrado',
+            title: 'No hay registros de venta con el estado seleccionado',
             showConfirmButton: false,
             timer: 2000
           })

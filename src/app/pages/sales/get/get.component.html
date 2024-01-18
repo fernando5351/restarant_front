@@ -1,29 +1,30 @@
-<div class="filter-container">
-  <label class="filter-label" for="statusFilter">Filtrar por estado:</label>
-  <select id="statusFilter" class="filter-select" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
-    <option value="true">Canceladas</option>
-    <option value="false">Pendientes</option>
-  </select>
-</div>
-<!--
-comentario de prueva -->
-
-<div class="filter-container">
-  <label class="filter-label" for="startDate">Fecha de inicio:</label>
-  <input type="date" id="startDate" class="filter-input" [(ngModel)]="startDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
-</div>
-
-<div class="filter-container">
-  <label class="filter-label" for="endDate">Fecha de fin:</label>
-  <input type="date" id="endDate" class="filter-input" [(ngModel)]="endDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
-</div>
-
-
-
-<div class="sales-container">
-  <div class="title-container">
-    <h1>Facturas</h1>
+<div class="options">
+  <div class="filter-container">
+    <label class="filter-label" for="statusFilter">Estado:</label>
+    <select id="statusFilter" class="filter-select" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+      <option selected>Seleccionar</option>
+      <option value="true">Canceladas</option>
+      <option value="false">Pendientes</option>
+    </select>
   </div>
+
+  <div class="filter-container">
+    <label class="filter-label" for="startDate">Fecha inicio:</label>
+    <input type="date" id="startDate" class="filter-input" [(ngModel)]="startDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
+  </div>
+
+  <div class="filter-container">
+    <label class="filter-label" for="endDate">Fecha fin:</label>
+    <input type="date" id="endDate" class="filter-input" [(ngModel)]="endDate" (change)="onDateChange()" max="{{ getCurrentDate() }}">
+  </div>
+</div>
+<div class="clean-container">
+  <button (click)="clean()" class="clean">Limpiar</button>
+</div>
+<div class="title-container">
+  <h1>Facturas</h1>
+</div>
+<div class="sales-container">
   <table class="sales-table">
     <thead>
       <tr>
@@ -32,8 +33,6 @@ comentario de prueva -->
         <th>Codigo factura</th>
         <th>Cliente</th>
         <th>Estado de venta</th>
-        <th>Productos</th>
-        <th>Combos</th>
         <th>Total</th>
         <th>Acciones</th>
       </tr>
@@ -45,22 +44,11 @@ comentario de prueva -->
         <td>{{sale.code}}</td>
         <td>{{ sale.client }}</td>
         <td>{{ sale.status ? 'Cancelada' : 'Pendiente' }}</td>
-        <td>
-          <div *ngFor="let product of sale.SaleProducts">
-            {{ product.name }} - Cantidad: {{ product.SaleProduct?.quantity }} - Precio: {{ product.price }}
-          </div>
-        </td>
-        <td>
-          <div *ngFor="let combo of sale.SaleCombo ">
-            {{ combo.name }} - Precio: {{ combo.price }}
-          </div>
-        </td>
         <td>$ {{ sale.total }}</td>
         <td>
-          <app-sale-component *ngIf="!sale.status" [sale]="sale"></app-sale-component>
-          <div class="btn-container">
-             <button (click)="deleteSaleConfirmation(sale.id)">Eliminar</button>
-          </div>
+          <img class="delete" *ngIf="!sale.status" (click)="click(sale.id)" [src]="'assets/icons/table/edit.svg'" title="Editar" />
+          <img class="inf" (click)="seeInfo(sale.id)" [src]="'assets/icons/table/file.svg'" title="Ver Informacion"/>
+          <img class="delete" (click)="deleteSaleConfirmation(sale.id)" [src]="'assets/icons/table/delete.svg'" title="Eliminar" />
         </td>
       </tr>
     </tbody>

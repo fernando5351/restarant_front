@@ -366,7 +366,7 @@ export class SaleComponent implements OnInit {
     return changeVal;
   }
 
-  sendRequest(){
+  async sendRequest(){
     if (this.saleForm.invalid) {
       alert("Hay posibles errores, como campos vacios");
       return;
@@ -412,7 +412,11 @@ export class SaleComponent implements OnInit {
         this.productsQuantity = [];
         this.product = [];
         this.comboSelected = [];
-        this.imprimirTicket(response.data);
+        let finalized = this.imprimirTicket(response.data);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3700);
+
         this.saleForm = this.formBuilder.group({
           name: ['', [Validators.required]],
           waiter:['',[Validators.required]],
@@ -496,7 +500,7 @@ export class SaleComponent implements OnInit {
 
   }
 
-async imprimirTicket(ventaInfo: any) {
+imprimirTicket(ventaInfo: any) {
 
   const horaActual = new Date();
   const day = horaActual.getDate();
@@ -664,7 +668,7 @@ async imprimirTicket(ventaInfo: any) {
         </tr>
     </table>
     <div class="time-container">
-      <p>Visita: ${hora} - ${day}/${month}/${year}</p>
+      <p>Visita: ${hora} - ${day}/${month+1}/${year}</p>
     </div>
   </div>
   `;
@@ -675,12 +679,13 @@ async imprimirTicket(ventaInfo: any) {
 
   const ventanaEmergente = window.open('', 'about:blank', 'width=800,height=600');
 
-  await ventanaEmergente?.document.write(doc.innerHTML.trimEnd());
+  ventanaEmergente?.document.write(doc.innerHTML.trimEnd());
 
   setTimeout(() => {
     ventanaEmergente?.print();
     ventanaEmergente?.close();
   }, 3500);
+  return true;
 }
 
 }
