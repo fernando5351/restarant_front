@@ -20,9 +20,30 @@
   width: 49%;
   background: #fff;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 10px; /* Agregamos un espacio interno */
+  overflow: auto; /* Hacemos la tabla scrollable si es necesario */
+  border: 1px solid #ccc; /* Agregamos bordes */
+  border-radius: 5px; /* Añadimos esquinas redondeadas */
 }
+
+#pie table {
+  width: 100%;
+  border-collapse: collapse; /* Evita la separación de bordes dobles */
+}
+
+#pie th, #pie td {
+  border: 2px solid #ccc; /* Añadimos bordes a las celdas */
+  padding: 8px; /* Agregamos espacio interno a las celdas */
+  text-align: center; /* Alineamos el texto a la izquierda */
+}
+
+#pie th {
+  background-color: #f2f2f2; /* Color de fondo para los encabezados */
+}
+
 
 // /* home.component.scss */
 

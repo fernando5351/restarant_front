@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ReportService } from '../../services/report/report.service';
+import { ChangeDetectorRef } from '@angular/core';
 import { GetSales } from 'src/app/models/report.model';
 import Swal from 'sweetalert2';
 import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexStroke, ApexDataLabels, ApexYAxis, ApexTitleSubtitle, ApexLegend, ApexNonAxisChartSeries, ApexResponsive } from 'ng-apexcharts';
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit, OnChanges{
       salesByDay: [{ date: '', totalSales: 0, totalDiscounts:0}]
     },
   };
+
   maxDate: Date = new Date();
   minDate = '2023-12-08';
   selectedDatePicker!: string;
@@ -68,7 +70,8 @@ export class HomeComponent implements OnInit, OnChanges{
   selectedDate: string = '';
   totalAmount: number = 0;
 
-  constructor(private reportService: ReportService) { }
+  constructor(private reportService: ReportService,
+     private cdr: ChangeDetectorRef) { }
 
   chartOptions!: ChartOptions;
   chartOption!: ChartOption;
@@ -165,7 +168,7 @@ export class HomeComponent implements OnInit, OnChanges{
     this.reportService.getReports().subscribe({
       next: (data) => {
         this.sales = data;
-         console.log(this.sales.data);
+        // console.log(this.sales.data);
       },
       error: (error) => {
         console.error('Error al obtener las ventas', error);
@@ -200,53 +203,56 @@ export class HomeComponent implements OnInit, OnChanges{
   }
 
   filterSalesByDate(startDate: string, endDate: string) {
-
     this.reportService.getSalesByDate(startDate, endDate).subscribe({
       next: (response) => {
-        //  console.log(response);
-
         this.salesLabel = [];
         this.seriesLabel = [];
         this.salesByDateLabel = [];
         this.seriesByDate = [];
 
-        // console.log('Ventas filtradas por fecha:', response);
-        this.sales = response;
-        for (let i = 0; i < response.data.productsSoldByNameAndCategory.length; i++) {
-          const element = response.data.productsSoldByNameAndCategory[i];
-          // console.log(element);
-
-          this.salesLabel.push(element.product.name);
-          this.seriesLabel.push(element.quantity);
+        if (response.data && response.data.productsSoldByNameAndCategory.length > 0) {
+          for (let i = 0; i < response.data.productsSoldByNameAndCategory.length; i++) {
+            const element = response.data.productsSoldByNameAndCategory[i];
+            this.salesLabel.push(element.product.name);
+            this.seriesLabel.push(element.quantity);
+          }
+        } else {
+          // Si no hay ventas, reinicializa las variables
+          this.salesLabel = [];
+          this.seriesLabel = [];
         }
-        // console.log(this.salesLabel);
 
-        for (let i = 0; i < response.data.salesByDay.length; i++) {
-          const saleDay = response.data.salesByDay[i];
-          // console.log(saleDay);
-
-          this.salesByDateLabel.push(saleDay.date);
-          const totalSalesNumber = parseFloat(saleDay.totalSales.toFixed(2));
-          this.seriesByDate.push(totalSalesNumber);
+        if (response.data && response.data.salesByDay.length > 0) {
+          for (let i = 0; i < response.data.salesByDay.length; i++) {
+            const saleDay = response.data.salesByDay[i];
+            this.salesByDateLabel.push(saleDay.date);
+            const totalSalesNumber = parseFloat(saleDay.totalSales.toFixed(2));
+            this.seriesByDate.push(totalSalesNumber);
+          }
+        } else {
+          // Si no hay ventas, reinicializa las variables
+          this.salesByDateLabel = [];
+          this.seriesByDate = [];
         }
-        // console.log(this.salesByDateLabel);
-        // console.log(this.seriesByDate);
-        this.actualizarGraficos();
 
-        // // Mostrar SweetAlert si no hay ventas
-        // if (this.sales.data.totalProductsSale === 0) {
-        //   Swal.fire({
-        //     icon: 'info',
-        //     title: 'No hay ventas en la fecha seleccionada',
-        //     text: 'Intenta con otra fecha',
-        //   });
-        // }
+        // Aquí puedes verificar si hay ventas antes de mostrar el mensaje
+        if (this.salesLabel.length > 0 || this.salesByDateLabel.length > 0) {
+          this.actualizarGraficos();
+        } else {
+          // No hay ventas, podrías mostrar un mensaje o realizar otra acción según tus necesidades
+          console.log('No hay ventas entre las fechas seleccionadas.');
+        }
       },
       error: (error) => {
         console.error('Error al obtener las ventas por fecha', error);
-        // Manejar el error según sea necesario
+        // Reinicializar las variables en caso de error
+        this.salesLabel = [];
+        this.seriesLabel = [];
+        this.salesByDateLabel = [];
+        this.seriesByDate = [];
+        // Actualizar gráficos después de reinicializar las variables
+        this.actualizarGraficos();
       }
     });
   }
-
 }
