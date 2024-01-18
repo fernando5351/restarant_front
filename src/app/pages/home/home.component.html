@@ -29,20 +29,28 @@
     ></apx-chart>
   </div>
   <div id="pie">
-    <thead>
-      <tr>
-        <th>productos</th>
-        <th>Canidad</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let sale of sales.data.productsSoldByNameAndCategory">
-        <td>{{ sale.product.name }}</td>
-        <td>{{sale.quantity}}</td>
-      </tr>
-    </tbody>
+    <ng-container *ngIf="(sales.data && sales.data.productsSoldByNameAndCategory.length > 0) || (sales.data && sales.data.salesByDay.length > 0); else noSales">
+      <table>
+        <thead>
+          <tr>
+            <th>Productos</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sale of sales.data.productsSoldByNameAndCategory">
+            <td>{{ sale.product.name }}</td>
+            <td>{{ sale.quantity }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-template #noSales>
+      <p>No hay ventas entre las fechas seleccionadas.</p>
+    </ng-template>
   </div>
 </div>
+
 <!-- <div class="report-container">
   <h1>Reportes de Ventas</h1>
 
