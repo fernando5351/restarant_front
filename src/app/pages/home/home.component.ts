@@ -41,17 +41,20 @@ export class HomeComponent implements OnInit, OnChanges{
       totalSales: 0,
       totalDiscounts: 0,
       totalProductsSale: 0,
-      productsSoldByNameAndCategory: [{ product: {
-        id: 0,
-        name: '',
-        price: 0,
-        status: '',
-        description: '',
-        imgUrl: null,
+      productsSoldByNameAndCategory: [{
+        product: {
+          id: 0,
+          name: '',
+          price: 0,
+          status: '',
+          description: '',
+          imgUrl: null,
+          quantity: 0,
+          categoryId: 0
+        },
         quantity: 0,
-        categoryId: 0
-      }
-        , quantity: 0, categoryName: '' }],
+        categoryName: ''
+      }],
       salesByDay: [{ date: '', totalSales: 0, totalDiscounts:0}]
     },
   };
@@ -205,6 +208,9 @@ export class HomeComponent implements OnInit, OnChanges{
   filterSalesByDate(startDate: string, endDate: string) {
     this.reportService.getSalesByDate(startDate, endDate).subscribe({
       next: (response) => {
+        console.log(response);
+
+        this.sales = response;
         this.salesLabel = [];
         this.seriesLabel = [];
         this.salesByDateLabel = [];
@@ -246,6 +252,30 @@ export class HomeComponent implements OnInit, OnChanges{
       error: (error) => {
         console.error('Error al obtener las ventas por fecha', error);
         // Reinicializar las variables en caso de error
+        this.sales = {
+          statusCode: 0,
+          message: '',
+          data: {
+            totalSales: 0,
+            totalDiscounts: 0,
+            totalProductsSale: 0,
+            productsSoldByNameAndCategory: [{
+              product: {
+                id: 0,
+                name: '',
+                price: 0,
+                status: '',
+                description: '',
+                imgUrl: null,
+                quantity: 0,
+                categoryId: 0
+              },
+              quantity: 0,
+              categoryName: ''
+            }],
+            salesByDay: [{ date: '', totalSales: 0, totalDiscounts:0}]
+          },
+        };
         this.salesLabel = [];
         this.seriesLabel = [];
         this.salesByDateLabel = [];

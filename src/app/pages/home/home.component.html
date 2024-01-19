@@ -29,7 +29,7 @@
     ></apx-chart>
   </div>
   <div id="pie">
-    <ng-container *ngIf="(sales.data && sales.data.productsSoldByNameAndCategory.length > 0) || (sales.data && sales.data.salesByDay.length > 0); else noSales">
+    <ng-container *ngIf="(sales.data && sales.data.productsSoldByNameAndCategory.length > 1) || (sales.data && sales.data.salesByDay.length > 1); else noSales">
       <table>
         <thead>
           <tr>
