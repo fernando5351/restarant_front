@@ -8,7 +8,7 @@
 }
 
 .container-date {
-  padding: 10px
+  padding: 10px;
 }
 
 #chart {
@@ -23,26 +23,44 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px; /* Agregamos un espacio interno */
-  overflow: auto; /* Hacemos la tabla scrollable si es necesario */
-  border: 1px solid #ccc; /* Agregamos bordes */
-  border-radius: 5px; /* Añadimos esquinas redondeadas */
+  padding: 10px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.scrollable-table {
+  width: 100%;
+  max-height: 350px;
+  overflow-y: auto;
+  display: block;
 }
 
 #pie table {
   width: 100%;
-  border-collapse: collapse; /* Evita la separación de bordes dobles */
+  border-collapse: collapse;
 }
 
 #pie th, #pie td {
-  border: 2px solid #ccc; /* Añadimos bordes a las celdas */
-  padding: 8px; /* Agregamos espacio interno a las celdas */
-  text-align: center; /* Alineamos el texto a la izquierda */
+  border: 2px solid #ccc;
+  padding: 3px;
+  text-align: center;
 }
 
 #pie th {
-  background-color: #f2f2f2; /* Color de fondo para los encabezados */
+  background-color: #f2f2f2;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
+
+#pie td {
+  position: relative;
+  top: 1.5em;
+}
+
+
+
 
 
 // /* home.component.scss */

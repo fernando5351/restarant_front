@@ -208,7 +208,7 @@ export class HomeComponent implements OnInit, OnChanges{
   filterSalesByDate(startDate: string, endDate: string) {
     this.reportService.getSalesByDate(startDate, endDate).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
 
         this.sales = response;
         this.salesLabel = [];

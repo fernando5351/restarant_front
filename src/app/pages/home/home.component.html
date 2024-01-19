@@ -29,27 +29,29 @@
     ></apx-chart>
   </div>
   <div id="pie">
-    <ng-container *ngIf="(sales.data && sales.data.productsSoldByNameAndCategory.length > 1) || (sales.data && sales.data.salesByDay.length > 1); else noSales">
-      <table>
-        <thead>
-          <tr>
-            <th>Productos</th>
-            <th>Cantidad</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let sale of sales.data.productsSoldByNameAndCategory">
-            <td>{{ sale.product.name }}</td>
-            <td>{{ sale.quantity }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <ng-container *ngIf="(sales.data && sales.data.productsSoldByNameAndCategory.length > 0) || (sales.data && sales.data.salesByDay.length > 0); else noSales">
+      <div class="scrollable-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Productos</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sale of sales.data.productsSoldByNameAndCategory">
+              <td>{{ sale.product.name }}</td>
+              <td>{{ sale.quantity }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </ng-container>
     <ng-template #noSales>
       <p>No hay ventas entre las fechas seleccionadas.</p>
     </ng-template>
   </div>
-</div>
+
 
 <!-- <div class="report-container">
   <h1>Reportes de Ventas</h1>
